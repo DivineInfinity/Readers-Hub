@@ -1,0 +1,643 @@
+<template>
+  <div class="bodyContainer">
+    <el-container class="mainContainer">
+      <el-header><h1>{{book.title}}</h1></el-header>
+      <el-container>
+        <el-row>
+          <el-col :span="7" :xs="24" class="bookContainer">
+            <div class="container">
+              <div class="main">
+                <ul id="bk-list" class="bk-list clearfix">
+                  <li>
+                    <div v-bind:style="{'background-image': 'url('+this.book.frontCover+')'}"
+                         class="bk-book book-1 bk-bookdefault">
+                      <div class="bk-front">
+                        <div class="bk-cover-back"></div>
+                        <div v-bind:style="{'background-image': 'url('+this.book.frontCover+')'}" class="bk-cover">
+                          <h2>
+                            <span>Anthony Burghiss</span>
+                            <span>A Catwork Orange</span>
+                          </h2>
+                        </div>
+                      </div>
+                      <div
+                        v-bind:class="{'bk-front':isNotFlipped,'bk-back':!isNotFlipped, 'bk-viewback':!isNotFlipped}">
+
+                      </div>
+                      <div class="bk-right"></div>
+                      <div class="bk-left">
+                        <h2>
+                          <span>Anthony Burghiss</span>
+                          <span>A Catwork Orange</span>
+                        </h2>
+                      </div>
+                      <div class="bk-top"></div>
+                      <div class="bk-bottom"></div>
+                    </div>
+                    <div class="bk-info">
+                    </div>
+
+                  </li>
+                </ul>
+                <br>
+                <el-rate class="rating"
+                         v-model="value5"
+                         disabled
+                         show-score
+                         text-color="orange"
+                         score-template="{value} points">
+                </el-rate>
+                <br>
+                <p>Your rating</p>
+                <el-rate class="rate"
+                         v-model="value2"
+                         :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                </el-rate>
+                <el-dropdown>
+                  <el-button type="primary">
+                    Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
+                  </el-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>Action 1</el-dropdown-item>
+                    <el-dropdown-item>Action 2</el-dropdown-item>
+                    <el-dropdown-item>Action 3</el-dropdown-item>
+                    <el-dropdown-item>Action 4</el-dropdown-item>
+                    <el-dropdown-item>Action 5</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </div>
+            </div>
+          </el-col>
+
+          <el-col class="descriptionContainer" :span="17" :xs="24">
+            <h2>Description</h2>
+            <p class="description">The Godfather, novel by Mario Puzo, published in 1969, which became one of the most
+              successful fiction books ever—selling some 21 million copies worldwide, spawning three critically and
+              financially successful motion pictures, and placing its characters into the contemporary American cultural
+              mythology. Although Puzo had no personal knowledge of organized crime, thorough research gave him the
+              details he needed for his chronicle of a fictional Mafia family, the Corleones. Puzo collaborated with
+              director Francis Ford Coppola on the screenplay of The Godfather (1972) and its two sequels (1974 and
+              1990). The first two won nine Academy Awards, including best picture and best screenplay Oscars for
+              each.</p>
+          </el-col>
+        </el-row>
+      </el-container>
+      <el-container class="bookDetails">
+        <el-header><b>Product Details</b></el-header>
+        <el-row>
+          <el-col class="detailsCol" span="12">hello</el-col>
+          <el-col class="detailsCol" span="12">Hello</el-col>
+        </el-row>
+      </el-container>
+      <el-container class="reviewContainer">
+        <el-row>
+          <el-col :span="24" v-for="review in reviews" :key="review">
+            <el-card class="review-widget">
+              <el-row>
+                <el-col :span="2" justify="start">
+                  <img :src="review.profilePic" alt="Avatar" style="border-radius:50%;height:50px;">
+                </el-col>
+                <el-col :span="3" justify="start" :xs="24">
+                  <h5 style="margin:5px">{{review.userName}}</h5>
+                  <el-rate v-model="review.rating" disabled show-score text-color="#ff9900"></el-rate>
+                  <span style="color:gray;font-size:14px;">{{review.reviewDate}}</span>
+                </el-col>
+                <el-col :span="19">
+
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col style="text-align:left">
+                  <h3>{{review.reviewTitle}}</h3>
+                  <p>{{review.review}}</p>
+                </el-col>
+              </el-row>
+            </el-card>
+          </el-col>
+        </el-row>
+      </el-container>
+      <el-button type="Primary" v-if="alwaysTrue" @click="flip()">View all reviews</el-button>
+    </el-container>
+  </div>
+</template>
+<script>
+  export default {
+
+    name: 'BookDescription2',
+    data() {
+      return {
+        isNotFlipped: true,
+        value2: null,
+        value5: 4,
+        display: true,
+        alwaysTrue: true,
+        reviews: [
+          {
+            userName: "jhon Doe",
+            profilePic: "https://www.w3schools.com/howto/img_avatar.png",
+            review: "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
+            reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+            rating: 4,
+            reviewDate: "12/12/2012"
+          },
+          {
+            userName: "jhon Doe",
+            profilePic: "https://www.w3schools.com/howto/img_avatar.png",
+            review: "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
+            reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+            rating: 4,
+            reviewDate: "12/12/2012"
+          },
+          {
+            userName: "jhon Doe",
+            profilePic: "https://www.w3schools.com/howto/img_avatar.png",
+            review: "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
+            reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+            rating: 4,
+            reviewDate: "12/12/2012"
+          }
+        ],
+        book: {
+          title: "Carry on jeeves",
+          frontCover: '../../static/images/theGodfather.jpg',
+          genere: 'Ninja',
+          author: 'Sir Shebaz Jafri',
+          publishDate: '2017',
+          rating: '4',
+        }
+      }
+    },
+    methods: {}
+
+  }
+
+</script>
+<style>
+  .bodyContainer {
+    background-color: steelblue;
+  }
+
+  .mainContainer {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .el-header, .el-footer {
+    background-color: ghostwhite;
+    color: #333;
+    text-align: center;
+    margin-bottom: 5px;
+    line-height: 20px;
+    margin-top: 0px !important;
+    width: 100%;
+  }
+
+  .bookContainer {
+    background-color: ghostwhite;
+    color: #333;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .review-widget {
+    height: auto;
+  }
+
+  .bookDetails {
+    padding: 10px;
+    margin-top: 5px;
+    background-color: ghostwhite;
+    text-align: center;
+  }
+
+  .el-dropdown {
+    vertical-align: top;
+  }
+
+  .el-dropdown + .el-dropdown {
+    margin-left: 15px;
+  }
+
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
+
+  .review {
+    background-color: ghostwhite;
+    color: #333;
+    text-align: center;
+    line-height: 10px;
+    margin-top: 2px;
+    border-radius: 5px;
+  }
+
+  .reviewContainer {
+    margin-top: 10px;
+
+  }
+
+  .description {
+    text-align: center;
+    color: darkgoldenrod;
+    line-height: normal;
+    margin-left: 50px;
+    margin-right: 50px;
+
+  }
+
+  .descriptionContainer {
+    background-color: ghostwhite;
+    height: 100%;
+    border-left: 2px solid steelblue;
+    padding-left: 50px !important;
+  }
+
+  .el-rate {
+    margin-top: 5px;
+  }
+
+  .rating {
+    text-align: center;
+    margin-top: 300px;
+  }
+
+  .el-dropdown {
+    margin-top: 20px;
+  }
+
+  .detailsCol {
+    border: 1px solid lightgrey;
+  }
+
+  .bk-list {
+    list-style: none;
+    position: relative;
+  }
+
+  .bk-list li {
+    position: relative;
+    width: 50%;
+    float: left;
+    z-index: 1;
+    margin: 0px 50px 0px 0;
+    -webkit-perspective: 1800px;
+    perspective: 1800px;
+  }
+
+  .bk-list li:last-child {
+    margin-right: 0;
+  }
+
+  .bk-info {
+    position: relative;
+    margin-top: 320px;
+  }
+
+  .bk-info h3 {
+    padding: 25px 0 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    font-size: 26px;
+  }
+
+  .bk-info h3 span:first-child {
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    display: block;
+    color: #777;
+  }
+
+  .bk-info p {
+    line-height: 24px;
+    color: #444;
+  }
+
+  .bk-info button {
+    background: #FC756F;
+    border: none;
+    color: #fff;
+    display: inline-block;
+    padding: 3px 15px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-right: 4px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+  }
+
+  .bk-info button.bk-active,
+  .bk-info button:active {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .no-touch .bk-info button:hover,
+  .bk-info button.bk-active {
+    background: #d0544e;
+  }
+
+  .bk-list li .bk-book {
+    position: absolute;
+    width: 180px;
+    height: 225px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform .5s;
+    transition: transform .5s;
+  }
+
+  .bk-list li .bk-book.bk-bookdefault:hover {
+    -webkit-transform: rotate3d(0, 1, 0, 35deg);
+    transform: rotate3d(0, 1, 0, 35deg);
+  }
+
+  .bk-list li .bk-book > div,
+  .bk-list li .bk-front > div {
+    display: block;
+    position: absolute;
+  }
+
+  .bk-list li .bk-front {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+    -webkit-transition: -webkit-transform .5s;
+    transition: transform .5s;
+    -webkit-transform: translate3d(0, 0, 20px);
+    transform: translate3d(0, 0, 20px);
+    z-index: 10;
+  }
+
+  .bk-list li .bk-front > div {
+    z-index: 1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+  }
+
+  .bk-list li .bk-page {
+    -webkit-transform: translate3d(0, 0, 19px);
+    transform: translate3d(0, 0, 19px);
+    display: none;
+    width: 295px;
+    height: 390px;
+    top: 5px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: 9;
+  }
+
+  .bk-list li .bk-front,
+  .bk-list li .bk-back,
+  .bk-list li .bk-front > div {
+    width: 110%;
+    height: 18.8em;
+  }
+
+  .bk-list li .bk-left,
+  .bk-list li .bk-right {
+    width: 40px;
+    left: -20px;
+  }
+
+  .bk-list li .bk-top,
+  .bk-list li .bk-bottom {
+    width: 295px;
+    height: 40px;
+    top: -15px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .bk-list li .bk-back {
+    -webkit-transform: rotate3d(0, 1, 0, -180deg) translate3d(0, 0, 20px);
+    transform: rotate3d(0, 1, 0, -180deg) translate3d(0, 0, 20px);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 3px 0 0 3px;
+  }
+
+  .bk-list li .bk-cover-back {
+    background-color: #000;
+    -webkit-transform: rotate3d(0, 1, 0, -179deg);
+    transform: rotate3d(0, 1, 0, -179deg);
+  }
+
+  .bk-list li .bk-right {
+    height: 390px;
+    top: 5px;
+    -webkit-transform: rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 295px);
+    -moz-transform: rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 295px);
+    transform: rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 295px);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .bk-list li .bk-left {
+    height: 300px;
+    -webkit-transform: rotate3d(0, 1, 0, -90deg);
+    transform: rotate3d(0, 1, 0, -90deg);
+  }
+
+  .bk-list li .bk-top {
+    -webkit-transform: rotate3d(1, 0, 0, 90deg);
+    transform: rotate3d(1, 0, 0, 90deg);
+  }
+
+  .bk-list li .bk-bottom {
+    -webkit-transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 390px);
+    transform: rotate3d(1, 0, 0, -90deg) translate3d(0, 0, 390px);
+  }
+
+  /* Transform classes */
+
+  .bk-list li .bk-viewinside .bk-front {
+    -webkit-transform: translate3d(0, 0, 20px) rotate3d(0, 1, 0, -160deg);
+    transform: translate3d(0, 0, 20px) rotate3d(0, 1, 0, -160deg);
+  }
+
+  .bk-list li .bk-book.bk-viewinside {
+    -webkit-transform: translate3d(0, 0, 150px) rotate3d(0, 1, 0, 0deg);
+    transform: translate3d(0, 0, 150px) rotate3d(0, 1, 0, 0deg);
+  }
+
+  .bk-list li .bk-book.bk-viewback {
+    -webkit-transform: translate3d(0, 0, 0px) rotate3d(0, 1, 0, 180deg);
+    transform: translate3d(0, 0, 0px) rotate3d(0, 1, 0, 180deg);
+  }
+
+  /* Main colors and content */
+
+  .bk-list li .bk-page,
+  .bk-list li .bk-right,
+  .bk-list li .bk-top,
+  .bk-list li .bk-bottom {
+    background-color: #fff;
+  }
+
+  .bk-list li .bk-front > div {
+    border-radius: 0 3px 3px 0;
+    box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .bk-list li .bk-front:after {
+    content: '';
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    left: -1px;
+    width: 1px;
+  }
+
+  .bk-list li .bk-cover:after,
+  .bk-list li .bk-back:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    bottom: 0;
+    width: 3px;
+    background: rgba(0, 0, 0, 0.06);
+    box-shadow: 1px 0 3px rgba(255, 255, 255, 0.1);
+  }
+
+  .bk-list li .bk-back:after {
+    left: auto;
+    right: 10px;
+  }
+
+  .bk-left h2 {
+    width: 300px;
+    height: 40px;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: rotate(90deg) translateY(-40px);
+    transform: rotate(90deg) translateY(-40px);
+  }
+
+  .bk-content {
+    position: absolute;
+    top: 30px;
+    left: 20px;
+    bottom: 20px;
+    right: 20px;
+    padding: 30px;
+    overflow: hidden;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+    cursor: default;
+  }
+
+  .bk-content-current {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .bk-content p {
+    padding: 0 0 10px;
+    -webkit-font-smoothing: antialiased;
+    color: #000;
+    font-size: 13px;
+    line-height: 20px;
+    text-align: justify;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .bk-page nav {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    position: relative;
+    z-index: 100;
+    cursor: pointer;
+  }
+
+  .bk-page nav span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: #aaa;
+    background: #f0f0f0;
+    border-radius: 50%;
+  }
+
+  /* Individual style & artwork */
+
+  /* Book 1 */
+  .book-1 .bk-front > div,
+  .book-1 .bk-back,
+  .book-1 .bk-left,
+  .book-1 .bk-front:after {
+    background-color: #ff924a;
+  }
+
+  .book-1 .bk-cover {
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: 100%;
+  }
+
+  .book-1 .bk-cover h2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .book-1 .bk-cover h2 span:first-child,
+  .book-1 .bk-left h2 span:first-child {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 13px;
+    padding-right: 20px;
+  }
+
+  .book-1 .bk-cover h2 span:first-child {
+    display: block;
+  }
+
+  .book-1 .bk-cover h2 span:last-child,
+  .book-1 .bk-left h2 span:last-child {
+    font-family: "Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif;
+  }
+
+  .book-1 .bk-content p {
+    font-family: Georgia, Times, "Times New Roman", serif;
+  }
+
+  .book-1 .bk-left h2 {
+    color: #fff;
+    font-size: 15px;
+    line-height: 40px;
+    padding-right: 10px;
+    text-align: right;
+  }
+
+  .book-1 .bk-back p {
+    color: #fff;
+    font-size: 13px;
+    padding: 40px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+</style>
