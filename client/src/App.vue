@@ -1,31 +1,27 @@
 <template>
 
-  <div id="app" style="margin-left:10%;margin-right:10%">
-    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item><span>Reader's Hub</span></el-menu-item>
+  <div id="app">
+    <el-menu :default-active="activeIndex" style="margin-left:20px;margin-right:20px;" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu-item index="0"><span>Reader's Hub</span></el-menu-item>
       <el-menu-item index="1">
         <el-button round plain>Home</el-button>
       </el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">My Shelf</template>
-        <el-menu-item index="2-1">item one</el-menu-item>
-        <el-menu-item index="2-2">item two</el-menu-item>
-        <el-menu-item index="2-3">item three</el-menu-item>
-        <el-submenu index="2-4">
-          <template slot="title">item four</template>
-          <el-menu-item index="2-4-1">item one</el-menu-item>
-          <el-menu-item index="2-4-2">item two</el-menu-item>
-          <el-menu-item index="2-4-3">item three</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="3">Genres</el-menu-item>
-      <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">Discussions</a></el-menu-item>
-      <el-menu-item class="search-input">
-        <el-input
-          placeholder="Please input" type="search"
-          clearable>
-        </el-input>
-        <el-button icon="el-icon-search" id="searchButton" circle></el-button>
+      <el-menu-item index="2">
+        <el-button round plain>My Shelf</el-button>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <el-button round plain>Genres</el-button>
+      </el-menu-item>
+      <el-menu-item index="4"><a href="#" target="_blank">
+        <el-button round plain>Discussions</el-button>
+      </a></el-menu-item>
+      <el-menu-item index="5">
+        <el-input id="searchInput"
+                  class="search-input"
+                    placeholder="Please input"
+                    clearable>
+          </el-input>
+        <el-button id="searchButton" icon="el-icon-search" circle></el-button>
       </el-menu-item>
     </el-menu>
 
@@ -43,8 +39,16 @@
 
 <script>
   export default {
-    name: 'App'
+    name: 'App',
+    data:{
+      isExpanded : false,
+      isHidden : true
+    },
+    methods:{
+
+    }
   }
+
 </script>
 
 
@@ -71,8 +75,32 @@
     clear: both;
   }
 
-  .search-input{
+  .search-input {
+  /*  width: 0;
+    visibility: hidden !important;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;*/
 
+ /*   width: 200px;
+    max-width:0;
+    padding: 5px;
+    transition: all .5s ease;
+    position:absolute;
+    right:20px;
+    box-sizing:border-box;
+    opacity:0;*/
+  }
+
+  .search-input.expand {
+   /* visibility: visible;
+    width: 100px;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;*/
+
+  /*  max-width:200px;
+    opacity:1;*/
   }
 
 
