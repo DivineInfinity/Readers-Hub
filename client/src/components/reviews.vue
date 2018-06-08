@@ -80,19 +80,19 @@
 <style>
 .review-widget-expanded {
   /* height: 200px; */
-  height:auto;
+  height: auto;
   margin-top: 10px;
   /* border-radius:10%; */
   /* overflow: scroll; */
 }
 .review-widget-collapsed {
   /* height: 200px; */
-  height:200px;
+  height: 200px;
   margin-top: 10px;
   /* border-radius:10%; */
   /* overflow: scroll; */
 }
-.book-info-widget{
+.book-info-widget {
   margin-top: 10px;
 }
 .stats-widget {
@@ -112,14 +112,14 @@
 .stat-widget-card {
   min-height: 250px;
 }
-@media(max-width:576px){
+@media (max-width: 576px) {
   .review-widget-collapsed {
-  /* height: 200px; */
-  height:300px;
-  margin-top: 10px;
-  /* border-radius:10%; */
-  /* overflow: scroll; */
-}
+    /* height: 200px; */
+    height: 300px;
+    margin-top: 10px;
+    /* border-radius:10%; */
+    /* overflow: scroll; */
+  }
 }
 </style>
 <script>
@@ -132,7 +132,7 @@ export default {
         author: "random author",
         frontCover:
           "https://images-na.ssl-images-amazon.com/images/I/51swx%2Bc%2BwyL._SY346_.jpg",
-        avgRating: 4.4,
+        avgRating: 4.4
       },
       ratings: {
         fiveStar: 50,
@@ -146,45 +146,52 @@ export default {
         {
           userName: "jhon Doe",
           profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-          review: "Ut dolor excepteur   asdasdasdasdsad occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
-          reviewTitle: "Velit consequat incididunt Lorem sadasdasd sunt eu consequat esse elit est aliquip occaecat consequat do.",
+          review:
+            "Ut dolor excepteur   asdasdasdasdsad occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
+          reviewTitle:
+            "Velit consequat incididunt Lorem sadasdasd sunt eu consequat esse elit est aliquip occaecat consequat do.",
           rating: 1,
-          reviewDate:"12/11/2012",
-          isExpanded:false
+          reviewDate: "12/11/2012",
+          isExpanded: false
         },
         {
           userName: "jhon Doe",
           profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-          review: "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
-          reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+          review:
+            "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
+          reviewTitle:
+            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
           rating: 5,
-          reviewDate:"12/12/2012",
-          isExpanded:false
+          reviewDate: "12/12/2012",
+          isExpanded: false
         },
         {
           userName: "jhon Doe",
           profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-          review: "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
-          reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+          review:
+            "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
+          reviewTitle:
+            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
           rating: 2,
-          reviewDate:"12/12/2012",
-          isExpanded:false
+          reviewDate: "12/12/2012",
+          isExpanded: false
         },
         {
           userName: "jhon Doe",
           profilePic: "https://www.w3schools.com/howto/img_avatar.png",
           review: "nice book",
-          reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+          reviewTitle:
+            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
           rating: 4,
-          reviewDate:"12/12/2012",
-          isExpanded:false
+          reviewDate: "12/12/2012",
+          isExpanded: false
         }
       ]
-    }
+    };
   },
-  methods:{
-    toggleExpand(i){
-      this.reviews[i].isExpanded= !this.reviews[i].isExpanded;
+  methods: {
+    toggleExpand(i) {
+      this.reviews[i].isExpanded = !this.reviews[i].isExpanded;
     }
   }
 };
