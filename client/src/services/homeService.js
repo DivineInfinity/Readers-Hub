@@ -1,7 +1,7 @@
-import Api from '/services/api'
+import Api from './api'
 
 export default {
   fetchLists() {
-    return Api().get('lists')
+    return Api().get('/')
   }
 }
