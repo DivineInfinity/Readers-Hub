@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import homeService from '../services/homeService'
+  // import homeService from '../services/homeService'
   export default {
     name: "home",
     data() {
