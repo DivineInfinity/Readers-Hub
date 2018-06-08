@@ -5,10 +5,14 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.config.productionTip = false
+import 'element-ui/lib/theme-chalk/base.css';
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+import VueCarousel from 'vue-carousel';
+Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
-
+Vue.component(CollapseTransition.name, CollapseTransition);
+Vue.use(VueCarousel);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '../components/home'
-import Review from '../components/reviews'
+import reviews from '../components/reviews'
 Vue.use(Router)
 
 export default new Router({
@@ -12,9 +12,9 @@ export default new Router({
       component: home
     },
     {
-      path:'/reviews',
-      name:'Review',
-      component:Review
+      path: '/reviews',
+      name: 'reviews',
+      component: reviews
     }
   ]
 })
