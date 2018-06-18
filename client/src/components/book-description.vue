@@ -15,8 +15,8 @@
                         <div class="bk-cover-back"></div>
                         <div v-bind:style="{'background-image': 'url('+this.book.frontCover+')'}" class="bk-cover">
                           <h2>
-                            <span>Anthony Burghiss</span>
-                            <span>A Catwork Orange</span>
+                            <span style="color: ghostwhite;">{{book.author}}</span>
+                            <span style="color: black">{{book.title}}</span>
                           </h2>
                         </div>
                       </div>
@@ -71,22 +71,25 @@
 
           <el-col class="descriptionContainer" :span="17" :xs="24">
             <h2>Description</h2>
-            <p class="description">The Godfather, novel by Mario Puzo, published in 1969, which became one of the most
-              successful fiction books ever—selling some 21 million copies worldwide, spawning three critically and
-              financially successful motion pictures, and placing its characters into the contemporary American cultural
-              mythology. Although Puzo had no personal knowledge of organized crime, thorough research gave him the
-              details he needed for his chronicle of a fictional Mafia family, the Corleones. Puzo collaborated with
-              director Francis Ford Coppola on the screenplay of The Godfather (1972) and its two sequels (1974 and
-              1990). The first two won nine Academy Awards, including best picture and best screenplay Oscars for
-              each.</p>
+            <p class="description">{{book.description}}</p>
           </el-col>
         </el-row>
       </el-container>
       <el-container class="bookDetails">
         <el-header><b>Product Details</b></el-header>
         <el-row>
-          <el-col class="detailsCol" span="12">hello</el-col>
-          <el-col class="detailsCol" span="12">Hello</el-col>
+          <el-col class="detailsCol" span="12">
+            <div class="detailItem"><span><b>Book Title</b></span>:<span>{{book.title}}</span></div>
+            <div class="detailItem"><span><b>Author</b></span>:<span>{{book.author}}</span></div>
+            <div class="detailItem"><span><b>Genere</b></span>:<span>{{book.genere}}</span></div>
+            <div class="detailItem"><span><b>Publisher</b></span>:<span>{{book.publisher}}</span></div>
+          </el-col>
+          <el-col class="detailsCol" span="12">
+            <div class="detailItem"><span><b>Rating</b></span>:<span>{{book.rating}}</span></div>
+            <div class="detailItem"><span><b>PageCount</b></span>:<span>{{book.pages}}</span></div>
+            <div class="detailItem"><span><b>Languages</b></span>:<span>{{book.language}}</span></div>
+            <div class="detailItem"><span><b>Publish Date</b></span>:<span>{{book.publishDate}}</span></div>
+          </el-col>
         </el-row>
       </el-container>
       <el-container class="reviewContainer">
@@ -117,12 +120,14 @@
         </el-row>
       </el-container>
       <el-button type="Primary" v-if="alwaysTrue" @click="flip()">View all reviews</el-button>
+      <input type="text" v-model="searchQuery"/><button @click="fetchBookInMongo()">Search</button>
     </el-container>
   </div>
 </template>
 <script>
+  import bookDetailsService from '../../services/bookDetailsService'
   export default {
-
+    
     name: 'BookDescription2',
     data() {
       return {
@@ -160,19 +165,54 @@
         book: {
           title: "Carry on jeeves",
           frontCover: '../../static/images/theGodfather.jpg',
-          genere: 'Ninja',
+          genere: 'Humour',
           author: 'Sir Shebaz Jafri',
+          description:'One of the best books by sir Shebaz Jafri ',
+          publisher: 'Ho oh publishers and dads',
           publishDate: '2017',
           rating: '4',
-        }
+          pages:125,
+          language:'english'
+        },
+        searchQuery:''
       }
     },
-    methods: {}
+    methods: {
+      async fetchBookDetails(){
+        const response = await bookDetailsService.fetchBookDetails();
+        console.log(response.data);
+        this.book=response.data;
+      },
+
+      async fetchBookInMongo(){
+        const response = await bookDetailsService.fetchBookInMongo(this.searchQuery);
+        console.log(response.data);
+      }
+    },
+    mounted(){
+      this.fetchBookDetails();
+    }
 
   }
 
 </script>
 <style>
+
+  @media(max-width: 900px) {
+    .bookContainer{
+      width:100%;
+  }
+    .descriptionContainer{
+      width:100%;
+    }
+    .mainContainer{
+      margin: 0px !important;
+    }
+    .detailsCol{
+      width:100%;
+    }
+  }
+
   .bodyContainer {
     background-color: steelblue;
   }
@@ -181,7 +221,9 @@
     margin-left: 100px;
     margin-right: 100px;
   }
-
+.detailItem{
+  padding:2px;
+}
   .el-header, .el-footer {
     background-color: ghostwhite;
     color: #333;
@@ -191,7 +233,9 @@
     margin-top: 0px !important;
     width: 100%;
   }
-
+.el-row{
+  width:100%;
+}
   .bookContainer {
     background-color: ghostwhite;
     color: #333;
@@ -266,7 +310,9 @@
   }
 
   .detailsCol {
+    padding:20px;
     border: 1px solid lightgrey;
+    text-align: justify;
   }
 
   .bk-list {
@@ -282,10 +328,6 @@
     margin: 0px 50px 0px 0;
     -webkit-perspective: 1800px;
     perspective: 1800px;
-  }
-
-  .bk-list li:last-child {
-    margin-right: 0;
   }
 
   .bk-info {
@@ -341,7 +383,7 @@
 
   .bk-list li .bk-book {
     position: absolute;
-    width: 180px;
+    width: 200px;
     height: 225px;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
