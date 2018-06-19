@@ -1,5 +1,5 @@
 'use strict'
-// This is the webpack config used for unit tests.
+// This is the webpack config used for unit test.
 
 const utils = require('./utils')
 const webpack = require('webpack')
@@ -26,7 +26,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
-// no need for app entry during tests
+// no need for app entry during test
 delete webpackConfig.entry
 
 module.exports = webpackConfig
