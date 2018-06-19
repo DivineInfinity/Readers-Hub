@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '../components/home'
-import reviews from '../components/reviews'
+import Home from '../components/home'
+import Reviews from '../components/reviews'
+import BookDetails from '../components/book-details'
 Vue.use(Router)
 
 export default new Router({
@@ -9,12 +10,17 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: home
+      component: Home
     },
     {
       path: '/reviews',
       name: 'reviews',
-      component: reviews
+      component: Reviews
+    },
+    {
+      path: '/book-details',
+      name: 'book-details,',
+      component: BookDetails
     }
   ]
 })

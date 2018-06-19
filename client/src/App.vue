@@ -4,7 +4,7 @@
     <el-menu :default-active="activeIndex" style="margin-left:20px;margin-right:20px;" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="0"><span>Reader's Hub</span></el-menu-item>
       <el-menu-item index="1">
-        <el-button round plain>Home</el-button>
+        <el-button round plain v-bind:to="{name:'Home'}">Home</el-button>
       </el-menu-item>
       <el-menu-item index="2">
         <el-button round plain>My Shelf</el-button>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import Home from '../src/components/home'
   export default {
     name: 'App',
     data:{
