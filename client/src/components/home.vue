@@ -1,7 +1,7 @@
 <template>
   <div style="margin-left:20px;margin-right:20px;">
 
-    <div v-for="list in lists">
+    <div v-for="(list,index) in lists" :key="index">
       <el-card class="box-card list-container" style="height: 350px;">
         <div slot="header" class="clearfix">
           <span style="float: left">{{list.name}}</span>

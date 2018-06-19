@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const homeRoutes = require('./routes/homeRoutes');
 const bookInfoRoutes = require('./routes/bookInfoRoutes');
+const reviewRoutes = require('./routes/reviewRoutes')
 const app = express();
 
 app.use('/public' , express.static('public'));
@@ -22,6 +23,7 @@ db.once("open", function(callback){
 
 app.use('/', homeRoutes);
 app.use('/bookinfo', bookInfoRoutes );
+app.use('/reviews',reviewRoutes);
 
 app.listen(8081)
 console.log("<- -> i am running");
