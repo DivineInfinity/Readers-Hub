@@ -12,14 +12,16 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
- getReviews= async function() {  
- var reviews = await reviewService.getReviews();
-
+ var getReviews= async function(req,res,next) {  
+ var books = await reviewService.getBook(req.params.id);
+  console.log(books[0]);
   return res.status(200).json({
     message: "successfully fetched lists",
-    reviews : reviews
+    book : books[0],
+    reviews:"",
+    ratings:""
   })
 }
-module.exports = router;
-//connect db
-//create server file and import
+module.exports = {
+  getReviews:getReviews
+}
