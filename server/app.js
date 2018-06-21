@@ -7,6 +7,7 @@ const homeRoutes = require('./routes/homeRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const bookInfoRoutes = require('./routes/bookInfoRoutes');
 const bookDetailsRoutes = require('./routes/bookDetailsRoutes');
+const reviewRoutes = require('./routes/reviewRoutes')
 const app = express();
 
 app.use('/public' , express.static('public'));
@@ -29,6 +30,7 @@ app.use('/book-details', bookDetailsRoutes);
 
 //only to be used for Google API
 app.use('/bookinfo', bookInfoRoutes );
+app.use('/reviews',reviewRoutes);
 
 var port =8081;
 app.listen(port)
