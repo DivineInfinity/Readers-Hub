@@ -13,12 +13,13 @@ app.use(bodyParser.json())
 app.use(cors())
 
  var getReviews= async function(req,res,next) {  
- var books = await reviewService.getBook(req.params.id);
+ var books = await reviewService.findBookById(req.params.id);
   console.log(books[0]);
+  var reviews = reviewService.findReviewById(books[0].reviews);
   return res.status(200).json({
     message: "successfully fetched lists",
     book : books[0],
-    reviews:"",
+    reviews:reviews,
     ratings:""
   })
 }
