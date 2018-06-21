@@ -8,7 +8,7 @@
         </div>
         <carousel navigation-enabled="true" per-page="3">
           <slide v-for="book in list.books" :key="book">
-            <el-card style="background-color: lightblue;width: 300px;margin-left: 50px" class="box-card">
+            <el-card style="background-color: lightblue;width: 300px;margin-left: 50px" class="box-card" >
               <img style="float: left" height="170" :src="book.frontCover"/>
               <span>{{book.title}}</span>
               <br>by <span>{{book.author}}</span>
@@ -41,6 +41,7 @@
 
 <script>
    import homeService from '../services/homeService'
+   import getAverageColor from 'get-average-color'
   export default {
     name: "home",
     data() {
@@ -114,9 +115,7 @@
             name: "Discover",
             genres: ["Horror", "Humor", "Action", "Psychology"]
           },
-        data() {
-
-        }
+          bgc:{ backgroundColor:''}
       }
 
     },
@@ -124,11 +123,33 @@
       this.getLists()
     },
     methods: {
-      async getLists() {
+      async getColor(img){
+          var rgb = await getAverageColor(img)
+          //console.log(rgb);
+          var color = `rgb(${rgb.r},${rgb.g},${rgb.b} )`
+          //console.log(color);
+          this.bgc.backgroundColor=color;
+          return color;
+      },
+       async getLists() {
         const response = await homeService.fetchLists();
-        console.log("RESPONSE DATA = "+response.data.homeLists.lists[0].name);
-        console.log("RESPONSE DATA = "+response.data.homeLists.genreList.name);
-        this.lists = response.data.homeLists.lists;
+        //console.log("RESPONSE DATA = "+response.data.homeLists.lists[0].name);
+        //console.log("RESPONSE DATA = "+response.data.homeLists.genreList.name);
+         this.lists = response.data.homeLists.lists;
+        for(var i =0;i<this.lists.length;i++){
+            for(var j=0;j<this.lists[i].books.length;j++){
+            var color= await this.getColor(this.lists[i].books[j].frontCover);
+            console.log(color);
+            this.lists[i].books[j]['bgc'] ={backgroundColor:color}
+            }
+        }
+        // console.log(this.lists[0].books[0].frontCover);
+        //var color= await this.getColor(this.lists[0].books[3].frontCover);
+
+        //console.log(this.lists[0].books[3].frontCover)
+        this.lists[0].books[3]['bgc'] ={backgroundColor:color}
+
+
         this.genreList=response.data.homeLists.genreList;
 
       }
