@@ -1,6 +1,5 @@
 const Book = require('../models/book');
 
-
 var getTrendingList = async function getTrendingList() {
     var trending = await Book.find({isTrending: true},{frontCover:1,title:1,author:1,averageRating:1}).limit(12);
     return trending;
@@ -16,14 +15,8 @@ var getNewlyReleasedList = async function getNewlyReleasedList() {
     return newReleases;
 }
 
-var getGenreList = async function  getGenreList() {
-    var genreList = await Book.find({}).limit(12);
-    return genreList;
-}
-
 module.exports = {
     getNewlyReleasedList : getNewlyReleasedList,
     getTrendingList : getTrendingList,
     getTopRatedList : getTopRatedList,
-    getGenreList : getGenreList
 }

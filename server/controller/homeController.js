@@ -12,15 +12,10 @@ var getLists = async function getLists(req,res,next){
     var trending = await listService.getTrendingList();
     var topRated = await listService.getTopRatedList();
     var newlyReleased = await listService.getNewlyReleasedList();
-    var genres = await listService.getGenreList();
-    
     var lists = [{name:"Trending",books:trending},{name:"New Releases",books:newlyReleased},{name:"Top Rated",books:topRated}];
-    
-    var genreList ={name:"Discover",genres:genres};
 
     var homeLists = {
         lists:lists,
-        genreList:genreList
     }
     
     return res.status(200).json({
