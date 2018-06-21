@@ -45,7 +45,7 @@
                          disabled
                          show-score
                          text-color="orange"
-                         score-template="{value} points">
+                         score-template="">
                 </el-rate>
                 <br>
                 <p>Your rating</p>
@@ -81,46 +81,46 @@
           <el-col class="detailsCol" span="12">
             <div class="detailItem"><span><b>Book Title</b></span>:<span>{{book.title}}</span></div>
             <div class="detailItem"><span><b>Author</b></span>:<span>{{book.author}}</span></div>
-            <div class="detailItem"><span><b>Genere</b></span>:<span>{{book.genere}}</span></div>
+            <div class="detailItem"><span><b>Genre</b></span>:<span>{{book.genre[0]}}</span></div>
             <div class="detailItem"><span><b>Publisher</b></span>:<span>{{book.publisher}}</span></div>
           </el-col>
           <el-col class="detailsCol" span="12">
-            <div class="detailItem"><span><b>Rating</b></span>:<span>{{book.rating}}</span></div>
-            <div class="detailItem"><span><b>PageCount</b></span>:<span>{{book.pages}}</span></div>
-            <div class="detailItem"><span><b>Languages</b></span>:<span>{{book.language}}</span></div>
-            <div class="detailItem"><span><b>Publish Date</b></span>:<span>{{book.publishDate}}</span></div>
+            <div class="detailItem"><span><b>Rating</b></span>:<span>{{book.averageRating}}</span></div>
+            <div class="detailItem"><span><b>Pages</b></span>:<span>{{book.pageCount}}</span></div>
+            <div class="detailItem"><span><b>Languages</b></span>:<span>{{book.languages[0]}}</span></div>
+            <div class="detailItem"><span><b>Publish Date</b></span>:<span>{{book.publishedDate}}</span></div>
           </el-col>
         </el-row>
       </el-container>
-      <el-container class="reviewContainer">
-        <el-row>
-          <el-col :span="24" v-for="review in reviews" :key="review">
-            <el-card class="review-widget">
-              <el-row>
-                <el-col :span="2" justify="start">
-                  <img :src="review.profilePic" alt="Avatar" style="border-radius:50%;height:50px;">
-                </el-col>
-                <el-col :span="3" justify="start" :xs="24">
-                  <h5 style="margin:5px">{{review.userName}}</h5>
-                  <el-rate v-model="review.rating" disabled show-score text-color="#ff9900"></el-rate>
-                  <span style="color:gray;font-size:14px;">{{review.reviewDate}}</span>
-                </el-col>
-                <el-col :span="19">
+      <el-row>
+          <el-col :span="24" v-for="(review,index) in reviews" :key=index>
+              <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
+                  <el-row>
+                    <el-col :span="2" justify="start" :xs="24">
+                        <img :src="review.profilePic" alt="Avatar" style="border-radius:50%;height:50px;">
+                    </el-col>
+                    <el-col :span="4" justify="start" :xs="24">
+                          <h5 style="margin:5px">{{review.userName}}</h5>
+                          <el-rate v-model="review.rating" disabled show-score text-color="#ff9900"></el-rate>
+                          <span style="color:gray;font-size:14px;">{{review.reviewDate}}</span>
+                    </el-col>
+                    <!-- <el-col :span="18">
 
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col style="text-align:left">
-                  <h3>{{review.reviewTitle}}</h3>
-                  <p>{{review.review}}</p>
-                </el-col>
-              </el-row>
-            </el-card>
+                    </el-col> -->
+                  </el-row>
+                  <el-row>
+                    <el-col style="text-align:left;">
+                      <h3>{{review.reviewTitle}}</h3>
+                    <p>{{review.review}}</p>
+                    </el-col>
+                  </el-row>
+
+              </el-card>
+              <el-button type="info" v-if="review.review.length>100 && review.isExpanded===false" style="width:100%;background-color:ghostwhite;color:black" @click="toggleExpand(index)">View More</el-button>
+              <el-button type="info" v-if="review.isExpanded===true" style="width:100%;background-color:ghostwhite;color:black" @click="toggleExpand(index)">View Less</el-button>
           </el-col>
         </el-row>
-      </el-container>
-      <el-button type="Primary" v-if="alwaysTrue" @click="flip()">View all reviews</el-button>
-      <input type="text" v-model="searchQuery"/><button @click="fetchBookInMongo()">Search</button>
+        <el-button type="info"  style="width:100%;background-color:ghostwhite;color:black" @click="toViewAllReviews()">View all reviews</el-button>
     </el-container>
   </div>
 </template>
@@ -138,29 +138,37 @@
         alwaysTrue: true,
         reviews: [
           {
-            userName: "jhon Doe",
-            profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-            review: "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
-            reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
-            rating: 4,
-            reviewDate: "12/12/2012"
-          },
-          {
-            userName: "jhon Doe",
-            profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-            review: "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
-            reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
-            rating: 4,
-            reviewDate: "12/12/2012"
-          },
-          {
-            userName: "jhon Doe",
-            profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-            review: "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
-            reviewTitle: "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
-            rating: 4,
-            reviewDate: "12/12/2012"
-          }
+          userName: "jhon Doe",
+          profilePic: "https://www.w3schools.com/howto/img_avatar.png",
+          review:
+            "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
+          reviewTitle:
+            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+          rating: 5,
+          reviewDate: "12/12/2012",
+          isExpanded: false
+        },
+        {
+          userName: "jhon Doe",
+          profilePic: "https://www.w3schools.com/howto/img_avatar.png",
+          review:
+            "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
+          reviewTitle:
+            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+          rating: 2,
+          reviewDate: "12/12/2012",
+          isExpanded: false
+        },
+        {
+          userName: "jhon Doe",
+          profilePic: "https://www.w3schools.com/howto/img_avatar.png",
+          review: "nice book",
+          reviewTitle:
+            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
+          rating: 4,
+          reviewDate: "12/12/2012",
+          isExpanded: false
+        }
         ],
         book: {
           title: "Carry on jeeves",
@@ -174,22 +182,45 @@
           pages:125,
           language:'english'
         },
-        searchQuery:''
+        searchQuery:'',
+        loading:''
       }
     },
     methods: {
       async fetchBookDetails(){
-        const response = await bookDetailsService.fetchBookDetails();
-        console.log(response.data);
-        this.book=response.data;
+        const response = await bookDetailsService.fetchBookDetails(this.$route.params.id);
+        console.log(response.data.bookDetails);
+        this.book=response.data.bookDetails;
       },
       async fetchBookInMongo(){
         const response = await bookDetailsService.fetchBookInMongo(this.searchQuery);
         console.log(response.data);
+      },
+      toggleExpand(i) {
+      this.reviews[i].isExpanded = !this.reviews[i].isExpanded;
+      },
+
+      toViewAllReviews(){
+        this.$router.push({name:'reviews', params:{id:this.$route.params.id}})
+      },
+      loadingScreenOn() {
+        this.loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+      },
+      loadingScreenOff(){
+        this.loading.close();
       }
     },
     mounted(){
+      this.loadingScreenOn()
       this.fetchBookDetails();
+    },
+    updated(){
+        this.loadingScreenOff()
     }
   }
 </script>
@@ -212,26 +243,27 @@
     background-color: steelblue;
   }
   .mainContainer {
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
   .detailItem{
     padding:2px;
   }
   .el-header, .el-footer {
-    background-color: ghostwhite;
+    background-color: white;
     color: #333;
     text-align: center;
     margin-bottom: 5px;
     line-height: 20px;
     margin-top: 0px !important;
     width: 100%;
+ 
   }
   .el-row{
     width:100%;
   }
   .bookContainer {
-    background-color: ghostwhite;
+    background-color: white;
     color: #333;
     text-align: center;
     padding: 10px;
@@ -242,7 +274,7 @@
   .bookDetails {
     padding: 10px;
     margin-top: 5px;
-    background-color: ghostwhite;
+    background-color: white;
     text-align: center;
   }
   .el-dropdown {
@@ -255,12 +287,12 @@
     font-size: 12px;
   }
   .review {
-    background-color: ghostwhite;
+    background-color: white;
     color: #333;
     text-align: center;
     line-height: 10px;
     margin-top: 2px;
-    border-radius: 5px;
+  
   }
   .reviewContainer {
     margin-top: 10px;
@@ -271,12 +303,14 @@
     line-height: normal;
     margin-left: 50px;
     margin-right: 50px;
+  
   }
   .descriptionContainer {
-    background-color: ghostwhite;
+    background-color: white;
     height: 100%;
     border-left: 2px solid steelblue;
     padding-left: 50px !important;
+  
   }
   .el-rate {
     margin-top: 5px;
@@ -610,4 +644,49 @@
     text-align: center;
     font-weight: 700;
   }
+
+  .review-widget-expanded {
+  /* height: 200px; */
+  height: auto;
+  margin-top: 10px;
+  /* border-radius:10%; */
+  /* overflow: scroll; */
+}
+.review-widget-collapsed {
+  /* height: 200px; */
+  height: 200px;
+  margin-top: 10px;
+  /* border-radius:10%; */
+  /* overflow: scroll; */
+}
+.book-info-widget {
+  margin-top: 10px;
+}
+.stats-widget {
+  margin-top: 5px;
+}
+
+.progress {
+  width: 70%;
+}
+.review-bar {
+  margin-top: 10px;
+}
+.rating-heading {
+  float: left;
+  margin-right: 8px;
+}
+.stat-widget-card {
+  min-height: 250px;
+}
+@media (max-width: 576px) {
+  .review-widget-collapsed {
+    /* height: 200px; */
+    height: 300px;
+    margin-top: 10px;
+    /* border-radius:10%; */
+    /* overflow: scroll; */
+  }
+}
+  
 </style>

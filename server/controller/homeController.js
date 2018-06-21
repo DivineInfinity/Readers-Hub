@@ -17,6 +17,7 @@ var getLists = async function getLists(req,res,next){
     var homeLists = {
         lists:lists,
     }
+    
     return res.status(200).json({
         message: "successfully fetched lists",
         homeLists : homeLists
