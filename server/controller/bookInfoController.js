@@ -26,7 +26,7 @@ exports.insertBookInfo= async function(req,res,next){
         publisher:response.volumeInfo.publisher,
         publishedDate: response.volumeInfo.publishedDate,
         frontCover:response.volumeInfo.imageLinks.smallThumbnail,
-        description:response.description,
+        description:response.volumeInfo.description,
         genre:response.volumeInfo.categories,
         averageRating:response.volumeInfo.averageRating,
         pageCount:response.volumeInfo.pageCount,
@@ -37,7 +37,6 @@ exports.insertBookInfo= async function(req,res,next){
         isNewlyReleased:false
     });
 
-    console.log(book);
 
     book.save().then(
         res.status(201).json({messageEagle:"Book inserted successfully in the DB",book:book})

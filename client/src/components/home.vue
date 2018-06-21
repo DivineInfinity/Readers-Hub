@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-left:20px;margin-right:20px;">
+  <div id="mainDiv">
 
     <div v-for="(list,index) in lists" :key="index">
       <el-card class="box-card list-container" style="height: 350px;">
@@ -7,17 +7,17 @@
           <span style="float: left">{{list.name}}</span>
         </div>
         <carousel navigation-enabled="true" per-page="3">
-          <slide v-for="book in list.books" :key="book">
-            <el-card style="background-color: lightblue;width: 300px;margin-left: 50px" class="box-card" >
+          <slide v-for="book in list.books" :key="book" >
+            <el-card style="background-color: lightblue;width: 300px;margin-left: 50px" class="box-card">
               <img style="float: left" height="170" :src="book.frontCover"/>
               <span>{{book.title}}</span>
               <br>by <span>{{book.author}}</span>
-              <span><el-rate
+              <span ><el-rate
                 v-model="book.averageRating"
                 disabled
                 text-color="#ff9900">
 </el-rate></span>
-              <el-button style="margin-top: 30px" round plain type="primary">See The Book</el-button>
+              <el-button style="margin-top: 30px" round plain type="primary" @click="seeDetails(book._id)">See The Book</el-button>
             </el-card>
           </slide>
         </carousel>
@@ -30,8 +30,8 @@
       </div>
       <div>
         <el-row>
-          <el-col v-for="genre in genreList.genres" :key="genre" :span="3" :xs="24">
-            <el-button round plain type="primary">{{genre.genre[0]}}</el-button>
+          <el-col v-for="genre in genreList.genres" :key="genre" :span="4" :xs="24">
+            <el-button round plain style="margin:5px" type="primary">{{genre}}</el-button>
           </el-col>
         </el-row>
       </div>
@@ -46,81 +46,85 @@
     name: "home",
     data() {
       return {
+        loading:'',
         lists: [
-            {
-              name: "Trending",
-              books: [{
-                frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                title: "Carry On, Jeeves",
-                author: "PG Wodehouse",
-                averageRating: "4.8",
-                description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
-              }, {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                title: "Catch-22",
-                author: "Joseph Heller",
-                averageRating: "4.8",
-                description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper."
-              }, {
-                frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                title: "Carry On, Jeeves",
-                author: "PG Wodehouse",
-                averageRating: "4.8",
-                description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
-              }, {
-                frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                title: "Carry On, Jeeves",
-                author: "PG Wodehouse",
-                averageRating: "4.8",
-                description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
-              }, {
-                frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                title: "Carry On, Jeeves",
-                author: "PG Wodehouse",
-                averageRating: "4.8",
-                description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
-              }, {
-                frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                title: "Carry On, Jeeves",
-                author: "PG Wodehouse",
-                averageRating: "4.8",
-                description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
-              }, {
-                frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                title: "Carry On, Jeeves",
-                author: "PG Wodehouse",
-                averageRating: "4.8",
-                description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
-              }, {
-                frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                title: "Carry On, Jeeves",
-                author: "PG Wodehouse",
-                averageRating: "4.8",
-                description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
-              }]
-            },
-            {
-              name: "New Releases",
-              books: [{title: "Sherlock 1"}, {title: "Sherlock 2"}, {
-                title: "Sherlock 2"
-              }, {title: "Sherlock 2"}]
-            },
-            {
-              name: "Top Rated",
-              books: [{title: "Sherlock 1"}, {title: "Sherlock 2"}]
-            }
+          {
+            name: "Trending",
+            books: [{
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              title: "Carry On, Jeeves",
+              author: "PG Wodehouse",
+              averageRating: "4.8",
+              description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
+            }, {
+              frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              title: "Catch-22",
+              author: "Joseph Heller",
+              averageRating: "4.8",
+              description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper."
+            }, {
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              title: "Carry On, Jeeves",
+              author: "PG Wodehouse",
+              averageRating: "4.8",
+              description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
+            }, {
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              title: "Carry On, Jeeves",
+              author: "PG Wodehouse",
+              averageRating: "4.8",
+              description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
+            }, {
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              title: "Carry On, Jeeves",
+              author: "PG Wodehouse",
+              averageRating: "4.8",
+              description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
+            }, {
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              title: "Carry On, Jeeves",
+              author: "PG Wodehouse",
+              averageRating: "4.8",
+              description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
+            }, {
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              title: "Carry On, Jeeves",
+              author: "PG Wodehouse",
+              averageRating: "4.8",
+              description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
+            }, {
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              title: "Carry On, Jeeves",
+              author: "PG Wodehouse",
+              averageRating: "4.8",
+              description: "Lots of people think I'm much too dependent on Jeeves. My Aunt Agatha, in fact, has even gone so far as to call him my keeper. Well, what I say is: why not? The man's a genius. Having recently given his valet the boot, idle aristocrat Bertram Wooster is feeling a touch adrift. Then Jeeves shimmers into his life, and all starts coming up roses. For Bertie's new gentleman's gentleman is not only an expert at this valeting business, but also exceedingly skilled at hauling his employer out of those ludicrous scrapes into which he is so remarkably prone to plummeting."
+            }]
+          },
+          {
+            name: "New Releases",
+            books: [{title: "Sherlock 1"}, {title: "Sherlock 2"}, {
+              title: "Sherlock 2"
+            }, {title: "Sherlock 2"}]
+          },
+          {
+            name: "Top Rated",
+            books: [{title: "Sherlock 1"}, {title: "Sherlock 2"}]
+          }
         ],
         genreList:
           {
             name: "Discover",
-            genres: ["Horror", "Humor", "Action", "Psychology"]
-          },
-          bgc:{ backgroundColor:''}
+            genres: ["Fiction", "Games", "Computers", "Travel","Language Arts & Disciplines"]
+          }
       }
 
     },
     mounted() {
+      this.loadingScreenOn()
       this.getLists()
+    },
+    updated(){
+        this.loadingScreenOff()
     },
     methods: {
       async getColor(img){
@@ -152,12 +156,34 @@
 
         this.genreList=response.data.homeLists.genreList;
 
+      },
+
+      seeDetails(bookId){
+        this.$router.push({name: 'book-details', params: { id: bookId}});
+      },
+
+      loadingScreenOn() {
+        this.loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+      },
+      loadingScreenOff(){
+        this.loading.close();
       }
     }
   }
 </script>
 
 <style scoped>
+  #mainDiv{
+    margin-left:20px;
+    margin-right:20px;
+  }
+
+
   .el-carousel__container {
     height: 400px;
   }

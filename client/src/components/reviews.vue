@@ -19,7 +19,7 @@
               <el-card class="stat-widget-card">
                 <el-row class="review-bar">
                   <el-col :span="2">5<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20" style=""><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.fiveStar" class="progress"color="#67c23a" ></el-progress></el-col>
+                  <el-col :span="20" style=""><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.fiveStar" class="progress" color="#67c23a" ></el-progress></el-col>
                 </el-row>
                 <el-row class="review-bar">
                   <el-col :span="2">4<i class="el-icon-star-on"></i></el-col>
@@ -27,15 +27,15 @@
                 </el-row>
                 <el-row class="review-bar">
                   <el-col :span="2">3<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.threeStar" class="progress"color="rgba(142, 113, 199, 0.7"></el-progress></el-col>
+                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.threeStar" class="progress" color="rgba(142, 113, 199, 0.7"></el-progress></el-col>
                 </el-row>
                 <el-row class="review-bar">
                   <el-col :span="2">2<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.twoStar" class="progress"color="#cdd040"></el-progress></el-col>
+                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.twoStar" class="progress" color="#cdd040"></el-progress></el-col>
                 </el-row>
                 <el-row class="review-bar">
                   <el-col :span="2">1<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.oneStar" class="progress"color="#ce492b"></el-progress></el-col>
+                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.oneStar" class="progress" color="#ce492b"></el-progress></el-col>
                 </el-row>
 
               </el-card>

@@ -2,11 +2,11 @@
 import Api from './api'
 
 export default {
-  fetchBookDetails () {
-    return Api().get('/bookdetails')
+  fetchBookDetails (id) {
+    return Api().get(`/book-details/${id}`)
   },
 
-  fetchBookInMongo (x) {
-    return Api().get(`/bookinfo/${x}`)
+  fetchBookInMongo (id) {
+    return Api().get(`/bookinfo/${id}`)
   }
 }
