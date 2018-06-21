@@ -4,7 +4,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const homeRoutes = require('./routes/homeRoutes');
+const bookRoutes = require('./routes/bookRoutes');
 const bookInfoRoutes = require('./routes/bookInfoRoutes');
+const bookDetailsRoutes = require('./routes/bookDetailsRoutes');
 const app = express();
 
 app.use('/public' , express.static('public'));
@@ -19,12 +21,18 @@ db.once("open", function(callback){
     console.log("Connection Succeeded");
 });
 
-
+//routes
 app.use('/', homeRoutes);
+app.use('/book', bookRoutes);
+app.use('/book-details', bookDetailsRoutes);
+
+
+//only to be used for Google API
 app.use('/bookinfo', bookInfoRoutes );
 
-app.listen(8081)
-console.log("<- -> i am running");
+var port =8081;
+app.listen(port)
+console.log(`<- -> i am running on port ${port}`);
 
 
 //connect db

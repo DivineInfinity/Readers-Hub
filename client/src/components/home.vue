@@ -1,13 +1,13 @@
 <template>
   <div style="margin-left:20px;margin-right:20px;">
 
-    <div v-for="list in lists">
+    <div v-for="(list,index) in lists" :key="index">
       <el-card class="box-card list-container" style="height: 350px;">
         <div slot="header" class="clearfix">
           <span style="float: left">{{list.name}}</span>
         </div>
         <carousel navigation-enabled="true" per-page="3">
-          <slide v-for="book in list.books" :key="book">
+          <slide v-for="book in list.books" :key="book" >
             <el-card style="background-color: lightblue;width: 300px;margin-left: 50px" class="box-card">
               <img style="float: left" height="170" :src="book.frontCover"/>
               <span>{{book.title}}</span>
@@ -17,7 +17,7 @@
                 disabled
                 text-color="#ff9900">
 </el-rate></span>
-              <el-button style="margin-top: 30px" round plain type="primary">See The Book</el-button>
+              <el-button style="margin-top: 30px" round plain type="primary" @click="seeDetails(book._id)">See The Book</el-button>
             </el-card>
           </slide>
         </carousel>
@@ -45,6 +45,7 @@
     name: "home",
     data() {
       return {
+        loading:'',
         lists: [
             {
               name: "Trending",
@@ -114,23 +115,41 @@
             name: "Discover",
             genres: ["Horror", "Humor", "Action", "Psychology"]
           },
-        data() {
-
-        }
+      
       }
 
     },
     mounted() {
+      this.loadingScreenOn()
       this.getLists()
+    },
+    updated(){
+        this.loadingScreenOff()
     },
     methods: {
       async getLists() {
-        const response = await homeService.fetchLists();
+        const response = await homeService.fetchLists()
         console.log("RESPONSE DATA = "+response.data.homeLists.lists[0].name);
         console.log("RESPONSE DATA = "+response.data.homeLists.genreList.name);
         this.lists = response.data.homeLists.lists;
         this.genreList=response.data.homeLists.genreList;
 
+      },
+
+      seeDetails(bookId){
+        this.$router.push({name: 'book-details', params: { id: bookId}});
+      },
+        
+      loadingScreenOn() {
+        this.loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+      },
+      loadingScreenOff(){
+        this.loading.close();
       }
     }
   }

@@ -16,7 +16,7 @@ const bookSchema=mongoose.Schema({
     buyLinks:[String],
     isTrending:Boolean,
     isNewlyReleased:Boolean,
-    Reviews:[mongoose.Schema.ObjectId]
+    reviews:[mongoose.Schema.ObjectId]
 })
 
 module.exports=mongoose.model('Book', bookSchema);
