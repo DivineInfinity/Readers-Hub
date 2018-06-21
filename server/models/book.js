@@ -19,4 +19,4 @@ const bookSchema=mongoose.Schema({
     reviews:[mongoose.Schema.ObjectId]
 })
 
-module.exports=mongoose.model('Book', bookSchema);
+module.exports=mongoose.model('book', bookSchema);

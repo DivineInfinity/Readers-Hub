@@ -1,7 +1,8 @@
 <template>
 
   <div id="app">
-    <el-menu :default-active="activeIndex" style="margin-left:20px;margin-right:20px;" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <el-menu :default-active="activeIndex" style="margin-left:20px;margin-right:20px;" class="el-menu-demo"
+             mode="horizontal" @select="handleSelect">
       <el-menu-item index="0"><span>Reader's Hub</span></el-menu-item>
       <el-menu-item index="1">
         <el-button round plain @click="toHome()">Home</el-button>
@@ -76,34 +77,6 @@
     padding-left: 8px;
   }
 
-
-  .search-input {
-  /*  width: 0;
-    visibility: hidden !important;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    transition: all .5s ease;*/
-
- /*   width: 200px;
-    max-width:0;
-    padding: 5px;
-    transition: all .5s ease;
-    position:absolute;
-    right:20px;
-    box-sizing:border-box;
-    opacity:0;*/
-  }
-
-  .search-input.expand {
-   /* visibility: visible;
-    width: 100px;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    transition: all .5s ease;*/
-
-  /*  max-width:200px;
-    opacity:1;*/
-  }
 
 
 </style>
