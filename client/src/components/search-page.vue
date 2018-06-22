@@ -8,8 +8,8 @@
           <el-col :span="6" :xs="24" :sm="8" :md="6">
             <el-card shadow="hover" style="margin:10px">
               <h2 style="color: brown">Filter By</h2>
-              <el-row class="filterStyle" v-for="(item,index) in filters" :key="index">                  
-                <h4>{{ item.name }}</h4>                                         
+              <el-row class="filterStyle" v-for="(item,index) in filters" :key="index">
+                <h4>{{ item.name }}</h4>
                   <el-row v-if="isRating(item.name)" v-for="(field,index) in item.fields" :key="index" >
                     <el-checkbox>
                       <el-rate class="rating"
@@ -19,17 +19,17 @@
                         text-color="#ff9900"
                         score-template="{value} points">
                       </el-rate>
-                    </el-checkbox>                      
-                  </el-row> 
+                    </el-checkbox>
+                  </el-row>
                   <el-row v-else>
                     <el-checkbox :label="item.fields[index]"></el-checkbox>
-                  </el-row>  
+                  </el-row>
               </el-row>
             </el-card>
           </el-col>
           <!-- Design for Filter Ends Here -->
-          <h4 v-if="books.length == 0" style="text-align: center">No Results for <i>{{ searchQuery }}</i></h4>           
-          <h4 v-else style="text-align: center">Search Results for <i>{{ searchQuery }}</i></h4>           
+          <h4 v-if="books.length == 0" style="text-align: center">No Results for <i>{{ searchQuery }}</i></h4>
+          <h4 v-else style="text-align: center">Search Results for <i>{{ searchQuery }}</i></h4>
           <!-- Design for Search Results Starts Here -->
           <el-col :span="6" v-for="(book,index) in books" :key="index" :xs="24" :sm="8" :md="6">
             <el-card shadow="hover" style="height:300px; margin:10px">
@@ -39,9 +39,9 @@
               <el-rate class="rating"
               v-model= "books[index].averageRating"
               disabled
-              show-score
+
               text-color="#ff9900"
-              score-template="{value} points">
+              >
               </el-rate>
             </el-card>
           </el-col>
@@ -56,7 +56,7 @@
 
 <script>
 import searchService from "../services/searchService.js"
-export default {  
+export default {
   name: 'SearchPage',
   data() {
     return{
@@ -109,7 +109,7 @@ export default {
           console.log("true");
           return true;
         }
-        console.log("false");        
+        console.log("false");
         return false;
       },
       async search(){
@@ -138,7 +138,7 @@ export default {
   background-color: blue;
 }
 .filterStyle{
-  margin: 8px; 
+  margin: 8px;
   color:skyblue;
   text-decoration: underline
 }
