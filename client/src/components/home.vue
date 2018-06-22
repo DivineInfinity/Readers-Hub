@@ -40,9 +40,8 @@
 </template>
 
 <script>
-  import homeService from '../services/homeService'
-  import getAverageColor from 'get-average-color'
-
+   import homeService from '../services/homeService'
+   import getAverageColor from 'get-average-color'
   export default {
     name: "home",
     data() {
@@ -75,7 +74,7 @@
       seeDetails(bookId){
         this.$router.push({name: 'book-details', params: { id: bookId}});
       },
-        
+
       loadingScreenOn() {
         this.loading = this.$loading({
           lock: true,
