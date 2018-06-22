@@ -1,8 +1,7 @@
 <template>
   <div class="bodyContainer">
     <el-container class="mainContainer">
-      <el-header><h1>{{book.title}}</h1></el-header>
-      <el-container>
+
         <el-row>
           <el-col :span="7" :xs="24" class="bookContainer">
             <div class="container">
@@ -91,7 +90,7 @@
             <div class="detailItem"><span><b>Publish Date</b></span>:<span>{{book.publishedDate}}</span></div>
           </el-col>
         </el-row>
-      </el-container>
+      
       <el-row>
           <el-col :span="24" v-for="(review,index) in reviews" :key=index>
               <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
@@ -257,7 +256,7 @@
     line-height: 20px;
     margin-top: 0px !important;
     width: 100%;
- 
+
   }
   .el-row{
     width:100%;
@@ -292,7 +291,7 @@
     text-align: center;
     line-height: 10px;
     margin-top: 2px;
-  
+
   }
   .reviewContainer {
     margin-top: 10px;
@@ -303,14 +302,14 @@
     line-height: normal;
     margin-left: 50px;
     margin-right: 50px;
-  
+
   }
   .descriptionContainer {
     background-color: white;
     height: 100%;
     border-left: 2px solid steelblue;
     padding-left: 50px !important;
-  
+
   }
   .el-rate {
     margin-top: 5px;
@@ -688,5 +687,5 @@
     /* overflow: scroll; */
   }
 }
-  
+
 </style>
