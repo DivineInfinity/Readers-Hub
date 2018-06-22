@@ -1,9 +1,16 @@
 const Book = require('../models/book');
-var getBook =async function(id){
+const Review = require('../models/review');
+var findBookById =async function(id){
     var book = await Book.find({_id:id});
     console.log(book);
     return book;
 }
+var findReviewById = async function(id){
+    var reviews = await Review.find({_id:{ "$in": id }});
+    console.log(reviews);
+    return reviews;
+}
 module.exports={
-    getBook:getBook
+    findBookById:findBookById,
+    findReviewById:findReviewById
 }

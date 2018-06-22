@@ -1,8 +1,7 @@
 <template>
   <div class="bodyContainer">
     <el-container class="mainContainer">
-      <el-header><h1>{{book.title}}</h1></el-header>
-      <el-container>
+
         <el-row>
           <el-col :span="7" :xs="24" class="bookContainer">
             <div class="container">
@@ -15,8 +14,7 @@
                         <div class="bk-cover-back"></div>
                         <div v-bind:style="{'background-image': 'url('+this.book.frontCover+')'}" class="bk-cover">
                           <h2>
-                            <span style="color: ghostwhite;">{{book.author}}</span>
-                            <span style="color: black">{{book.title}}</span>
+                         
                           </h2>
                         </div>
                       </div>
@@ -27,8 +25,7 @@
                       <div class="bk-right"></div>
                       <div class="bk-left">
                         <h2>
-                          <span>Anthony Burghiss</span>
-                          <span>A Catwork Orange</span>
+                          <span>{{book.title}} by {{book.author}}</span>
                         </h2>
                       </div>
                       <div class="bk-top"></div>
@@ -70,6 +67,10 @@
           </el-col>
 
           <el-col class="descriptionContainer" :span="17" :xs="24">
+            <div style="margin-top:50px;margin-bottom:60px;">
+            <h1>{{book.title}}</h1>
+            <h3>By {{book.author}}</h3>
+            </div>
             <h2>Description</h2>
             <p class="description">{{book.description}}</p>
           </el-col>
@@ -91,7 +92,7 @@
             <div class="detailItem"><span><b>Publish Date</b></span>:<span>{{book.publishedDate}}</span></div>
           </el-col>
         </el-row>
-      </el-container>
+      
       <el-row>
           <el-col :span="24" v-for="(review,index) in reviews" :key=index>
               <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
@@ -257,7 +258,7 @@
     line-height: 20px;
     margin-top: 0px !important;
     width: 100%;
- 
+
   }
   .el-row{
     width:100%;
@@ -274,6 +275,8 @@
   .bookDetails {
     padding: 10px;
     margin-top: 5px;
+    margin-left:20px;
+    margin-right:20px;
     background-color: white;
     text-align: center;
   }
@@ -292,7 +295,7 @@
     text-align: center;
     line-height: 10px;
     margin-top: 2px;
-  
+
   }
   .reviewContainer {
     margin-top: 10px;
@@ -303,14 +306,14 @@
     line-height: normal;
     margin-left: 50px;
     margin-right: 50px;
-  
+
   }
   .descriptionContainer {
     background-color: white;
     height: 100%;
     border-left: 2px solid steelblue;
     padding-left: 50px !important;
-  
+
   }
   .el-rate {
     margin-top: 5px;
@@ -596,7 +599,7 @@
   .book-1 .bk-back,
   .book-1 .bk-left,
   .book-1 .bk-front:after {
-    background-color: #ff924a;
+    background-color: black;
   }
   .book-1 .bk-cover {
     background-repeat: no-repeat;
@@ -688,5 +691,5 @@
     /* overflow: scroll; */
   }
 }
-  
+
 </style>
