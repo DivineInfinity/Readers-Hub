@@ -1,35 +1,39 @@
 <template>
 
   <div id="app">
-    <el-menu :default-active="activeIndex" style="margin-left:20px;margin-right:20px;" class="el-menu-demo"
-             mode="horizontal" @select="handleSelect">
-      <el-menu-item index="0"><span>Reader's Hub</span></el-menu-item>
-      <el-menu-item index="1">
-        <el-button round plain @click="toHome()">Home</el-button>
-      </el-menu-item>
-      <el-menu-item index="2">
-        <el-button round plain>My Shelf</el-button>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <el-button round plain>Genres</el-button>
-      </el-menu-item>
-      <el-menu-item index="4"><a href="#" target="_blank">
-        <el-button round plain>Discussions</el-button>
-      </a></el-menu-item>
-      <el-menu-item index="5">
-        <el-input id="searchInput"
-                  class="search-input"
-                  v-model="searchInput"
-                    placeholder="Please input"
-                    clearable>
-          </el-input>
-        <el-button id="searchButton" @click="search()" icon="el-icon-search" circle></el-button>
-      </el-menu-item>
-    </el-menu>
+    <b-navbar class="navBar" style="" toggleable="md" type="light" variant="info">
 
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+      <b-navbar-brand href="#">Reader's Hub</b-navbar-brand>
+
+      <b-collapse is-nav id="nav_collapse">
+
+        <b-navbar-nav>
+          <b-nav-item href="#" @click="toHome()">Home</b-nav-item>
+          <b-nav-item href="#">My Shelf</b-nav-item>
+          <b-nav-item href="#">Genres</b-nav-item>
+          <b-nav-item href="#">Discussions</b-nav-item>
+
+        </b-navbar-nav>
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+
+          <b-nav-form>
+            <b-form-input size="sm" class="mr-sm-2" type="text" v-model="searchInput" placeholder="Search"/>
+            <!--<b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>-->
+            <el-button class="searchButton" id="searchButton" @click="search()" icon="el-icon-search"
+                       circle></el-button>
+          </b-nav-form>
+
+        </b-navbar-nav>
+
+      </b-collapse>
+    </b-navbar>
 
     <router-view :key="$route.path"></router-view>
-   
+
 
   </div>
 
@@ -38,25 +42,26 @@
 <script>
   import Home from '../src/components/home'
   import searchService from './services/searchService'
+
   export default {
     name: 'App',
-    data:{
-      isExpanded : false,
-      isHidden : true,
-      searchInput:'',
-      loading:''
+    data: {
+      isExpanded: false,
+      isHidden: true,
+      searchInput: '',
+      loading: ''
     },
-    methods:{ 
-      async search(){
+    methods: {
+      async search() {
         console.log("Search initialized");
-        this.$router.push({name:'search-page',params:{searchQuery: this.searchInput}})
+        this.$router.push({name: 'search-page', params: {searchQuery: this.searchInput}})
       },
-      toHome(){
+      toHome() {
         console.log("To Home");
-        this.$router.push({name:'home'});
+        this.$router.push({name: 'home'});
       }
     },
-    mounted(){
+    mounted() {
     }
   }
 
@@ -72,11 +77,20 @@
     color: #2c3e50;
   }
 
-  #searchButton {
-    padding-right: 4px;
-    padding-left: 8px;
+  .navBar {
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: white !important;
+    margin-bottom: 5px;
   }
 
+  .searchBar {
+    height: 30px;
+  }
+
+  .searchButton {
+    padding: 15px;
+  }
 
 
 </style>

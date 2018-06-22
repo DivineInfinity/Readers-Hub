@@ -6,6 +6,9 @@ import router from './router/index'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/base.css';
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import VueCarousel from 'vue-carousel';
 Vue.config.productionTip = false;
@@ -13,7 +16,7 @@ Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.component(CollapseTransition.name, CollapseTransition);
 Vue.use(VueCarousel);
-
+Vue.use(BootstrapVue);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

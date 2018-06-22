@@ -8,8 +8,8 @@
         </div>
         <carousel navigation-enabled="true" per-page="3">
           <slide v-for="book in list.books" :key="book" >
-            <el-card style="background-color: lightblue;width: 300px;margin-left: 50px" class="box-card">
-              <img style="float: left" height="170" :src="book.frontCover"/>
+            <el-card style="background-color: lightblue;width: 350px;margin-left: 30px;height: 250px" class="box-card">
+              <img style="float: left" width="130" height="200" :src="book.frontCover"/>
               <span>{{book.title}}</span>
               <br>by <span>{{book.author}}</span>
               <span ><el-rate
@@ -17,7 +17,7 @@
                 disabled
                 text-color="#ff9900">
 </el-rate></span>
-              <el-button style="margin-top: 30px" round plain type="primary" @click="seeDetails(book._id)">See The Book</el-button>
+              <el-button style="margin-left: 150px;bottom:25px;position: relative" round plain type="primary" @click="seeDetails(book._id)">See The Book</el-button>
             </el-card>
           </slide>
         </carousel>
@@ -40,16 +40,14 @@
 </template>
 
 <script>
-   import homeService from '../services/homeService'
-   import getAverageColor from 'get-average-color'
+  import homeService from '../services/homeService'
+
   export default {
     name: "home",
     data() {
       return {
         loading:'',
-        lists: [
-          
-        ],
+        lists: [],
         genreList:
           {
             name: "Discover",
@@ -67,8 +65,9 @@
     },
     methods: {
       async getLists() {
-        const response = await homeService.fetchLists()
+        const response = await homeService.fetchLists();
         this.lists = response.data.homeLists.lists;
+
       },
 
       seeDetails(bookId){
