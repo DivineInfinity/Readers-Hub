@@ -21,9 +21,9 @@
         <b-navbar-nav class="ml-auto">
 
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" type="text" v-model="searchInput" placeholder="Search"/>
+            <input type="text" v-model="searchInput" v-on:keydown.enter="search()" placeholder="Search"/>
             <!--<b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>-->
-            <el-button class="searchButton" id="searchButton" @click="search()" icon="el-icon-search"
+            <el-button class="searchButton" id="searchButton" @click="search()" v-on:keyup.enter="search()" icon="el-icon-search"
                        circle></el-button>
           </b-nav-form>
 
