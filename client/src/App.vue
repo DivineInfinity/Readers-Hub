@@ -25,7 +25,7 @@
             <!--<b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>-->
 
     <div class="autocomplete" style="width:300px;">
-    <input id="search" type="text" name="search" placeholder="Search for Books" v-model="searchInput" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()">
+    <input id="search" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()" v-on:focusout="outOfFocus()">
       <div  v-if="searchInput.length>0" class="autocomplete-items" id="autocomplete-list">
         <input type="text" :value="searchSuggestions[index]" readonly v-for="(city,index) of searchSuggestions" :key="index"/>
       </div>
@@ -63,12 +63,33 @@
     methods: {
       async search() {
         console.log("Search initialized");
+        this.searchSuggestions=[];
+        this.selectedSuggestion=-1;
         this.$router.push({name: 'search-page', params: {searchQuery: this.searchInput}})
       },
       async suggest(){
+
         console.log("I have been called");
-        var response = await searchService.searchSuggestions(this.searchInput);
-        this.searchSuggestions=response.data.searchSuggestions;
+        if(this.searchInput.length<=0)
+        {
+          this.searchSuggestions=[];
+          this.selectedSuggestion=-1;
+        }
+        
+        var inp = String.fromCharCode(event.keyCode);
+
+        
+        if((/[a-zA-Z0-9-_ ]/.test(inp))&&this.searchInput.length>0)
+        {
+          var response = await searchService.searchSuggestions(this.searchInput);
+          console.log(response.data);
+          this.searchSuggestions=response.data.searchSuggestions;
+        }
+        
+      },
+      outOfFocus(){
+        this.searchSuggestions=[];
+        this.selectedSuggestion=-1;
       },
       toHome() {
         console.log("To Home");

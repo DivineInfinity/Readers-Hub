@@ -20,6 +20,17 @@ var getBookByName= async function getBookByName(searchQuery){
     return book;
 }
 
+var getBookSuggestions= async function getBookSuggestions(searchQuery){
+    var titles = await Book.find({title: {$regex: searchQuery, $options: 'i'}},{title: 1,}).limit(5);
+    var searchSuggestions=[];
+    for(index in titles)
+    {
+        searchSuggestions.push(titles[index].title);
+    }
+    return searchSuggestions;
+}
+
 module.exports={
-    findBookByName:getBookByName
+    findBookByName:getBookByName,
+    getBookSuggestions:getBookSuggestions
 }
