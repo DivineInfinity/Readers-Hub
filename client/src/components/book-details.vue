@@ -14,7 +14,7 @@
                         <div class="bk-cover-back"></div>
                         <div v-bind:style="{'background-image': 'url('+this.book.frontCover+')'}" class="bk-cover">
                           <h2>
-                         
+
                           </h2>
                         </div>
                       </div>
@@ -36,7 +36,7 @@
 
                   </li>
                 </ul>
-              
+
                 <el-rate class="rating" v-model="value5" disabled show-score text-color="orange" score-template="">
                 </el-rate>
                 <h6 style="margin-top:5px;">Your rating</h6>
@@ -65,17 +65,17 @@
             <h2>{{book.title}}</h2>
             <h5>By {{book.author}}</h5>
             </div>
-            <hr>        
+            <hr>
             <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Download Preview</el-button>
             <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Buy From Google</el-button>
-           
+
             <p class="description">{{book.description}}</p>
             <div style="margin-top:8%!important;">
-         
+
             <h5>Published By: {{book.publisher}}</h5>
             </div>
             <a href="#">See more books like this</a>
-        
+
           </el-col>
         </el-row>
       </el-container>
@@ -95,7 +95,7 @@
             <div class="detailItem"><span><b>Publish Date</b></span>:<span>{{book.publishedDate}}</span></div>
           </el-col>
         </el-row>
-      
+
       <el-row>
           <el-col :span="24" v-for="(review,index) in reviews" :key=index>
               <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
@@ -114,7 +114,7 @@
                   </el-row>
                   <el-row>
                     <el-col style="text-align:left;">
-                      <h3>{{review.reviewTitle}}</h3>
+                      <h5>{{review.reviewTitle}}</h5>
                     <p>{{review.review}}</p>
                     </el-col>
                   </el-row>
@@ -233,15 +233,18 @@
   @media(max-width: 900px) {
     .bookContainer{
       width:100%;
+      display:block;
     }
     .descriptionContainer{
       width:100%;
+      display:block;
     }
     .mainContainer{
-      margin: 0px !important;
+      display:block;
     }
     .detailsCol{
       width:100%;
+      display:block;
     }
   }
   .bodyContainer {

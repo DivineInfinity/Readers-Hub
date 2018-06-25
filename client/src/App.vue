@@ -25,7 +25,7 @@
             <!--<b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>-->
 
     <div class="autocomplete" style="width:300px;">
-    <input id="search" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()" v-on:focusout="outOfFocus()">
+    <input id="search" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()" v-on:focusout="outOfFocus()" required>
       <div  v-if="searchInput.length>0" class="autocomplete-items" id="autocomplete-list">
         <input type="text" :value="searchSuggestions[index]" readonly v-for="(city,index) of searchSuggestions" :key="index"/>
       </div>
@@ -56,7 +56,7 @@
       isHidden: true,
       searchInput: '',
       loading: '',
-      searchSuggestions:['Shebazabad', 'Shezm', 'Shebaz Capital Territory', 'Shebazshire', 'Sehbazistan', 'Shebaz royal area'],
+      searchSuggestions:[],
       selectedSuggestion:-1
       }
       },
@@ -75,17 +75,17 @@
           this.searchSuggestions=[];
           this.selectedSuggestion=-1;
         }
-        
+
         var inp = String.fromCharCode(event.keyCode);
 
-        
+
         if((/[a-zA-Z0-9-_ ]/.test(inp))&&this.searchInput.length>0)
         {
           var response = await searchService.searchSuggestions(this.searchInput);
           console.log(response.data);
           this.searchSuggestions=response.data.searchSuggestions;
         }
-        
+
       },
       outOfFocus(){
         this.searchSuggestions=[];
@@ -99,7 +99,7 @@
         this.selectedSuggestion--;
         if(this.selectedSuggestion<0)this.selectedSuggestion=this.searchSuggestions.length-1;
         this.searchInput=this.searchSuggestions[this.selectedSuggestion];
-        
+
       },
        selectDown(){
         this.selectedSuggestion++;
@@ -145,17 +145,17 @@ input[type=submit] {
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
 }
 .autocomplete-items div:hover {
   /*when hovering an item:*/
-  background-color: #e9e9e9; 
+  background-color: #e9e9e9;
 }
 .autocomplete-active {
   /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
+  background-color: DodgerBlue !important;
+  color: #ffffff;
 }
 
   #app {

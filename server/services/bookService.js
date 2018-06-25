@@ -13,9 +13,11 @@ var getBookByName= async function getBookByName(searchQuery){
             frontCover: 1,
             title: 1,
             author: 1,
-            averageRating: 1
+            averageRating: 1,
+            publisher:1,
+            genre:1
         }
-    ).limit(12);
+    );
     console.log(book);
     return book;
 }
