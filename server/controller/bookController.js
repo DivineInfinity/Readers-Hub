@@ -7,10 +7,9 @@ exports.findBookByName= async function(req,res,next){
     res.status(200).json({messageEagle:"Successfully searched for book",books:response});
 }
 
-exports.getBookSuggestions = async function(req,res,next){
-    console.log(req.params.searchQuery);
+exports.getBookSuggestions= async function(req,res,next){ 
     var response = await bookService.getBookSuggestions(req.params.searchQuery);
 
     console.log(response);
-    res.status(200).json({messageEagle:"Successfully searched for suggestions",searchSuggestions:response});
+    res.status(200).json({messageEagle:"Successfully searched for book",searchSuggestions:response});
 }

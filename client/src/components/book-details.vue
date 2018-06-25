@@ -36,23 +36,17 @@
 
                   </li>
                 </ul>
-                <br>
-                <el-rate class="rating"
-                         v-model="value5"
-                         disabled
-                         show-score
-                         text-color="orange"
-                         score-template="">
+              
+                <el-rate class="rating" v-model="value5" disabled show-score text-color="orange" score-template="">
                 </el-rate>
-                <br>
-                <p>Your rating</p>
+                <h6 style="margin-top:5px;">Your rating</h6>
                 <el-rate class="rate"
                          v-model="value2"
                          :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                 </el-rate>
-                <el-dropdown>
+                <el-dropdown style="margin-top:5px !important;">
                   <el-button type="primary">
-                    Dropdown List<i class="el-icon-arrow-down el-icon--right"></i>
+                    Add to shelf<i class="el-icon-arrow-down el-icon--right"></i>
                   </el-button>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item>Action 1</el-dropdown-item>
@@ -67,17 +61,26 @@
           </el-col>
 
           <el-col class="descriptionContainer" :span="17" :xs="24">
-            <div style="margin-top:50px;margin-bottom:60px;">
-            <h1>{{book.title}}</h1>
-            <h3>By {{book.author}}</h3>
+            <div style="margin-top:50px;margin-bottom:30px;">
+            <h2>{{book.title}}</h2>
+            <h5>By {{book.author}}</h5>
             </div>
-            <h2>Description</h2>
+            <hr>        
+            <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Download Preview</el-button>
+            <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Buy From Google</el-button>
+           
             <p class="description">{{book.description}}</p>
+            <div style="margin-top:8%!important;">
+         
+            <h5>Published By: {{book.publisher}}</h5>
+            </div>
+            <a href="#">See more books like this</a>
+        
           </el-col>
         </el-row>
       </el-container>
       <el-container class="bookDetails">
-        <el-header><b>Product Details</b></el-header>
+        <el-header><h4>Product Details</h4></el-header>
         <el-row>
           <el-col class="detailsCol" span="12">
             <div class="detailItem"><span><b>Book Title</b></span>:<span>{{book.title}}</span></div>
@@ -192,6 +195,7 @@
         const response = await bookDetailsService.fetchBookDetails(this.$route.params.id);
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
+
       },
       async fetchBookInMongo(){
         const response = await bookDetailsService.fetchBookInMongo(this.searchQuery);
@@ -254,11 +258,11 @@
     background-color: white;
     color: #333;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
     line-height: 20px;
     margin-top: 0px !important;
     width: 100%;
-
+    height:30px!important;
   }
   .el-row{
     width:100%;
@@ -267,14 +271,15 @@
     background-color: white;
     color: #333;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
+    height: 100%;
   }
   .review-widget {
     height: auto;
   }
   .bookDetails {
     padding: 10px;
-    margin-top: 5px;
+    margin-top: 2px;
     margin-left:20px;
     margin-right:20px;
     background-color: white;
@@ -301,25 +306,25 @@
     margin-top: 10px;
   }
   .description {
-    text-align: center;
-    color: darkgoldenrod;
-    line-height: normal;
-    margin-left: 50px;
-    margin-right: 50px;
-
+    text-align: left;
+    color: black;
+    line-height: 20px;
+    margin-right:10px;
+    min-height: 120px;
   }
   .descriptionContainer {
     background-color: white;
     height: 100%;
     border-left: 2px solid steelblue;
     padding-left: 50px !important;
-
+    text-align: left;
   }
   .el-rate {
-    margin-top: 5px;
+    margin-top: 2px;
   }
   .rating {
     text-align: center;
+    margin-top:2px;
   }
   .el-dropdown {
     margin-top: 20px;
@@ -341,6 +346,9 @@
     margin: 0px 50px 0px 0;
     -webkit-perspective: 1800px;
     perspective: 1800px;
+  }
+  .clearfix{
+    margin-bottom:5px!important;
   }
   .bk-info {
     position: relative;
@@ -387,8 +395,9 @@
     background: #d0544e;
   }
   .bk-list li .bk-book {
+    margin-top:5px;
     position: absolute;
-    width: 200px;
+    width: 160px;
     height: 225px;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
@@ -437,7 +446,7 @@
   .bk-list li .bk-back,
   .bk-list li .bk-front > div {
     width: 110%;
-    height: 18.8em;
+    height: 17.5em;
   }
   .bk-list li .bk-left,
   .bk-list li .bk-right {
@@ -473,7 +482,7 @@
     backface-visibility: hidden;
   }
   .bk-list li .bk-left {
-    height: 300px;
+    height: 280px;
     -webkit-transform: rotate3d(0, 1, 0, -90deg);
     transform: rotate3d(0, 1, 0, -90deg);
   }
