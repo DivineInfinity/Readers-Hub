@@ -3,7 +3,7 @@
     <el-container class="mainContainer">
 
         <el-row>
-          <el-col :span="7" :xs="24" class="bookContainer">
+          <el-col :span="7"  class="bookContainer">
             <div class="container">
               <div class="main">
                 <ul id="bk-list" class="bk-list clearfix">
@@ -60,7 +60,7 @@
             </div>
           </el-col>
 
-          <el-col class="descriptionContainer" :span="17" :xs="24">
+          <el-col class="descriptionContainer" :span="17">
             <div style="margin-top:50px;margin-bottom:30px;">
             <h2>{{book.title}}</h2>
             <h5>By {{book.author}}</h5>
@@ -233,15 +233,21 @@
   @media(max-width: 900px) {
     .bookContainer{
       width:100%;
+      display:block;
     }
     .descriptionContainer{
       width:100%;
+      display:block;
+      margin-left:20px;
+      margin-right:20px!important;
     }
     .mainContainer{
       margin: 0px !important;
+      display: block;
     }
     .detailsCol{
       width:100%;
+      display: block;
     }
   }
   .bodyContainer {
