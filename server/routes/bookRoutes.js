@@ -4,5 +4,6 @@ const router = express.Router();
 
 
 router.get('/search/:searchQuery', bookController.findBookByName);
+router.get('/search-suggestions/:searchQuery',bookController.getBookSuggestions);
 
 module.exports=router;

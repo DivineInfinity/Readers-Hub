@@ -13,6 +13,7 @@
   "author": "Shehbaz Jafri",
   "license": "ISC",
   "devDependencies": {
+    "codeceptjs": "^1.2.1",
     "nodemon": "^1.17.5"
   },
   "dependencies": {

@@ -12,7 +12,7 @@
         <b-navbar-nav>
           <b-nav-item href="#" @click="toHome()">Home</b-nav-item>
           <b-nav-item href="#">My Shelf</b-nav-item>
-          <b-nav-item href="#">Genres</b-nav-item>
+          <b-nav-item href="#" @click="toGenres()">Genres</b-nav-item>
           <b-nav-item href="#">Discussions</b-nav-item>
 
         </b-navbar-nav>

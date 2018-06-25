@@ -14,7 +14,7 @@
                         <div class="bk-cover-back"></div>
                         <div v-bind:style="{'background-image': 'url('+this.book.frontCover+')'}" class="bk-cover">
                           <h2>
-                         
+
                           </h2>
                         </div>
                       </div>
@@ -92,7 +92,7 @@
             <div class="detailItem"><span><b>Publish Date</b></span>:<span>{{book.publishedDate}}</span></div>
           </el-col>
         </el-row>
-      
+
       <el-row>
           <el-col :span="24" v-for="(review,index) in reviews" :key=index>
               <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
@@ -320,7 +320,6 @@
   }
   .rating {
     text-align: center;
-    margin-top: 300px;
   }
   .el-dropdown {
     margin-top: 20px;
