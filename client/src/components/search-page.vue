@@ -8,10 +8,10 @@
           <el-col v-if="books.length != 0" :span="6" :xs="24" :sm="8" :md="6">
             <el-card shadow="hover" style="margin:10px">
               <h2 style="color: brown">Filter By</h2>
-
+               <el-checkbox-group v-model="checkList">
               <el-row class="filterStyle">{{filters.rating.name}}</el-row>
               <el-row v-for="(field, index) in filters.rating.fields" :key="index">
-                <el-checkbox>
+                <el-checkbox :label="filters.rating.fields[index]">
                     <el-rate class="rating"
                       v-model= "filters.rating.fields[index]"
                       disabled
@@ -24,23 +24,26 @@
 
               <el-row class="filterStyle">{{filters.year.name}}</el-row>
               <el-row v-for="(field, index) in filters.year.fields" :key="index">
-                <el-checkbox>{{field}}</el-checkbox>
+                <el-checkbox :label="field">{{field}}</el-checkbox>
               </el-row>
 
               <el-row class="filterStyle">{{filters.author.name}}</el-row>
               <el-row v-for="(field, index) in filters.author.fields" :key="index">
-                <el-checkbox style="text-align: left">{{field}}</el-checkbox>
+
+                <el-checkbox style="text-align: left" :label="field">{{field}}</el-checkbox>
+
               </el-row>
 
               <el-row class="filterStyle">{{filters.genre.name}}</el-row>
               <el-row v-for="(field, index) in filters.genre.fields" :key="index">
-                <el-checkbox>{{field}}</el-checkbox>
+                <el-checkbox :label="field">{{field}}</el-checkbox>
               </el-row>
 
               <el-row class="filterStyle">{{filters.publisher.name}}</el-row>
               <el-row v-for="(field, index) in filters.publisher.fields" :key="index">
-                <el-checkbox>{{field}}</el-checkbox>
+                <el-checkbox :label="field">{{field}}</el-checkbox>
               </el-row>
+            </el-checkbox-group>
             </el-card>
           </el-col>
           <!-- Design for Filter Ends Here -->
@@ -147,7 +150,10 @@ export default {
             }
           }
         }
-      }
+      },
+     filter(){
+
+     }
     },
     mounted(){
       this.search();

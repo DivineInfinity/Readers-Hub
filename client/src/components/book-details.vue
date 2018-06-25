@@ -70,7 +70,7 @@
             <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Buy From Google</el-button>
            
             <p class="description">{{book.description}}</p>
-            <div style="margin-top:30px;margin-bottom:20px;">
+            <div style="margin-top:8%!important;">
          
             <h5>Published By: {{book.publisher}}</h5>
             </div>
@@ -310,6 +310,7 @@
     color: black;
     line-height: 20px;
     margin-right:10px;
+    min-height: 120px;
   }
   .descriptionContainer {
     background-color: white;
