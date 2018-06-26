@@ -14,8 +14,9 @@ var getBookByName= async function getBookByName(searchQuery){
             title: 1,
             author: 1,
             averageRating: 1,
-            publisher:1,
-            genre:1
+            publisher: 1,
+            genre: 1,
+            publishedDate: 1
         }
     );
     console.log(book);

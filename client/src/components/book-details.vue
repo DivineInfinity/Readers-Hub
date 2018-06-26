@@ -238,18 +238,6 @@
     .descriptionContainer{
       width:100%;
       display:block;
-<<<<<<< HEAD
-      margin-left:20px;
-      margin-right:20px!important;
-    }
-    .mainContainer{
-      margin: 0px !important;
-      display: block;
-    }
-    .detailsCol{
-      width:100%;
-      display: block;
-=======
     }
     .mainContainer{
       display:block;
@@ -257,7 +245,6 @@
     .detailsCol{
       width:100%;
       display:block;
->>>>>>> 405c532668ea48cbf09c0b346495a488146b9dd9
     }
   }
   .bodyContainer {
