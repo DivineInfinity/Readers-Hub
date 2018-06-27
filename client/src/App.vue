@@ -56,7 +56,7 @@
       isHidden: true,
       searchInput: '',
       loading: '',
-      searchSuggestions:['Shebazabad', 'Shezm', 'Shebaz Capital Territory', 'Shebazshire', 'Sehbazistan', 'Shebaz royal area'],
+      searchSuggestions:[],
       selectedSuggestion:-1
       }
       },
@@ -75,17 +75,17 @@
           this.searchSuggestions=[];
           this.selectedSuggestion=-1;
         }
-        
+
         var inp = String.fromCharCode(event.keyCode);
 
-        
+
         if((/[a-zA-Z0-9-_ ]/.test(inp))&&this.searchInput.length>0)
         {
           var response = await searchService.searchSuggestions(this.searchInput);
           console.log(response.data);
           this.searchSuggestions=response.data.searchSuggestions;
         }
-        
+
       },
       outOfFocus(){
         this.searchSuggestions=[];
@@ -99,7 +99,7 @@
         this.selectedSuggestion--;
         if(this.selectedSuggestion<0)this.selectedSuggestion=this.searchSuggestions.length-1;
         this.searchInput=this.searchSuggestions[this.selectedSuggestion];
-        
+
       },
        selectDown(){
         this.selectedSuggestion++;
@@ -145,17 +145,17 @@ input[type=submit] {
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
-  background-color: #fff; 
-  border-bottom: 1px solid #d4d4d4; 
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
 }
 .autocomplete-items div:hover {
   /*when hovering an item:*/
-  background-color: #e9e9e9; 
+  background-color: #e9e9e9;
 }
 .autocomplete-active {
   /*when navigating through the items using the arrow keys:*/
-  background-color: DodgerBlue !important; 
-  color: #ffffff; 
+  background-color: DodgerBlue !important;
+  color: #ffffff;
 }
 
   #app {
