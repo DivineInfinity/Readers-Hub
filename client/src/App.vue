@@ -25,7 +25,7 @@
             <!--<b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>-->
 
     <div class="autocomplete" style="width:300px;">
-    <input id="search" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()" v-on:focusout="outOfFocus()" required>
+    <input id="search" class="search-input" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()" v-on:focusout="outOfFocus()" required>
       <div  v-if="searchInput.length>0" class="autocomplete-items" id="autocomplete-list">
         <input type="text" :value="searchSuggestions[index]" readonly v-for="(city,index) of searchSuggestions" :key="index"/>
       </div>
@@ -116,6 +116,13 @@
 
 <style>
 
+@media(max-width: 500px) {
+.search-input{
+  padding:0px!important;
+  max-width:154px;
+}
+
+}
 .autocomplete {
   /*the container must be positioned relative:*/
   position: relative;
@@ -131,6 +138,15 @@ input[type=submit] {
   color: #fff;
   cursor: pointer;
 }
+
+.search-input{
+border:2px solid lightgray;
+border-radius:8px;
+padding: 2px;
+margin-left:10px;
+z-index: -1;
+}
+
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -179,6 +195,7 @@ input[type=submit] {
 
   .searchButton {
     padding: 15px;
+    z-index:1;
   }
 
 
