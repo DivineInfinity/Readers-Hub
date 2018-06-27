@@ -195,6 +195,7 @@
         const response = await bookDetailsService.fetchBookDetails(this.$route.params.id);
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
+        this.value5=book.averageRating;
 
       },
       async fetchBookInMongo(){
