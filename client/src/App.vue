@@ -25,7 +25,7 @@
             <!--<b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>-->
 
     <div class="autocomplete" style="width:300px;">
-    <input id="search" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()" v-on:focusout="outOfFocus()">
+    <input id="search" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()" v-on:focusout="outOfFocus()" required>
       <div  v-if="searchInput.length>0" class="autocomplete-items" id="autocomplete-list">
         <input type="text" :value="searchSuggestions[index]" readonly v-for="(city,index) of searchSuggestions" :key="index"/>
       </div>

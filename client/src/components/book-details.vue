@@ -3,7 +3,7 @@
     <el-container class="mainContainer">
 
         <el-row>
-          <el-col :span="7" :xs="24" class="bookContainer">
+          <el-col :span="7"  class="bookContainer">
             <div class="container">
               <div class="main">
                 <ul id="bk-list" class="bk-list clearfix">
@@ -36,7 +36,7 @@
 
                   </li>
                 </ul>
-              
+
                 <el-rate class="rating" v-model="value5" disabled show-score text-color="orange" score-template="">
                 </el-rate>
                 <h6 style="margin-top:5px;">Your rating</h6>
@@ -60,22 +60,22 @@
             </div>
           </el-col>
 
-          <el-col class="descriptionContainer" :span="17" :xs="24">
+          <el-col class="descriptionContainer" :span="17">
             <div style="margin-top:50px;margin-bottom:30px;">
             <h2>{{book.title}}</h2>
             <h5>By {{book.author}}</h5>
             </div>
-            <hr>        
+            <hr>
             <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Download Preview</el-button>
             <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Buy From Google</el-button>
-           
+
             <p class="description">{{book.description}}</p>
             <div style="margin-top:8%!important;">
-         
+
             <h5>Published By: {{book.publisher}}</h5>
             </div>
             <a href="#">See more books like this</a>
-        
+
           </el-col>
         </el-row>
       </el-container>
@@ -114,7 +114,7 @@
                   </el-row>
                   <el-row>
                     <el-col style="text-align:left;">
-                      <h3>{{review.reviewTitle}}</h3>
+                      <h5>{{review.reviewTitle}}</h5>
                     <p>{{review.review}}</p>
                     </el-col>
                   </el-row>
@@ -195,6 +195,7 @@
         const response = await bookDetailsService.fetchBookDetails(this.$route.params.id);
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
+        this.value5=book.averageRating;
 
       },
       async fetchBookInMongo(){
@@ -233,15 +234,18 @@
   @media(max-width: 900px) {
     .bookContainer{
       width:100%;
+      display:block;
     }
     .descriptionContainer{
       width:100%;
+      display:block;
     }
     .mainContainer{
-      margin: 0px !important;
+      display:block;
     }
     .detailsCol{
       width:100%;
+      display:block;
     }
   }
   .bodyContainer {
