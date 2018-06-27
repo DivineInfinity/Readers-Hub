@@ -3,7 +3,7 @@
     <el-container class="mainContainer">
 
         <el-row>
-          <el-col :span="7" :xs="24" class="bookContainer">
+          <el-col :span="7"  class="bookContainer">
             <div class="container">
               <div class="main">
                 <ul id="bk-list" class="bk-list clearfix">
@@ -60,7 +60,7 @@
             </div>
           </el-col>
 
-          <el-col class="descriptionContainer" :span="17" :xs="24">
+          <el-col class="descriptionContainer" :span="17">
             <div style="margin-top:50px;margin-bottom:30px;">
             <h2>{{book.title}}</h2>
             <h5>By {{book.author}}</h5>
@@ -195,6 +195,7 @@
         const response = await bookDetailsService.fetchBookDetails(this.$route.params.id);
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
+        this.value5=book.averageRating;
 
       },
       async fetchBookInMongo(){
