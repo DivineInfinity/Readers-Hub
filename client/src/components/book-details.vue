@@ -108,9 +108,6 @@
                           <el-rate v-model="review.rating" disabled show-score text-color="#ff9900"></el-rate>
                           <span style="color:gray;font-size:14px;">{{review.reviewDate}}</span>
                     </el-col>
-                    <!-- <el-col :span="18">
-
-                    </el-col> -->
                   </el-row>
                   <el-row>
                     <el-col style="text-align:left;">
@@ -142,7 +139,7 @@
         alwaysTrue: true,
         reviews: [
           {
-          userName: "jhon Doe",
+          userName: "John Doe",
           profilePic: "https://www.w3schools.com/howto/img_avatar.png",
           review:
             "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
@@ -661,18 +658,12 @@
   }
 
   .review-widget-expanded {
-  /* height: 200px; */
   height: auto;
   margin-top: 10px;
-  /* border-radius:10%; */
-  /* overflow: scroll; */
 }
 .review-widget-collapsed {
-  /* height: 200px; */
   height: 200px;
   margin-top: 10px;
-  /* border-radius:10%; */
-  /* overflow: scroll; */
 }
 .book-info-widget {
   margin-top: 10px;
@@ -696,12 +687,8 @@
 }
 @media (max-width: 576px) {
   .review-widget-collapsed {
-    /* height: 200px; */
     height: 300px;
     margin-top: 10px;
-    /* border-radius:10%; */
-    /* overflow: scroll; */
   }
 }
-
 </style>
