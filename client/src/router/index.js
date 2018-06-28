@@ -4,6 +4,7 @@ import Home from '../components/home'
 import Reviews from '../components/reviews'
 import BookDetails from '../components/book-details'
 import SearchPage from '../components/search-page'
+import discussions from '../components/discussions.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +28,11 @@ export default new Router({
       path: '/book/search/:searchQuery',
       name: 'search-page',
       component: SearchPage
+    },
+    {
+      path:'/book/discussions/:id',
+      name:'discussions',
+      component:discussions
     }
   ],
   mode: 'history'
