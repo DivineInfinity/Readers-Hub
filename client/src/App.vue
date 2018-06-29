@@ -5,7 +5,7 @@
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-      <b-navbar-brand href="#"><img src="../src/assets/logo1.png" height="50" width="80"></b-navbar-brand>
+      <b-navbar-brand href="#" @click="toHome()"><img src="../src/assets/logo1.png" height="50" width="80"></b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
@@ -39,8 +39,9 @@
       </b-collapse>
     </b-navbar>
     <router-view :key="$route.path"></router-view>
-
-
+    <el-card style="margin:20px">
+        © 2018 Reader's Hub |&nbsp; <a href="#">Home</a> |&nbsp;<a href="#">Contact Us</a> |&nbsp;<a href="#">About Us</a>
+    </el-card>
   </div>
 
 </template>
