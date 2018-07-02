@@ -15,6 +15,7 @@
 
           <el-col class="descriptionContainer" :span="17" :xs="24">
             <div style="margin-top:50px;margin-bottom:30px;">
+            <center><h2 style="color:grey">Discussions</h2></center>
             <h2>{{book.title}}</h2>
             <h5>By {{book.author}}</h5>
             </div>
@@ -26,7 +27,7 @@
           </el-col>
         </el-row>
       </el-container>
-       <el-card style="margin-top:10px;margin-right:17px;margin-left:17px">
+       <el-card style="margin-top:2px;margin-right:17px;margin-left:17px">
        <vue-disqus shortname="readershub" :identifier="book._id" :url="`https://readershub.disqus.com/${book._id}`"></vue-disqus>
        </el-card>
   </div>

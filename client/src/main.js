@@ -13,7 +13,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import VueCarousel from 'vue-carousel';
 
-
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(VueDisqus);

@@ -6,6 +6,7 @@ import BookDetails from '../components/book-details'
 import SearchPage from '../components/search-page'
 import Discussions from '../components/discussions.vue'
 import Shelf from '../components/shelf.vue'
+import ProfilePage from '../components/profile.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
       path:'/user/shelf',
       name:'shelf',
       component:Shelf
+        },
+    {
+      path:'/user/profile',
+      name:'profile',
+      component:ProfilePage
     }
   ],
   mode: 'history'
