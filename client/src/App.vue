@@ -25,7 +25,7 @@
             <!--<b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>-->
 
     <div class="autocomplete" style="width:300px;">
-    <input id="search" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggest()" v-on:focusout="outOfFocus()" required>
+    <input id="search" class="search-input" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggestSomething()" v-on:focusout="outOfFocus()" required>
       <div  v-if="searchInput.length>0" class="autocomplete-items" id="autocomplete-list">
         <input type="text" :value="searchSuggestions[index]" readonly v-for="(city,index) of searchSuggestions" :key="index"/>
       </div>
@@ -71,7 +71,8 @@
       async suggest(){
 
         console.log("I have been called");
-        if(this.searchInput.length<=0)
+        
+        if(this.searchInput.length==0)
         {
           this.searchSuggestions=[];
           this.selectedSuggestion=-1;
@@ -80,13 +81,77 @@
         var inp = String.fromCharCode(event.keyCode);
 
 
-        if((/[a-zA-Z0-9-_ ]/.test(inp))&&this.searchInput.length>0)
+        if(((/[a-zA-Z0-9-_ ]/.test(inp))||event.keyCode==8||event.keyCode==46)&&this.searchInput.length>0)
         {
-          var response = await searchService.searchSuggestions(this.searchInput);
-          console.log(response.data);
-          this.searchSuggestions=response.data.searchSuggestions;
-        }
 
+          if(localStorage.getItem("searchSuggestions"))
+          {
+            var searchArray = JSON.parse(localStorage.getItem("searchSuggestions"));
+            console.log("From Cache");
+            console.log(searchArray);
+          }
+          else
+          {
+            console.log("Not from Cache");
+            var searchArray = [];
+            localStorage.searchSuggestions=searchArray
+          }
+
+                var regex1 =  new RegExp('^'+this.searchInput, "i");
+                
+                var startIndex  = 0,stopIndex = searchArray.length - 1,
+                middle = Math.floor((stopIndex + startIndex)/2);
+                console.log(startIndex);
+                console.log(stopIndex);
+                while(!(regex1.test(searchArray[middle])) && startIndex < stopIndex){
+                    console.log("IN WHILE "+searchArray[middle]);
+                    console.log(regex1.test(searchArray[middle]));
+                    //adjust search area
+                    if (this.searchInput.localeCompare(searchArray[middle]) == -1){
+                        stopIndex = middle - 1;
+                    } else{
+                        startIndex = middle + 1;
+                    }
+                    console.log("Middle: "+middle);
+                    //recalculate middle
+                    middle = Math.floor((stopIndex + startIndex)/2);
+                }
+            searchArray[middle]
+            var count=5;
+            this.searchSuggestions=[];
+            for(var i=middle;i<searchArray.length && regex1.test(searchArray[i]) && count>0;i++)
+            {
+              this.searchSuggestions.push(searchArray[i]);
+              count--;
+            }
+            if(count>0)
+            {
+              for(var i=middle-1;i>=0 && regex1.test(searchArray[i]) && count>0;i--)
+              {
+                this.searchSuggestions.push(searchArray[i]);
+                count--;
+              } 
+            }
+            
+          if(count==5)
+          {
+              console.log("Through Backend");
+              var response = await searchService.searchSuggestions(this.searchInput);
+              console.log(response.data);
+              this.searchSuggestions=response.data.searchSuggestions;
+              for(var i=0;i<this.searchSuggestions.length;i++)
+              {
+                if(!searchArray.includes(this.searchSuggestions[i]))
+                  searchArray.push(this.searchSuggestions[i]);
+              }
+              
+              searchArray = searchArray.sort();
+              localStorage.searchSuggestions=JSON.stringify(searchArray);  
+          }
+
+          
+        }
+    
       },
       outOfFocus(){
         this.searchSuggestions=[];
@@ -108,6 +173,11 @@
         this.searchInput=this.searchSuggestions[this.selectedSuggestion];
       }
     },
+    computed:{
+      suggestSomething(){
+        this.suggest();
+      }
+    },
     mounted() {
     }
   }
@@ -117,6 +187,13 @@
 
 <style>
 
+@media(max-width: 500px) {
+.search-input{
+  padding:0px!important;
+  max-width:154px;
+}
+
+}
 .autocomplete {
   /*the container must be positioned relative:*/
   position: relative;
@@ -132,6 +209,15 @@ input[type=submit] {
   color: #fff;
   cursor: pointer;
 }
+
+.search-input{
+border:2px solid lightgray;
+border-radius:8px;
+padding: 2px;
+margin-left:10px;
+z-index: -1;
+}
+
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -142,6 +228,7 @@ input[type=submit] {
   top: 100%;
   left: 0;
   right: 0;
+  margin-left:10px;
 }
 .autocomplete-items div {
   padding: 10px;
@@ -180,6 +267,7 @@ input[type=submit] {
 
   .searchButton {
     padding: 15px;
+    z-index:1;
   }
 
 

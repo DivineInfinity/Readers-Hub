@@ -4,8 +4,9 @@ import Home from '../components/home'
 import Reviews from '../components/reviews'
 import BookDetails from '../components/book-details'
 import SearchPage from '../components/search-page'
+import Login from '../components/login'
+import Signup from '../components/signup'
 import Discussions from '../components/discussions.vue'
-import Shelf from '../components/shelf.vue'
 import ProfilePage from '../components/profile.vue'
 Vue.use(Router)
 
@@ -15,6 +16,16 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: Signup
     },
     {
       path: '/reviews/:id',
