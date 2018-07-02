@@ -16,12 +16,12 @@ exports.login= async function(req,res,next){
         res.status(200).json({
             messageEagle:"Successfully logged in",
             user:userLogin[0].user,
-            token:userlogin[0].token
+            token:userLogin[0].token
         });
     }
     else
     {
-        res.status(404).json({
+        res.status(200).json({
             message:"user not found",
             user:userLogin
         })

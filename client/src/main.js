@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import VueCarousel from 'vue-carousel';
+import VueLocalStorage from 'vue-localstorage';
 
 
 Vue.config.productionTip = false;
@@ -18,6 +19,8 @@ Vue.use(ElementUI);
 Vue.component(CollapseTransition.name, CollapseTransition);
 Vue.use(VueCarousel);
 Vue.use(BootstrapVue);
+
+Vue.use(VueLocalStorage)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

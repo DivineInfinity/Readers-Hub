@@ -19,7 +19,6 @@ var getBookByName= async function getBookByName(searchQuery){
             publishedDate: 1
         }
     );
-    console.log(book);
     return book;
 }
 

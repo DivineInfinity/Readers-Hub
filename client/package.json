@@ -13,12 +13,14 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@tyriar/avl-tree": "^2.0.4",
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.11",
     "element-ui": "^2.4.0",
     "get-average-color": "0.0.6",
     "vue": "^2.5.2",
     "vue-carousel": "^0.8.1",
+    "vue-localstorage": "^0.6.2",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
