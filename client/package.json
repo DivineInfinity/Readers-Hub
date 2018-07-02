@@ -20,11 +20,8 @@
     "get-average-color": "0.0.6",
     "vue": "^2.5.2",
     "vue-carousel": "^0.8.1",
-<<<<<<< HEAD
     "vue-localstorage": "^0.6.2",
-=======
     "vue-disqus": "^3.0.3",
->>>>>>> 7ee226575b4ad62be2168646ac9602253db22c1b
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
