@@ -18,9 +18,20 @@ var getBookByName= async function getBookByName(searchQuery){
             genre: 1,
             publishedDate: 1
         }
-    );
+    ).limit(30);
     return book;
-}
+};
+
+var getBookSuggestions= async function getBookSuggestions(searchQuery){
+    var book = await Book.find({ title: {$regex: searchQuery, $options: 'i'}}).limit(5);
+    console.log(book);
+    var bookTitles = [];
+    for(var index in book){
+        bookTitles.push(book[index].title);
+    }
+    console.log(bookTitles);
+    return bookTitles;
+};
 
 var getBookSuggestions= async function getBookSuggestions(searchQuery){
     var searchRegex = new RegExp("^"+searchQuery);

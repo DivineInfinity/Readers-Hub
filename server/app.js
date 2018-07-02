@@ -31,13 +31,9 @@ app.use('/book-details', bookDetailsRoutes);
 
 
 //only to be used for Google API
-app.use('/bookinfo', bookInfoRoutes );
+app.use('/book-info', bookInfoRoutes );
 app.use('/reviews',reviewRoutes);
 
 var port =8081;
 app.listen(port)
 console.log(`<- -> i am running on port ${port}`);
-
-
-//connect db
-//create server file and import

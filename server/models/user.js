@@ -6,6 +6,7 @@ const userSchema=mongoose.Schema({
     email:String,
     password:String,
     profilePic:Date,
+    bio:String,
     friends:[mongoose.Schema.ObjectId],
     shelves:[mongoose.Schema.ObjectId],
 })

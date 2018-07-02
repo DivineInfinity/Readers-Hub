@@ -13,7 +13,9 @@
   "author": "Shehbaz Jafri",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "codeceptjs": "^1.3.0",
+    "nodemon": "^1.17.5",
+    "webdriverio": "^4.13.1"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
