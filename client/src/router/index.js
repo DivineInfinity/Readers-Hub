@@ -5,6 +5,7 @@ import Reviews from '../components/reviews'
 import BookDetails from '../components/book-details'
 import SearchPage from '../components/search-page'
 import discussions from '../components/discussions.vue'
+import profilePage from '../components/profile.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -33,6 +34,11 @@ export default new Router({
       path:'/book/discussions/:id',
       name:'discussions',
       component:discussions
+    },
+    {
+      path:'/user/profile',
+      name:'profile',
+      component:profilePage
     }
   ],
   mode: 'history'
