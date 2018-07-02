@@ -5,8 +5,8 @@ const reviewSchema=mongoose.Schema({
     user:{name:String,profilePic:String},
     review:String,
     reviewTitle:String,
-    rating:Date,
-    reviewDate:String,
+    rating:Number,
+    reviewDate:Date,
 })
 
 module.exports=mongoose.model('Review', reviewSchema);

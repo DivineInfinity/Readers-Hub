@@ -4,7 +4,8 @@ import Home from '../components/home'
 import Reviews from '../components/reviews'
 import BookDetails from '../components/book-details'
 import SearchPage from '../components/search-page'
-import discussions from '../components/discussions.vue'
+import Discussions from '../components/discussions.vue'
+import Shelf from '../components/shelf.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -32,7 +33,12 @@ export default new Router({
     {
       path:'/book/discussions/:id',
       name:'discussions',
-      component:discussions
+      component:Discussions
+    },
+    {
+      path:'/user/shelf',
+      name:'shelf',
+      component:Shelf
     }
   ],
   mode: 'history'

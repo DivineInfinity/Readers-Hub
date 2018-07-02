@@ -23,7 +23,7 @@
         </carousel>
       </el-card>
     </div>
-    <el-card class="box-card list-container">
+    <!-- <el-card class="box-card list-container">
       <div slot="header" class="clearfix">
 
         <span style="float: left">{{genreList.name}}</span>
@@ -35,107 +35,110 @@
           </el-col>
         </el-row>
       </div>
-    </el-card>
+    </el-card> -->
   </div>
 </template>
 
 <script>
-  import homeService from '../services/homeService'
+import homeService from "../services/homeService";
 
-  export default {
-    name: "home",
-    data() {
-      return {
-        loading:'',
-        lists: [],
-        genreList:
-          {
-            name: "Discover",
-            genres: ["Fiction", "Games", "Computers", "Travel","Language Arts & Disciplines"]
-          }
+export default {
+  name: "home",
+  data() {
+    return {
+      loading: "",
+      lists: [],
+      genreList: {
+        name: "Discover",
+        genres: [
+          "Fiction",
+          "Games",
+          "Computers",
+          "Travel",
+          "Language Arts & Disciplines"
+        ]
       }
-
+    };
+  },
+  created() {
+    this.getLists();
+  },
+  mounted() {
+    
+    this.loadingScreenOn();
+    
+  },
+  updated() {},
+  methods: {
+    async getLists() {
+      const response = await homeService.fetchLists();
+      this.lists = response.data.homeLists.lists;
+      this.loadingScreenOff();
     },
-    mounted() {
-      this.loadingScreenOn()
-      this.getLists()
+
+    seeDetails(bookId) {
+      this.$router.push({ name: "book-details", params: { id: bookId } });
     },
-    updated(){
-        this.loadingScreenOff()
+
+    loadingScreenOn() {
+      this.loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 1)"
+      });
     },
-    methods: {
-      async getLists() {
-        const response = await homeService.fetchLists();
-        this.lists = response.data.homeLists.lists;
-
-      },
-
-      seeDetails(bookId){
-        this.$router.push({name: 'book-details', params: { id: bookId}});
-      },
-
-      loadingScreenOn() {
-        this.loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 1)'
-        });
-      },
-      loadingScreenOff(){
-        this.loading.close();
-      }
+    loadingScreenOff() {
+      this.loading.close();
     }
   }
+};
 </script>
 
 <style scoped>
-  #mainDiv{
-    margin-left:20px;
-    margin-right:20px;
-  }
+#mainDiv {
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
+.el-carousel__container {
+  height: 400px;
+}
 
-  .el-carousel__container {
-    height: 400px;
-  }
+.text {
+  font-size: 14px;
+}
 
-  .text {
-    font-size: 14px;
-  }
+.item {
+  margin-bottom: 18px;
+}
 
-  .item {
-    margin-bottom: 18px;
-  }
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
 
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
+.clearfix:after {
+  clear: both;
+}
 
-  .clearfix:after {
-    clear: both
-  }
+.box-card {
+  width: 600px;
+  height: 200px;
+}
 
-  .box-card {
-    width: 600px;
-    height: 200px;
-  }
+.list-container {
+  margin-top: 5px;
+  height: 300px;
+  width: 100%;
+}
 
-  .list-container {
-    margin-top: 5px;
-    height: 300px;
-    width: 100%;
-  }
-
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 14px;
-    opacity: 0.75;
-    line-height: 200px;
-    margin: 0;
-  }
-
-
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+}
 </style>
