@@ -9,7 +9,7 @@
         <carousel navigation-enabled="true" per-page="3">
           <slide v-for="book in list.books" :key="book" >
             <el-card style="background-color: lightblue;width: 350px;margin-left: 30px;height: 250px" class="box-card">
-              <img style="float: left" width="130" height="200" :src="book.frontCover"/>
+              <img style="float: left" width="130" height="200" alt="bookCover" :src="book.frontCover"/>
               <span>{{book.title}}</span>
               <br>by <span>{{book.author}}</span>
               <span ><el-rate
