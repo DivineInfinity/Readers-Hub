@@ -12,8 +12,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import VueCarousel from 'vue-carousel';
-import VueDisqus from 'vue-disqus';
-
 
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
