@@ -7,6 +7,7 @@ const homeRoutes = require('./routes/homeRoutes');
 const bookRoutes = require('./routes/bookRoutes');
 const bookInfoRoutes = require('./routes/bookInfoRoutes');
 const bookDetailsRoutes = require('./routes/bookDetailsRoutes');
+const userRoutes = require('./routes/userRoutes');
 const reviewRoutes = require('./routes/reviewRoutes')
 const app = express();
 
@@ -24,18 +25,15 @@ db.once("open", function(callback){
 
 //routes
 app.use('/', homeRoutes);
+app.use('/user', userRoutes);
 app.use('/book', bookRoutes);
 app.use('/book-details', bookDetailsRoutes);
 
 
 //only to be used for Google API
-app.use('/bookinfo', bookInfoRoutes );
+app.use('/book-info', bookInfoRoutes );
 app.use('/reviews',reviewRoutes);
 
 var port =8081;
 app.listen(port)
 console.log(`<- -> i am running on port ${port}`);
-
-
-//connect db
-//create server file and import

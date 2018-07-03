@@ -127,12 +127,8 @@ import reviewService from '../services/reviewService'
 export default {
   data() {
     return {
-      book:{
-
-      },
-      ratings:{
-
-      },
+      book:{},
+      ratings:{},
       reviews:[]
     };
   },

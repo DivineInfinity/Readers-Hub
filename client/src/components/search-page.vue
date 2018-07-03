@@ -74,11 +74,11 @@
               <h4 class="bookName" @click="seeDetails(book._id)">{{ book.title }}</h4>
               <h5 class="bookAuthor">by {{ book.author }}</h5>
               <el-rate class="rating"
-                v-model= "books[index].averageRating"
-                disabled
-                show-score
-                text-color="#ff9900"
-                score-template="{value}">
+              v-model= "books[index].averageRating"
+              disabled
+              show-score
+              text-color="#ff9900"
+              score-template="{value}">
               </el-rate>
             </el-card>
           </el-col>

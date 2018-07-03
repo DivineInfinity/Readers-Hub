@@ -8,7 +8,7 @@
         </div>
         <carousel navigation-enabled="true" per-page="3">
           <slide v-for="book in list.books" :key="book" >
-            <el-card style="background-color: lightblue;width: 350px;margin-left: 30px;height: 250px" class="box-card">
+            <el-card style="border:1px solid lightGray;width: 350px;margin-left: 30px;height: 250px" class="box-card">
               <img style="float: left" width="130" height="200" :src="book.frontCover"/>
               <span>{{book.title}}</span>
               <br>by <span>{{book.author}}</span>
@@ -56,18 +56,18 @@
       }
 
     },
-    mounted() {
+    created() {
       this.loadingScreenOn()
       this.getLists()
     },
     updated(){
-        this.loadingScreenOff()
+        
     },
     methods: {
       async getLists() {
         const response = await homeService.fetchLists();
         this.lists = response.data.homeLists.lists;
-
+        this.loadingScreenOff();
       },
 
       seeDetails(bookId){
@@ -79,7 +79,7 @@
           lock: true,
           text: 'Loading',
           spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
+          background: 'rgba(0, 0, 0, 1)'
         });
       },
       loadingScreenOff(){

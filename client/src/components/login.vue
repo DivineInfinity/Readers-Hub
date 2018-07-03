@@ -4,9 +4,10 @@
         <el-card class="loginCard">
             <img src="../assets/readersHubLogo.jpg" alt="logo" style="">
             <p style="color: #5a5a5a; font-size: 30px; text-align: center;">Login</p>
+            <p v-if="this.invalidLogin" style="color:red;">Invalid Login credentials</p>
             <div class="userBlock">
                 <el-button type="text" class="userText" disabled>Email:</el-button>
-                <el-input placeholder="Enter Email" class="userInput" v-model="username"></el-input>
+                <el-input placeholder="Enter Email" class="userInput" v-model="email"></el-input>
             </div>
             
             <div class="passwordBlock">
@@ -14,45 +15,52 @@
                 <el-input type="password" placeholder="Enter password" class="passwordInput" v-model="password"></el-input>
             </div>
             
-            <el-button type="primary" class="loginButton" :loading="loading" @click="loginUser">Login</el-button>
-            <p>Not a Member? <a href="">Sign Up</a> Here</p>
+            <el-button type="primary" class="loginButton" :loading="loading" @click="login">Login</el-button>
+            <p>Not a Member? <a href="" @click="toSignup">Sign Up</a> Here</p>
         </el-card>
     </div>
   </div>
 </template>
 
 <script>
+import  userService  from '../services/userService';
+import Vue from 'vue';
+import VueLocalStorage from 'vue-localstorage';
+Vue.use(VueLocalStorage);
 export default {
   name: "Login",
   data() {
     return {
-        loading: '',
-        username: '',
+        email: '',
         password: '',
+        invalidLogin:false,
         loading: false,
     };
   },
+  methods: {
+      async login(){
+          var response = await userService.login({email:this.email, password:this.password});
+          console.log(response.data);
+          console.log(response.data.user);
+          if(response.data.user.length>0)
+          {
+              Vue.localStorage.set("userName",response.data.user.name);
+              Vue.localStorage.set("token",response.data.token);
+              this.$router.push({name: 'home'});
+          }
+          else
+          {
+              this.invalidLogin=true;
+          }
+          
+      },
+      toSignup(){
+          this.$router.push({name:"signup"});
+      }
+  },
   mounted() {
-      this.loadingScreenOn()
   },
   updated() {
-      this.loadingScreenOff()      
-  },
-  methods: {
-      loginUser(){
-        this.loading = true;
-      },
-      loadingScreenOn() {
-        this.loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
-      },
-      loadingScreenOff(){
-        this.loading.close();
-      }      
   }
 };
 </script>

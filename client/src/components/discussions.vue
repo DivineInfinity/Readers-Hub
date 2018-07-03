@@ -3,126 +3,33 @@
     <el-container class="mainContainer">
 
         <el-row>
-          <el-col :span="7"  class="bookContainer">
+          <el-col :span="7" :xs="24" class="bookContainer">
             <div class="container">
               <div class="main">
-                <ul id="bk-list" class="bk-list clearfix">
-                  <li>
-                    <div v-bind:style="{'background-image': 'url('+this.book.frontCover+')'}"
-                         class="bk-book book-1 bk-bookdefault">
-                      <div class="bk-front">
-                        <div class="bk-cover-back"></div>
-                        <div v-bind:style="{'background-image': 'url('+this.book.frontCover+')'}" class="bk-cover">
-                          <h2>
-
-                          </h2>
-                        </div>
-                      </div>
-                      <div
-                        v-bind:class="{'bk-front':isNotFlipped,'bk-back':!isNotFlipped, 'bk-viewback':!isNotFlipped}">
-
-                      </div>
-                      <div class="bk-right"></div>
-                      <div class="bk-left">
-                        <h2>
-                          <span>{{book.title}} by {{book.author}}</span>
-                        </h2>
-                      </div>
-                      <div class="bk-top"></div>
-                      <div class="bk-bottom"></div>
-                    </div>
-                    <div class="bk-info">
-                    </div>
-
-                  </li>
-                </ul>
-
+                <img :src="book.frontCover" style="margin-top:35px" height="200" width="150">
                 <el-rate class="rating" v-model="value5" disabled show-score text-color="orange" score-template="">
                 </el-rate>
-                <h6 style="margin-top:5px;">Your rating</h6>
-                <el-rate class="rate"
-                         v-model="value2"
-                         :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
-                </el-rate>
-                <el-dropdown style="margin-top:5px !important;">
-                  <el-button type="primary">
-                    Add to shelf<i class="el-icon-arrow-down el-icon--right"></i>
-                  </el-button>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>Action 1</el-dropdown-item>
-                    <el-dropdown-item>Action 2</el-dropdown-item>
-                    <el-dropdown-item>Action 3</el-dropdown-item>
-                    <el-dropdown-item>Action 4</el-dropdown-item>
-                    <el-dropdown-item>Action 5</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
               </div>
             </div>
           </el-col>
 
-          <el-col class="descriptionContainer" :span="17">
+          <el-col class="descriptionContainer" :span="17" :xs="24">
             <div style="margin-top:50px;margin-bottom:30px;">
+            <center><h2 style="color:grey">Discussions</h2></center>
             <h2>{{book.title}}</h2>
             <h5>By {{book.author}}</h5>
             </div>
-            <hr>
-            <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Download Preview</el-button>
-            <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Buy From Google</el-button>
-
             <p class="description">{{book.description}}</p>
             <div style="margin-top:8%!important;">
 
             <h5>Published By: {{book.publisher}}</h5>
             </div>
-            <a href="#">See more books like this</a>
-
           </el-col>
         </el-row>
       </el-container>
-      <el-container class="bookDetails">
-        <el-header><h4>Product Details</h4></el-header>
-        <el-row>
-          <el-col class="detailsCol" span="12">
-            <div class="detailItem"><span><b>Book Title</b></span>:<span>{{book.title}}</span></div>
-            <div class="detailItem"><span><b>Author</b></span>:<span>{{book.author}}</span></div>
-            <div class="detailItem"><span><b>Genre</b></span>:<span>{{book.genre[0]}}</span></div>
-            <div class="detailItem"><span><b>Publisher</b></span>:<span>{{book.publisher}}</span></div>
-          </el-col>
-          <el-col class="detailsCol" span="12">
-            <div class="detailItem"><span><b>Rating</b></span>:<span>{{book.averageRating}}</span></div>
-            <div class="detailItem"><span><b>Pages</b></span>:<span>{{book.pageCount}}</span></div>
-            <div class="detailItem"><span><b>Languages</b></span>:<span>{{book.languages[0]}}</span></div>
-            <div class="detailItem"><span><b>Publish Date</b></span>:<span>{{book.publishedDate}}</span></div>
-          </el-col>
-        </el-row>
-
-      <el-row>
-          <el-col :span="24" v-for="(review,index) in reviews" :key=index>
-              <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
-                  <el-row>
-                    <el-col :span="2" justify="start" :xs="24">
-                        <img :src="review.profilePic" alt="Avatar" style="border-radius:50%;height:50px;">
-                    </el-col>
-                    <el-col :span="4" justify="start" :xs="24">
-                          <h5 style="margin:5px">{{review.userName}}</h5>
-                          <el-rate v-model="review.rating" disabled show-score text-color="#ff9900"></el-rate>
-                          <span style="color:gray;font-size:14px;">{{review.reviewDate}}</span>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col style="text-align:left;">
-                      <h5>{{review.reviewTitle}}</h5>
-                    <p>{{review.review}}</p>
-                    </el-col>
-                  </el-row>
-
-              </el-card>
-              <el-button type="info" v-if="review.review.length>100 && review.isExpanded===false" style="width:100%;background-color:ghostwhite;color:black" @click="toggleExpand(index)">View More</el-button>
-              <el-button type="info" v-if="review.isExpanded===true" style="width:100%;background-color:ghostwhite;color:black" @click="toggleExpand(index)">View Less</el-button>
-          </el-col>
-        </el-row>
-        <el-button type="info"  style="width:100%;background-color:ghostwhite;color:black" @click="toViewAllReviews()">View all reviews</el-button>
-    </el-container>
+       <el-card style="margin-top:2px;margin-right:17px;margin-left:17px">
+       <vue-disqus shortname="readershub" :identifier="book._id" :url="`https://readershub.disqus.com/${book._id}`"></vue-disqus>
+       </el-card>
   </div>
 </template>
 <script>
@@ -137,40 +44,6 @@
         value5: 4,
         display: true,
         alwaysTrue: true,
-        reviews: [
-          {
-          userName: "John Doe",
-          profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-          review:
-            "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
-          reviewTitle:
-            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
-          rating: 5,
-          reviewDate: "12/12/2012",
-          isExpanded: false
-        },
-        {
-          userName: "jhon Doe",
-          profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-          review:
-            "Ut dolor excepteur occaecat et irure quis aliquip ipsum esse elit minim laborum est dolore. Et commodo cupidatat irure adipisicing eiusmod qui adipisicing cupidatat labore aliqua consequat duis ad. Commodo commodo proident cillum minim duis ullamco minim voluptate. Minim sint id eiusmod exercitation eiusmod veniam deserunt. Lorem occaecat non ex dolore non aliqua duis esse.Aute aute eu incididunt nisi nisi culpa esse fugiat. Qui anim est magna nisi dolore aliqua aliquip sint. Esse ut laborum irure esse ullamco proident. Quis esse ex eu est Lorem est aliquip voluptate occaecat consequat do aliquip. Tempor cupidatat eu culpa dolore ad.",
-          reviewTitle:
-            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
-          rating: 2,
-          reviewDate: "12/12/2012",
-          isExpanded: false
-        },
-        {
-          userName: "jhon Doe",
-          profilePic: "https://www.w3schools.com/howto/img_avatar.png",
-          review: "nice book",
-          reviewTitle:
-            "Velit consequat incididunt Lorem sunt eu consequat esse elit est aliquip occaecat consequat do.",
-          rating: 4,
-          reviewDate: "12/12/2012",
-          isExpanded: false
-        }
-        ],
         book: {
           title: "Carry on jeeves",
           frontCover: '../../static/images/theGodfather.jpg',
@@ -192,7 +65,6 @@
         const response = await bookDetailsService.fetchBookDetails(this.$route.params.id);
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
-        this.value5=book.averageRating;
 
       },
       async fetchBookInMongo(){
@@ -325,7 +197,7 @@
   }
   .rating {
     text-align: center;
-    margin-top:2px;
+    margin-top:20px;
   }
   .el-dropdown {
     margin-top: 20px;
@@ -658,12 +530,18 @@
   }
 
   .review-widget-expanded {
+  /* height: 200px; */
   height: auto;
   margin-top: 10px;
+  /* border-radius:10%; */
+  /* overflow: scroll; */
 }
 .review-widget-collapsed {
+  /* height: 200px; */
   height: 200px;
   margin-top: 10px;
+  /* border-radius:10%; */
+  /* overflow: scroll; */
 }
 .book-info-widget {
   margin-top: 10px;
@@ -687,8 +565,12 @@
 }
 @media (max-width: 576px) {
   .review-widget-collapsed {
+    /* height: 200px; */
     height: 300px;
     margin-top: 10px;
+    /* border-radius:10%; */
+    /* overflow: scroll; */
   }
 }
+
 </style>

@@ -7,6 +7,8 @@ import SearchPage from '../components/search-page'
 import Genre from '../components/genre'
 import Login from '../components/login'
 import SignUp from '../components/signup'
+import discussions from '../components/discussions.vue'
+import profilePage from '../components/profile.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +47,16 @@ export default new Router({
       path: '/book/search/:searchQuery',
       name: 'search-page',
       component: SearchPage
+    },
+    {
+      path:'/book/discussions/:id',
+      name:'discussions',
+      component:discussions
+    },
+    {
+      path:'/user/profile',
+      name:'profile',
+      component:profilePage
     }
   ],
   mode: 'history'
