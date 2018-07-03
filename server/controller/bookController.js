@@ -14,3 +14,10 @@ exports.getBookSuggestions= async function(req,res,next){
     console.log(response);
     res.status(200).json({messageEagle:"Successfully searched for book",searchSuggestions:response});
 }
+
+exports.getListByGenre= async function(req,res,next){ 
+    var response = await bookService.getListByGenre();
+
+    console.log(response);
+    res.status(200).json({messageEagle:"Successfully fetched List by Genre",genreList:response});
+}

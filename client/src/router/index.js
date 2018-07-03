@@ -4,6 +4,7 @@ import Home from '../components/home'
 import Reviews from '../components/reviews'
 import BookDetails from '../components/book-details'
 import SearchPage from '../components/search-page'
+import Genre from '../components/genre'
 import Login from '../components/login'
 import SignUp from '../components/signup'
 Vue.use(Router)
@@ -24,6 +25,11 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: SignUp
+    },
+    {
+      path: '/book/genre',
+      name: 'genre',
+      component: Genre
     },
     {
       path: '/reviews/:id',

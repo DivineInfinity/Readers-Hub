@@ -7,6 +7,7 @@ var getBookByName= async function getBookByName(searchQuery){
                 {title: {$regex: searchQuery, $options: 'i'}},
                 {author: {$regex: searchQuery, $options: 'i'}},
                 {publisher: {$regex: searchQuery, $options: 'i'}},
+                {genre: {$regex: searchQuery, $options: 'i'}},
             ]
         },
         {
@@ -34,7 +35,14 @@ var getBookSuggestions= async function getBookSuggestions(searchQuery){
     return searchSuggestions;
 }
 
+var getListByGenre= async function getListByGenre(){
+    var genreList = await Book.find({},{genre: 1});
+    console.log(genreList);
+    return genreList; 
+}
+
 module.exports={
     findBookByName:getBookByName,
-    getBookSuggestions:getBookSuggestions
+    getBookSuggestions:getBookSuggestions,
+    getListByGenre:getListByGenre
 }

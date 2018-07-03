@@ -26,19 +26,33 @@ export default {
   name: "Login",
   data() {
     return {
+        loading: '',
         username: '',
         password: '',
         loading: false,
     };
   },
-  methods: {
-      loginUser(){
-          this.loading = true;
-      }
-  },
   mounted() {
+      this.loadingScreenOn()
   },
   updated() {
+      this.loadingScreenOff()      
+  },
+  methods: {
+      loginUser(){
+        this.loading = true;
+      },
+      loadingScreenOn() {
+        this.loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+      },
+      loadingScreenOff(){
+        this.loading.close();
+      }      
   }
 };
 </script>

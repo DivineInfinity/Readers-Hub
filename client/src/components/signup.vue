@@ -37,6 +37,7 @@ export default {
   name: "Login",
   data() {
     return {
+        loading: '',
         emailId: '',
         username: '',
         password: '',
@@ -47,11 +48,24 @@ export default {
   methods: {
       signUpUser(){
           this.loading = true;
-      }
+      },
+      loadingScreenOn() {
+        this.loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+      },
+      loadingScreenOff(){
+        this.loading.close();
+      } 
   },
   mounted() {
+    this.loadingScreenOn();
   },
   updated() {
+    this.loadingScreenOn();
   }
 };
 </script>
