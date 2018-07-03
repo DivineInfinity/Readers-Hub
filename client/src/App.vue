@@ -13,7 +13,7 @@
           <b-nav-item href="#" @click="toHome()">Home</b-nav-item>
           <b-nav-item href="#">My Shelf</b-nav-item>
           <b-nav-item href="#" @click="toGenres()">Genres</b-nav-item>
-          <b-nav-item href="#">Discussions</b-nav-item>
+          <b-nav-item href="#" @click="toDiscussions()">Discussions</b-nav-item>
 
         </b-navbar-nav>
 
@@ -68,6 +68,15 @@
         this.selectedSuggestion=-1;
         this.$router.push({name: 'search-page', params: {searchQuery: this.searchInput}})
       },
+
+      toGenres(){
+        this.$router.push({name: 'genre'});
+      },
+
+      toDiscussions(){
+        this.$router.push({name: 'discussions'});
+      },
+
       async suggest(){
 
         console.log("I have been called");
