@@ -55,7 +55,10 @@ exports.login = async function (user) {
 };
 
 
-
+exports.getUserById = async function(id){
+    var user = await User.findById(id);
+    return user;
+}
 
 
 

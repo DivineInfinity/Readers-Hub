@@ -7,6 +7,8 @@ export default {
 
   signup(user) {
     return Api().post('/user/signup', user);
+  },
+  getUserById(id){
+    return Api.get(`/user/${id}`)
   }
-  
 }

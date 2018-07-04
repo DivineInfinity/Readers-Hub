@@ -55,9 +55,9 @@ export default new Router({
       component: Shelf
     },
     {
-      path: '/user/profile',
-      name: 'profile',
-      component: ProfilePage
+      path:'/user/profile/:id',
+      name:'profile',
+      component:ProfilePage
     }
   ],
   mode: 'history'
