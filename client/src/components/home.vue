@@ -23,19 +23,6 @@
         </carousel>
       </el-card>
     </div>
-    <!-- <el-card class="box-card list-container">
-      <div slot="header" class="clearfix">
-
-        <span style="float: left">{{genreList.name}}</span>
-      </div>
-      <div>
-        <el-row>
-          <el-col v-for="genre in genreList.genres" :key="genre" :span="4" :xs="24">
-            <el-button round plain style="margin:5px" type="primary">{{genre}}</el-button>
-          </el-col>
-        </el-row>
-      </div>
-    </el-card> -->
   </div>
 </template>
 
@@ -47,25 +34,14 @@ export default {
   data() {
     return {
       loading: "",
-      lists: [],
-      genreList: {
-        name: "Discover",
-        genres: [
-          "Fiction",
-          "Games",
-          "Computers",
-          "Travel",
-          "Language Arts & Disciplines"
-        ]
-      }
-
+      lists: []
     }
   },
     created() {
       this.loadingScreenOn()
       this.getLists()
     },
-  
+
     methods: {
       async getLists() {
         const response = await homeService.fetchLists();
