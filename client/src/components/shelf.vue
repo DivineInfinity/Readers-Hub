@@ -3,23 +3,40 @@
     <el-container>
       <el-header>
         <el-row>
-          <el-col :lg="8" :sm="12" style="padding:0px 10px">
-            <el-dropdown class="shelfDropdown">
+          <el-col :lg="8" :sm="12" style="padding:0 10px">
+            <el-dropdown class="shelfDropdown" @command="changeShelfName">
               <el-button type="primary">
-                {{shelf.shelfName}}<i class="el-icon-arrow-down el-icon--right"></i>
+                {{currentShelf.shelfName}}<i class="el-icon-arrow-down el-icon--right"></i>
               </el-button>
               <el-dropdown-menu style="margin-left:100px" class="" slot="dropdown">
-                <el-dropdown-item v-for="shelf in allShelves">{{shelf}}</el-dropdown-item>
+                <el-dropdown-item v-for="shelf in shelves"
+                                  :command="{name:shelf.shelfName,frontCovers:shelf.books}"
+                                  :key="shelf.shelfName">{{shelf.shelfName}}
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>
-          <el-col :lg="8" :sm="12" style="padding:0px 10px"><span><h2>{{shelf.shelfName}}</h2></span></el-col>
-          <el-col :lg="6" :sm="12" style="padding:0px 10px">
-            <el-button style="float:right;" type="success" round>Crate New Shelf</el-button>
+          <el-col :lg="8" :sm="12" style="padding:0 10px"><span><h2>{{currentShelf.shelfName}}</h2></span></el-col>
+          <el-col :lg="6" :sm="12" style="padding:0 10px">
+            <el-button style="float:right;" type="success" @click="dialogFormVisible = true" round>Crate New Shelf
+            </el-button>
+
+            <el-dialog title="Create A New Shelf" :visible.sync="dialogFormVisible">
+              <el-form :model="form">
+                <el-form-item label="Shelf Name" :label-width="formLabelWidth">
+                  <el-input v-model="form.shelfName" auto-complete="off"></el-input>
+                </el-form-item>
+              </el-form>
+              <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisible = false">Cancel</el-button>
+    <el-button type="primary" @click="createNewShelf(form.shelfName)">Confirm</el-button>
+  </span>
+            </el-dialog>
+
           </el-col>
-          <el-col :lg="2" :sm="12" style="padding:0px 10px">
+          <el-col :lg="2" :sm="12" style="padding:0 10px">
             <el-dropdown>
-              <el-button style="border: 0px;outline: none">
+              <el-button style="border: 0;outline: none">
                 <i style="font-size:x-large" class="el-icon-setting"></i>
               </el-button>
               <el-dropdown-menu slot="dropdown">
@@ -32,15 +49,16 @@
 
       </el-header>
       <el-main>
-        <el-card v-for="" style="margin-left:auto">
+        <el-card style="margin-left:auto">
 
           <el-row>
-            <el-col v-for="frontCover in shelf.bookCovers" :lg="6" :sm="12" style="padding:0px 10px"><img
+            <el-col v-for="frontCover in currentShelf.frontCovers" :key="frontCover" :lg="6" :sm="12"
+                    style="padding:0 10px"><img
               :src="frontCover"
               height="200" width="150">
               <h5>
-                <el-dropdown style="margin: 10px;">
-                  <el-button type="primary">
+                <el-dropdown style="margin: 10px;" @command="changeBookStatus">
+                  <el-button type="primary" round>
                     Currently Reading<i class="el-icon-arrow-down el-icon--right"></i>
                   </el-button>
                   <el-dropdown-menu slot="dropdown">
@@ -64,20 +82,111 @@
     data() {
       return {
         loading: "",
-        shelves: ["My Shelf", "My Favorites", "Must Read", "Horror Favorites", "Mystery Books"],
-        shelf: {
+        dialogFormVisible: false,
+        form: {
+          shelfName: ''
+        },
+        formLabelWidth: '120px',
+        currentShelf:   {
           shelfName: "My Shelf",
-          bookCovers: ["https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-            "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-            "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-            "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-            "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-            "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+          books: [{
+            frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+            readingStatus: "Currently Reading"
+          },
+            {
+              frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              readingStatus: "Want To Read"
+            },
+            {
+              frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              readingStatus: "Want To Read"
+            },
           ]
-        }
+        },
+        shelves: [
+          {
+            shelfName: "My Shelf",
+            books: [{
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              readingStatus: "Currently Reading"
+            },
+              {
+                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                readingStatus: "Want To Read"
+              },
+              {
+                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                readingStatus: "Want To Read"
+              },
+            ]
+          }, {
+            shelfName: "Horror Zone",
+            books: [{
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              readingStatus: "Currently Reading"
+            },
+              {
+                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                readingStatus: "Want To Read"
+              },
+              {
+                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                readingStatus: "Want To Read"
+              },
+            ]
+          },
+          {
+            shelfName: "Adventures",
+            books: [{
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              readingStatus: "Currently Reading"
+            },
+              {
+                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                readingStatus: "Want To Read"
+              },
+              {
+                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                readingStatus: "Want To Read"
+              },
+            ]
+          }, {
+            shelfName: "Mysteries",
+            books: [{
+              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+              readingStatus: "Currently Reading"
+            },
+              {
+                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                readingStatus: "Want To Read"
+              },
+              {
+                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+                readingStatus: "Want To Read"
+              },
+            ]
+          }
+        ]
       };
+    },
+    methods: {
+      async changeShelfName(shelf) {
+        this.currentShelf.shelfName = shelf.name;
+        this.currentShelf.frontCovers = shelf.frontCovers;
+      },
+
+      async createNewShelf(name) {
+        console.log(name);
+        this.dialogFormVisible = false;
+      },
+
+      async changeBookStatus() {
+
+      }
+
     }
   };
+
 </script>
 
 <style scoped>
