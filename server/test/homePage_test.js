@@ -3,7 +3,7 @@ Feature('HomePage');
 
 Before((I) => { 
     I.amOnPage('http://localhost:8080/');
-    I.wait(3);
+    I.wait(2);
   });
 
 Scenario('test home page link in nav bar', (I) => {
@@ -14,7 +14,7 @@ I.amOnPage("http://localhost:8080/");
 });
 
 
-Scenario('test trending books list', (I) => {
-  I.see('Trending');
-  I.see('bookCover');
-});
+// Scenario('test trending books list', (I) => {
+//   I.see('Trending');
+//   I.see('bookCover');
+// });

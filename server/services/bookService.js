@@ -34,7 +34,7 @@ var getBookSuggestions= async function getBookSuggestions(searchQuery){
 };
 
 var getBookSuggestions= async function getBookSuggestions(searchQuery){
-    var searchRegex = new RegExp("^"+searchQuery);
+    var searchRegex = new RegExp('\b'+searchQuery);
     var titles = await Book.find({title: {$regex:searchRegex , $options: 'i'}},{title: 1,}).limit(5);
     var searchSuggestions=[];
     for(index in titles)
