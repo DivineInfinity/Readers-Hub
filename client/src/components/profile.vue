@@ -3,6 +3,27 @@
     <el-row>
       <el-col :lg="6" :sm="24">
         <img :src="user.profilePic" style="border-radius:10%" height="150" width="150">
+        <div>
+        <el-button type="text" @click="dialogFormVisible = true">Change Profile Photo</el-button>
+
+        <el-dialog title="Change Profile Photo" :visible.sync="dialogFormVisible">
+            <el-upload
+            class="upload-demo"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">Drop file here or <em>click to upload</em></div>
+            <div class="el-upload__tip" slot="tip">jpg/png files with a size less than 500kb</div>
+          </el-upload>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">Upload</el-button>
+          </span>
+        </el-dialog>
+        </div>
         <h4>{{user.name}}</h4>
         <h6><a href="#">friends({{user.friendCount}})</a></h6>
       </el-col>
@@ -52,36 +73,39 @@
     </el-card>
 </template>
 <script>
-    import userService from '../services/userService.js'
+import userService from "../services/userService.js";
 export default {
   name: "profile",
   data() {
     return {
+      dialogFormVisible:false,
       isEditable: false,
-      user:{
-        name:'John Doe',
-        friendCount:40,
-        profilePic:'https://www.w3schools.com/howto/img_avatar.png',
-        bio:'i am a person with book phobia',
-        recentlyRated:["5b2a54753f6b3624c068176e","5b2a59bf6334bb28d0c18d1f","5b2a59c86334bb28d0c18d20","5b2a59d26334bb28d0c18d21"],
-        shelves:[]
+      user: {
+        name: "John Doe",
+        friendCount: 40,
+        profilePic: "https://www.w3schools.com/howto/img_avatar.png",
+        bio: "i am a person with book phobia",
+        recentlyRated: [],
+        shelves: []
       }
     };
   },
   methods: {
     toggleBio() {
       this.isEditable = !this.isEditable;
-      if(this.isEditable==true)
-      document.getElementById("bioTextArea").focus();
-      else
-      document.getElementById("bioTextArea").blur()
+      if (this.isEditable == true)
+        document.getElementById("bioTextArea").focus();
+      else document.getElementById("bioTextArea").blur();
     },
-    async getuser(){
-    var response = await userService.getUserById(this.$route.params.id);
-    this.user.name = response.user.name;
+    async getuser() {
+      var response = await userService.getUserById(this.$route.params.id);
+      console.log(response);
+      this.user.name = response.data.user.name;
+      //this.user.bio = response.data.user.bio;
+      //this.user.profilePic = response.data.user.profilePic;
     }
   },
-  mounted(){
+  mounted() {
     this.getuser();
   }
 };
