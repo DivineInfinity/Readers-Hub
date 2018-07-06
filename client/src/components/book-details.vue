@@ -40,22 +40,25 @@
                 <el-rate class="rating" v-model="value5" disabled show-score text-color="orange" score-template="">
                 </el-rate>
                 <h6 style="margin-top:5px;">Your rating</h6>
-                <el-rate class="rate"
+                <el-rate v-if="isLoggedIn" class="rate"                      
                          v-model="value2"
                          :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                 </el-rate>
-                <el-dropdown style="margin-top:5px !important;">
-                  <el-button type="primary">
-                    Add to shelf<i class="el-icon-arrow-down el-icon--right"></i>
-                  </el-button>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>Action 1</el-dropdown-item>
-                    <el-dropdown-item>Action 2</el-dropdown-item>
-                    <el-dropdown-item>Action 3</el-dropdown-item>
-                    <el-dropdown-item>Action 4</el-dropdown-item>
-                    <el-dropdown-item>Action 5</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
+                <el-rate v-else
+                          class="rate"                      
+                         v-model="value2"
+                         :colors="['#99A9BF', '#F7BA2A', '#FF9900']" disabled>
+                </el-rate>
+                <el-dropdown split-button type="primary" @click="handleClick">
+  Dropdown List
+  <el-dropdown-menu slot="dropdown">
+    <el-dropdown-item>Action 1</el-dropdown-item>
+    <el-dropdown-item>Action 2</el-dropdown-item>
+    <el-dropdown-item>Action 3</el-dropdown-item>
+    <el-dropdown-item>Action 4</el-dropdown-item>
+    <el-dropdown-item>Action 5</el-dropdown-item>
+  </el-dropdown-menu>
+</el-dropdown>
               </div>
             </div>
           </el-col>
@@ -84,7 +87,7 @@
         <el-row>
           <el-col class="detailsCol" span="12">
             <div class="detailItem"><span><b>Book Title</b></span>:<span>{{book.title}}</span></div>
-            <div class="detailItem"><span><b>Author</b></span>:<span>{{book.author}}</span></div>
+             <div class="detailItem"><span><b>Author</b></span>:<span>{{book.author}}</span></div>
             <div class="detailItem"><span><b>Genre</b></span>:<span>{{book.genre[0]}}</span></div>
             <div class="detailItem"><span><b>Publisher</b></span>:<span>{{book.publisher}}</span></div>
           </el-col>
@@ -127,6 +130,8 @@
 </template>
 <script>
   import bookDetailsService from '../services/bookDetailsService'
+  import userService from '../services/userService'
+import Vue from 'vue';
   export default {
 
     name: 'BookDetails',
@@ -137,6 +142,7 @@
         value5: 4,
         display: true,
         alwaysTrue: true,
+        isLoggedIn: false,
         reviews: [
           {
           userName: "John Doe",
@@ -192,7 +198,7 @@
         const response = await bookDetailsService.fetchBookDetails(this.$route.params.id);
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
-        this.value5=book.averageRating;
+        this.value5=this.book.averageRating;
 
       },
       async fetchBookInMongo(){
@@ -216,11 +222,31 @@
       },
       loadingScreenOff(){
         this.loading.close();
+      },
+      
+      checkifLoggedIn(){
+        var user = Vue.localStorage.get("userName");
+        if(user){
+            this.isLoggedIn = true;
+        }else{
+          this.isLoggedIn = false;
+        }
+      },
+
+      async getShelves(){
+        console.log("getShelves");
+        var userId = Vue.localStorage.get("userId");
+        var token =  Vue.localStorage.get("token");
+        var shelf = await userService.getShelves(userId, token);
+        console.log( shelf.data);
       }
+
     },
     mounted(){
       this.loadingScreenOn()
       this.fetchBookDetails();
+      this.checkifLoggedIn();
+      this.getShelves();
     },
     updated(){
         this.loadingScreenOff()

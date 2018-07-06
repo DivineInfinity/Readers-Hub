@@ -1,5 +1,5 @@
-
 var User = require('../models/user');
+var Shelf = require('../models/shelf');
 var mongoose = require('mongoose');
 const jwt=require('jsonwebtoken');
 
@@ -33,33 +33,34 @@ exports.signup = async function (user) {
 exports.login = async function (user) {
     console.log(user);
   
-        var user= await User.find({email:user.email,password:user.password});
-        if(user[0])
-        {
-            const token = jwt.sign(
-                {
-                    user_id:user[0]._id,
-                },
-                "racoon",
-                {
-                    expiresIn:'2h'
-                }
-            );
-            var userInfo=[{
-                user:user[0],
-                token:token
-            }]
-            return userInfo;
-        }
+    var user= await User.find({email:user.email,password:user.password});
+    if(user[0])
+    {
+        const token = jwt.sign(
+            {
+                user_id:user[0]._id,
+            },
+            "racoon",
+            {
+                expiresIn:'2h'
+            }
+        );
+        var userInfo=[{
+            user:user[0],
+            token:token
+        }]
+        return userInfo;
+    }
 
-        else return user;
-        
- 
-
- 
+    else return user;
 }
 
-
+exports.getShelves = async function (userId) {
+    var response = await User.find({_id: userId},{shelves: 1});
+    var shelfIds = response[0].shelves;
+    var shelves = await Shelf.find({_id: {$in:shelfIds}}, {_id:1,shelfName: 1});
+    return shelves;
+}
 
 
 

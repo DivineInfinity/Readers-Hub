@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const shelfSchema=mongoose.Schema({
     _id:mongoose.Schema.ObjectId,
     shelfName:String,
-    isPrivate:boolean,
+    isPrivate:Boolean,
     books:[mongoose.Schema.ObjectId]
 })
 

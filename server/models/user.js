@@ -9,6 +9,7 @@ const userSchema=mongoose.Schema({
     bio:String,
     friends:[mongoose.Schema.ObjectId],
     shelves:[mongoose.Schema.ObjectId],
+    reviews:[mongoose.Schema.ObjectId]
 })
 
 module.exports=mongoose.model('User', userSchema);

@@ -15,8 +15,7 @@ exports.login= async function(req,res,next){
     {
         res.status(200).json({
             messageEagle:"Successfully logged in",
-            user:userLogin[0].user,
-            token:userLogin[0].token
+            userData:userLogin,
         });
     }
     else
@@ -51,6 +50,29 @@ exports.signup= async function(req,res,next){
         res.status(404).json({
             message:"Something went wrong",
             user:newUser
+        });
+    }
+    
+}
+
+exports.getShelves= async function(req,res,next){
+    console.log("i m in userController");
+    var id = req.params.userId;
+    var shelves = await userService.getShelves(id);
+
+    console.log(shelves);
+    if(shelves.length>0)
+    {
+        res.status(200).json({
+            messageEagle:"Successfully signed up",
+            shelves: shelves,
+        });
+    }
+    else
+    {
+        res.status(200).json({
+            message:"Something went wrong",
+            shelves: shelves
         });
     }
     
