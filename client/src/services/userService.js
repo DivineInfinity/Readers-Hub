@@ -18,5 +18,9 @@ export default {
   
   getUserById(id){
     return Api.get(`/user/${id}`)
+  },
+  createNewShelf(userID,name,isPrivate){
+    return Api().post('/user/shelf',{userID:userID,shelfName:name,isPrivate:isPrivate});
   }
+
 }

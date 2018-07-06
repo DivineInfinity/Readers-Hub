@@ -22,7 +22,7 @@
         <el-card style="margin-left:auto">
 
         <el-row>
-          <span v-if="user.recentlyRated.length==0">No Books Found</span>
+          <span v-if="user.recentlyRated.length===0">No Books Found</span>
           <el-col :lg="6" :sm="12" style="padding:0px 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"></el-col>
           <el-col :lg="6" :sm="12" style="padding:0px 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"></el-col>
           <el-col :lg="6" :sm="12" style="padding:0px 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"></el-col>
@@ -40,10 +40,10 @@
         <el-card style="margin-left:auto">
 
         <el-row>
-          <el-col :lg="6" :sm="12" style="padding:0px 10px"><img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fpng.icons8.com%2Fios%2F1600%2F007AFF%2Fbook-shelf&f=1" height="200" width="150"><h5>shelf1</h5></el-col>
-          <el-col :lg="6" :sm="12" style="padding:0px 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"><h5>shelf2</h5></el-col>
-          <el-col :lg="6" :sm="12" style="padding:0px 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"><h5>shelf3</h5></el-col>
-          <el-col :lg="6" :sm="12" style="padding:0px 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"><h5>shelf4</h5></el-col>
+          <el-col :lg="6" :sm="12" style="padding:0 10px"><img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fpng.icons8.com%2Fios%2F1600%2F007AFF%2Fbook-shelf&f=1" height="200" width="150"><h5>shelf1</h5></el-col>
+          <el-col :lg="6" :sm="12" style="padding:0 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"><h5>shelf2</h5></el-col>
+          <el-col :lg="6" :sm="12" style="padding:0 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"><h5>shelf3</h5></el-col>
+          <el-col :lg="6" :sm="12" style="padding:0 10px"><img src="http://books.google.com/books/content?id=LHbigwXO4s0C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"><h5>shelf4</h5></el-col>
         </el-row>
 
         </el-card>
@@ -71,13 +71,14 @@ export default {
   methods: {
     toggleBio() {
       this.isEditable = !this.isEditable;
-      if(this.isEditable==true)
+      if(this.isEditable===true)
       document.getElementById("bioTextArea").focus();
       else
       document.getElementById("bioTextArea").blur()
     },
     async getuser(){
-    var response = await userService.getUserById(this.$route.params.id);
+    var response =  await userService.getUserById(this.$route.params.id);
+    console.log(response);
     this.user.name = response.user.name;
     }
   },

@@ -4,7 +4,7 @@ const shelfSchema=mongoose.Schema({
     _id:mongoose.Schema.ObjectId,
     shelfName:String,
     isPrivate:Boolean,
-    books:[mongoose.Schema.ObjectId]
-})
+    books:[{bookID:mongoose.Schema.ObjectId,readingStatus:String}]
+});
 
 module.exports=mongoose.model('Shelf', shelfSchema);

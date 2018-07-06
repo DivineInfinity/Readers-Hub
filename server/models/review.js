@@ -7,7 +7,7 @@ const reviewSchema=mongoose.Schema({
     review:String,
     reviewTitle:String,
     rating:Number,
-    reviewDate:String
+    reviewDate:Date,
 })
 
 module.exports=mongoose.model('Review', reviewSchema);

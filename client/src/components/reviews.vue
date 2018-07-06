@@ -59,9 +59,6 @@
                           <el-rate v-model="review.rating" disabled show-score text-color="#ff9900"></el-rate>
                           <span style="color:gray;font-size:14px;">{{review.reviewDate}}</span>
                     </el-col>
-                    <!-- <el-col :span="18">
-
-                    </el-col> -->
                   </el-row>
                   <el-row>
                     <el-col style="text-align:left;">
@@ -79,18 +76,12 @@
 </template>
 <style>
 .review-widget-expanded {
-  /* height: 200px; */
   height: auto;
   margin-top: 10px;
-  /* border-radius:10%; */
-  /* overflow: scroll; */
 }
 .review-widget-collapsed {
-  /* height: 200px; */
   height: 200px;
   margin-top: 10px;
-  /* border-radius:10%; */
-  /* overflow: scroll; */
 }
 .book-info-widget {
   margin-top: 10px;
@@ -114,11 +105,8 @@
 }
 @media (max-width: 576px) {
   .review-widget-collapsed {
-    /* height: 200px; */
     height: 300px;
     margin-top: 10px;
-    /* border-radius:10%; */
-    /* overflow: scroll; */
   }
 }
 </style>
