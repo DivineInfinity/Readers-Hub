@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Shelf = require('../models/shelf');
 var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
@@ -58,6 +59,33 @@ exports.login = async function (user) {
 exports.getUserById = async function(id){
     var user = await User.findById(id);
     return user;
+};
+
+exports.createNewShelf = async function(shelf) {
+    var userID = shelf.userID;
+    var shelfName = shelf.shelfName;
+    var isPrivate = shelf.isPrivate;
+
+    var newShelf = new Shelf({
+        _id: new mongoose.Types.ObjectId(),
+        shelfName: shelfName,
+        isPrivate: isPrivate,
+        books: []
+    })
+
+    try {
+        var createdShelf = await newShelf.save();
+        var user = await User.find({_id:userID},{shelves:1});
+        var shelves = user[0].shelves;
+        shelves.push(createdShelf.id);
+        var updatedUser = await User.update({_id:userID}, {$set:{shelves:shelves}});
+        return updatedUser;
+    }
+
+    catch (e) {
+        throw Error("Error while creating shelf");
+    }
+
 }
 
 

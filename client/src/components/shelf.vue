@@ -10,7 +10,7 @@
               </el-button>
               <el-dropdown-menu style="margin-left:100px" class="" slot="dropdown">
                 <el-dropdown-item v-for="shelf in shelves"
-                                  :command="{name:shelf.shelfName,frontCovers:shelf.books}"
+                                  :command="{name:shelf.shelfName,books:shelf.books}"
                                   :key="shelf.shelfName">{{shelf.shelfName}}
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -23,13 +23,19 @@
 
             <el-dialog title="Create A New Shelf" :visible.sync="dialogFormVisible">
               <el-form :model="form">
-                <el-form-item label="Shelf Name" :label-width="formLabelWidth">
+                <el-form-item label="Shelf Name:" :label-width="formLabelWidth">
                   <el-input v-model="form.shelfName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="Shelf Privacy:" :label-width="formLabelWidth">
+                  <el-radio-group v-model="form.isPrivate">
+                    <el-radio :label=false>Public</el-radio>
+                    <el-radio :label=true>Private</el-radio>
+                  </el-radio-group>
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
     <el-button @click="dialogFormVisible = false">Cancel</el-button>
-    <el-button type="primary" @click="createNewShelf(form.shelfName)">Confirm</el-button>
+    <el-button type="primary" @click="createNewShelf(form.shelfName,form.isPrivate)">Confirm</el-button>
   </span>
             </el-dialog>
 
@@ -52,16 +58,17 @@
         <el-card style="margin-left:auto">
 
           <el-row>
-            <el-col v-for="frontCover in currentShelf.frontCovers" :key="frontCover" :lg="6" :sm="12"
+            <el-col v-for="book in currentShelf.books" :key="book" :lg="6" :sm="12"
                     style="padding:0 10px"><img
-              :src="frontCover"
+              :src="book.frontCover"
               height="200" width="150">
               <h5>
                 <el-dropdown style="margin: 10px;" @command="changeBookStatus">
                   <el-button type="primary" round>
-                    Currently Reading<i class="el-icon-arrow-down el-icon--right"></i>
+                    {{book.readingStatus}}<i class="el-icon-arrow-down el-icon--right"></i>
                   </el-button>
                   <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item>Currently Reading</el-dropdown-item>
                     <el-dropdown-item>Want To Read</el-dropdown-item>
                     <el-dropdown-item>Completed</el-dropdown-item>
                   </el-dropdown-menu>
@@ -77,6 +84,7 @@
 </template>
 
 <script>
+  import userService from "../services/userService";
   export default {
     name: "shelf",
     data() {
@@ -84,10 +92,11 @@
         loading: "",
         dialogFormVisible: false,
         form: {
-          shelfName: ''
+          shelfName: '',
+          isPrivate: false
         },
         formLabelWidth: '120px',
-        currentShelf:   {
+        currentShelf: {
           shelfName: "My Shelf",
           books: [{
             frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -162,7 +171,7 @@
               },
               {
                 frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Want To Read"
+                readingStatus: "Currently Reading"
               },
             ]
           }
@@ -172,12 +181,16 @@
     methods: {
       async changeShelfName(shelf) {
         this.currentShelf.shelfName = shelf.name;
-        this.currentShelf.frontCovers = shelf.frontCovers;
+        //this.currentShelf.frontCovers = shelf.frontCovers;
+        this.currentShelf.books = shelf.books;
       },
 
-      async createNewShelf(name) {
+      async createNewShelf(name,isPrivate) {
         console.log(name);
         this.dialogFormVisible = false;
+        let userID = "5b34e365ceb2f32e9c832d56";
+        const response = await userService.createNewShelf(userID,name,isPrivate);
+        console.log(response);
       },
 
       async changeBookStatus() {
