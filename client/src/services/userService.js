@@ -9,6 +9,6 @@ export default {
     return Api().post('/user/signup', user);
   },
   getUserById(id){
-    return Api.get(`/user/${id}`)
+    return Api().get(`/user/${id}`);
   }
 }
