@@ -48,7 +48,7 @@ export default new Router({
       component:discussions
     },
     {
-      path:'/user/profile',
+      path:'/user/profile/:id',
       name:'profile',
       component:profilePage
     }

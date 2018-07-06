@@ -77,3 +77,12 @@ exports.getShelves= async function(req,res,next){
     }
     
 }
+
+exports.getUserById = async function(req,res,next){
+    let userId = req.params.id;
+    let user = await userService.getUserById(userId)
+    res.status(200).json({
+        messageEagle:"success",
+        user:user
+    });
+}

@@ -62,6 +62,11 @@ exports.getShelves = async function (userId) {
     return shelves;
 }
 
+exports.getUserById = async function(id){
+    var user = await User.findById(id);
+    return user;
+}
+
 
 
 

@@ -14,5 +14,9 @@ export default {
     return Api().get(`/user/shelves/${userId}`, { headers:{
       'Authorization': 'bearer ' + token
     }});
+  },
+  
+  getUserById(id){
+    return Api.get(`/user/${id}`)
   }
 }
