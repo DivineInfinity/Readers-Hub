@@ -50,9 +50,9 @@
                          :colors="['#99A9BF', '#F7BA2A', '#FF9900']" disabled>
                 </el-rate>
                 <el-dropdown split-button type="primary" @click="handleClick">
-  Dropdown List
-  <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item>Action 1</el-dropdown-item>
+                 Add to shelf
+                <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>Action 1</el-dropdown-item>
     <el-dropdown-item>Action 2</el-dropdown-item>
     <el-dropdown-item>Action 3</el-dropdown-item>
     <el-dropdown-item>Action 4</el-dropdown-item>

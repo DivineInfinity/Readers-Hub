@@ -13,14 +13,8 @@ exports.login = async function (req, res, next) {
     console.log(userLogin);
     if (userLogin.length > 0) {
         res.status(200).json({
-<<<<<<< HEAD
             messageEagle:"Successfully logged in",
             userData:userLogin,
-=======
-            messageEagle: "Successfully logged in",
-            user: userLogin[0].user,
-            token: userLogin[0].token
->>>>>>> a7577f115baf83e9131a70b8b1d5c47bb2a0f4a5
         });
     }
     else {

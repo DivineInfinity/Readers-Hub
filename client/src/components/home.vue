@@ -23,10 +23,6 @@
         </carousel>
       </el-card>
     </div>
-<<<<<<< HEAD
-    
-=======
->>>>>>> a7577f115baf83e9131a70b8b1d5c47bb2a0f4a5
   </div>
 </template>
 
