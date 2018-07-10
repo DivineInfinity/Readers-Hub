@@ -16,7 +16,10 @@
               </el-dropdown-menu>
             </el-dropdown>
           </el-col>
-          <el-col :lg="8" :sm="12" style="padding:0 10px"><span><h2>{{currentShelf.shelfName}}</h2></span></el-col>
+          <el-col :lg="8" :sm="12" style="padding:0 10px"><span><h2>{{currentShelf.shelfName}}</h2></span>
+            <el-input prefix-icon="el-icon-search" type="text" v-model="searchValue" placeholder="Search in shelf..."></el-input>
+          </el-col>
+          <!--<el-col :lg="4" :sm="12"> </el-col>-->
           <el-col :lg="6" :sm="12" style="padding:0 10px">
             <el-button style="float:right;" type="success" @click="dialogFormVisible = true" round>Crate New Shelf
             </el-button>
@@ -54,7 +57,7 @@
 
 
       </el-header>
-      <el-main>
+      <el-main style="margin-top: 30px">
         <el-card style="margin-left:auto">
 
           <el-row>
@@ -85,10 +88,12 @@
 
 <script>
   import userService from "../services/userService";
+
   export default {
     name: "shelf",
     data() {
       return {
+        searchValue: "",
         loading: "",
         dialogFormVisible: false,
         form: {
@@ -185,16 +190,16 @@
         this.currentShelf.books = shelf.books;
       },
 
-      async createNewShelf(name,isPrivate) {
+      async createNewShelf(name, isPrivate) {
         console.log(name);
         this.dialogFormVisible = false;
         let userID = "5b4470141ab1cb0078759be3";
-        const response = await userService.createNewShelf(userID,name,isPrivate);
+        const response = await userService.createNewShelf(userID, name, isPrivate);
         console.log(response);
       },
 
       async changeBookStatus(selectedStatus) {
-          let status = selectedStatus.status;
+        let status = selectedStatus.status;
 
       }
 

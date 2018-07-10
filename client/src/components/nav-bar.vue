@@ -63,6 +63,7 @@
         console.log("Search initialized");
         this.searchSuggestions=[];
         this.selectedSuggestion=-1;
+        if(this.searchInput)
         this.$router.push({name: 'search-page', params: {searchQuery: this.searchInput}})
       },
       toLogin(){
