@@ -15,6 +15,14 @@ export default {
       'Authorization': 'bearer ' + token
     }});
   },
+
+  addToShelf(shelfId, bookId){
+    var book ={
+      shelfId:shelfId,
+      bookId:bookId
+    }
+    return Api().post("/user/shelf/add-book", book)
+  },
   
   getUserById(id){
     return Api.get(`/user/${id}`)

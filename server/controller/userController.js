@@ -60,7 +60,7 @@ exports.getShelves= async function(req,res,next){
     if(shelves.length>0)
     {
         res.status(200).json({
-            messageEagle:"Successfully signed up",
+            messageEagle:"Successfully retrieved Shelves",
             shelves: shelves,
         });
     }
@@ -96,3 +96,28 @@ exports.createNewShelf = async function (req, res) {
     }
 
 }
+
+exports.insertIntoShelf= async function(req,res,next){
+    var book = {
+        shelfId:req.body.shelfId,
+        bookId:req.body.bookId
+    }
+    var updatedShelf = await userService.insertIntoShelf(book);
+    if(updatedShelf.length>0)
+    {
+        res.status(200).json({
+            messageEagle:"Successfully added book",
+            updatedShelf: updatedShelf,
+        });
+    }
+    else
+    {
+        res.status(200).json({
+            message:"Something went wrong",
+            updatedShelf: updatedShelf
+        });
+    }
+    
+}
+
+
