@@ -2,6 +2,7 @@
   <div class="mainContainer">
     <div id="searchResults">
       <el-card class="searchMainCard">
+        
         <!-- Design for Search Page Starts Here -->
         <el-row>
           <!-- Design for Filter Starts Here -->
@@ -53,6 +54,7 @@
             </el-card>
           </el-col>
           <!-- Design for Filter Ends Here -->
+
           <div v-if="isSearched && books.length == 0 && !filterFlag" style="text-align: center">
             Your search "<i>{{ searchQuery }}</i>" did not match any books.
             <p>Try something like</p>
@@ -65,7 +67,9 @@
             Your Filters didn't match any books.
             <p>Try different filters.</p>
           </div>
-          <h4 v-else style="text-align: center">Search Results for <i>{{ searchQuery }}</i></h4>
+          <h4 v-else-if="isGenre">Results for books in Genre "<i>{{ searchQuery }}"</i></h4>
+          <h4 v-else style="text-align: center">Search Results for "<i>{{ searchQuery }}"</i></h4>
+
           <!-- Design for Search Results Starts Here -->
           <el-col :span="6" v-for="(book,index) in currentpagearray" :key="index" :xs="24" :sm="8" :md="6">
 
@@ -126,6 +130,7 @@ export default {
         }
       },
       books: [],
+      isGenre: false,
       searchArray: [],
       currentpage: 1,
       perpage: 12,
@@ -141,6 +146,11 @@ export default {
   methods: {
     async search() {
       var search = await searchService.search(this.$route.params.searchQuery);
+      var g = this.$route.path.split("/").length;
+      if(g == 5){
+        this.isGenre = true;
+      }
+      // this.isGenre = this.$route.parmas.genre;
       this.searchQuery = this.$route.params.searchQuery;
       console.log(search.data);
       this.books = search.data.books;

@@ -49,6 +49,11 @@ export default new Router({
       component: SearchPage
     },
     {
+      path: '/book/search/genre/:searchQuery',
+      name: 'search-genre',
+      component: SearchPage
+    },
+    {
       path:'/book/discussions/:id',
       name:'discussions',
       component:discussions

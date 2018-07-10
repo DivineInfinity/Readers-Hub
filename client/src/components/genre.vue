@@ -11,7 +11,7 @@
         </div>
         <ul class="genreList">
             <el-col :span="6" v-for="genre in computedGenreList" :key="genre">
-                <li class="listItem" >{{genre}}</li>
+                <li class="listItem" @click="findBooksByGenre(genre)">{{genre}}</li>
             </el-col>
         </ul>
     </el-card>
@@ -59,6 +59,10 @@
         this.genreList = this.genreList.sort();
       },
 
+      findBooksByGenre(genreName){
+        this.$router.push({name: 'search-genre', params: {searchQuery: genreName}});
+      },
+
       loadingScreenOn() {
         this.loading = this.$loading({
           lock: true,
@@ -73,49 +77,18 @@
     },
     computed: {
         computedGenreList: function() {
-            var regex1 =  new RegExp('^'+this.searchInput, "i");           
+            var regex1 =  new RegExp('\\s?\\b'+this.searchInput, "i");           
             if (this.searchInput.length == 0) {
                 return this.genreList;
             } else {
-                this.filterList = [];            
-            
-                var startIndex  = 0,stopIndex = this.genreList.length - 1,
-                middle = Math.floor((stopIndex + startIndex)/2);
-                while(!(regex1.test(this.genreList[middle])) && startIndex < stopIndex){
-                    //adjust search area
-                    if (this.searchInput.localeCompare(this.genreList[middle]) == -1){
-                        stopIndex = middle - 1;
-                    } else{
-                        startIndex = middle + 1;
-                    }
-                    //recalculate middle
-                    middle = Math.floor((stopIndex + startIndex)/2);
-                }
+                this.filterList = [];
 
-                this.firstIndex = middle;
-
-                for(var i = this.firstIndex; this.keepSearching; i++){
-                    console.log("Test: "+i+" "+regex1.test(this.genreList[i]));
-                    if(regex1.test(this.genreList[i])){                        
-                        this.filterList.push(this.genreList[i]);
-                    }else{
-                        this.keepSearching = false;
-                    }
-                }
-                this.keepSearching = true;
-                var tempArray = [];
-                for(var i = this.firstIndex-1;i>=0 && this.keepSearching; i--){
-                    console.log("Test: "+i+" "+regex1.test(this.genreList[i]));
+                for(var i=0; i<this.genreList.length; i++){
                     if(regex1.test(this.genreList[i])){
-                        tempArray.push(this.genreList[i]);
-                    }else{
-                        this.keepSearching = false;
+                        this.filterList.push(this.genreList[i]);
                     }
                 }
-                tempArray = tempArray.sort();     
-                this.filterList = tempArray.concat(this.filterList);
-                this.keepSearching = true;
-                console.log(this.filterList);
+
                 return this.filterList;
             }
         }
