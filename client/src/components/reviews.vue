@@ -19,23 +19,23 @@
               <el-card class="stat-widget-card">
                 <el-row class="review-bar">
                   <el-col :span="2">5<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20" style=""><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.fiveStar" class="progress" color="#67c23a" ></el-progress></el-col>
+                  <el-col :span="20" style=""><el-progress :text-inside="true"  :stroke-width="15" :percentage="ratings.fiveStar" class="progress" color="#67c23a" ></el-progress></el-col>
                 </el-row>
                 <el-row class="review-bar">
                   <el-col :span="2">4<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.fourStar" class="progress"></el-progress></el-col>
+                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="15"   :percentage="ratings.fourStar" class="progress"></el-progress></el-col>
                 </el-row>
                 <el-row class="review-bar">
                   <el-col :span="2">3<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.threeStar" class="progress" color="rgba(142, 113, 199, 0.7"></el-progress></el-col>
+                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="15" :percentage="ratings.threeStar" class="progress" color="rgba(142, 113, 199, 0.7"></el-progress></el-col>
                 </el-row>
                 <el-row class="review-bar">
                   <el-col :span="2">2<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.twoStar" class="progress" color="#cdd040"></el-progress></el-col>
+                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="15" :percentage="ratings.twoStar" class="progress" color="#cdd040"></el-progress></el-col>
                 </el-row>
                 <el-row class="review-bar">
                   <el-col :span="2">1<i class="el-icon-star-on"></i></el-col>
-                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="30" :percentage="ratings.oneStar" class="progress" color="#ce492b"></el-progress></el-col>
+                  <el-col :span="20"><el-progress :text-inside="true"  :stroke-width="15" :percentage="ratings.oneStar" class="progress" color="#ce492b"></el-progress></el-col>
                 </el-row>
 
               </el-card>
@@ -44,7 +44,7 @@
               <el-card class="stat-widget-card">
                 <h1>{{book.avgRating}}</h1>
                 <el-rate v-model="book.avgRating" disabled show-score text-color="#ff9900" score-template="{value} rating"></el-rate>
-                <h1><i class="fa fa-user"></i>&nbsp; {{ratings. totalRatings}} Total</h1>
+                <h1><i class="fa fa-user"></i>&nbsp; {{ratings.totalRatings}} Total</h1>
               </el-card></el-col>
         </el-row>
         <el-row>
@@ -52,10 +52,10 @@
               <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
                   <el-row>
                     <el-col :span="2" justify="start" :xs="24">
-                        <img :src="review.profilePic" alt="Avatar" style="border-radius:50%;height:50px;">
+                        <img :src="review.user.profilePic" alt="Avatar" style="border-radius:50%;height:50px;">
                     </el-col>
                     <el-col :span="4" justify="start" :xs="24">
-                          <h5 style="margin:5px">{{review.userName}}</h5>
+                          <h5 style="margin:5px">{{review.user.name}}</h5>
                           <el-rate v-model="review.rating" disabled show-score text-color="#ff9900"></el-rate>
                           <span style="color:gray;font-size:14px;">{{review.reviewDate}}</span>
                     </el-col>

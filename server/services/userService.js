@@ -13,7 +13,7 @@ exports.signup = async function (user) {
         name: user.name,
         email: user.email,
         password: user.password,
-        profilePic: user.profilePic,
+        profilePic: "https://www.w3schools.com/howto/img_avatar.png",
         shelves: [],
         friends: []
     });
@@ -55,11 +55,34 @@ exports.login = async function (user) {
 }
 
 exports.getShelves = async function (userId) {
+    console.log("Getting shelves");
     var response = await User.find({_id: userId},{shelves: 1});
     var shelfIds = response[0].shelves;
     var shelves = await Shelf.find({_id: {$in:shelfIds}}, {_id:1,shelfName: 1});
     return shelves;
 }
+
+exports.insertIntoShelf = async function(book){
+    console.log(book);
+    var shelf = await Shelf.findById(book.shelfId, {books:1});
+    var id = book.bookId;
+    console.log(id);
+    var books=shelf.books;
+    var isDuplicate=false;
+    for(let items of books)
+    {
+        console.log(items.bookId);
+        console.log(id);
+        if(items.bookId==id)isDuplicate=true;
+    }
+    if(!isDuplicate)
+    {
+        books.push({bookId:id, readingStatus:"Want To Read"});
+    }
+
+    var newShelf = Shelf.update({_id:book.shelfId},{books:books});
+    return newShelf;   
+};
 
 exports.getUserById = async function(id){
     var user = await User.findById(id);
@@ -67,6 +90,7 @@ exports.getUserById = async function(id){
 };
 
 exports.createNewShelf = async function(shelf) {
+    console.log("Creating shelves...");
     var userID = shelf.userID;
     var shelfName = shelf.shelfName;
     var isPrivate = shelf.isPrivate;
@@ -78,18 +102,25 @@ exports.createNewShelf = async function(shelf) {
         books: []
     })
 
-    try {
-        var createdShelf = await newShelf.save();
+        console.log(newShelf);
         var user = await User.find({_id:userID},{shelves:1});
+        console.log(user);
         var shelves = user[0].shelves;
-        shelves.push(createdShelf.id);
+        var isDuplicate=false;
+        for(let particularShelf of shelves)
+        {
+            if(particularShelf.shelfName==newShelf.shelfName)isDuplicate=true;
+        }
+        if(!isDuplicate)
+        {
+         var createdShelf = await newShelf.save();
+         console.log(createdShelf);
+         shelves.push(createdShelf._id);
+        }
+        
         var updatedUser = await User.update({_id:userID}, {$set:{shelves:shelves}});
         return updatedUser;
-    }
 
-    catch (e) {
-        throw Error("Error while creating shelf");
-    }
 
 }
 
