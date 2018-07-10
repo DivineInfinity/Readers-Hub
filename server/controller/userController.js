@@ -74,6 +74,29 @@ exports.getShelves= async function(req,res,next){
     
 }
 
+exports.getBooksFromShelves= async function(req,res,next){
+    console.log("i m in userController");
+    var id = req.params.userId;
+    var shelves = await userService.getBooksFromShelves(id);
+
+    console.log(shelves);
+    if(shelves.length>0)
+    {
+        res.status(200).json({
+            messageEagle:"Successfully retrieved Shelves with books",
+            shelves: shelves,
+        });
+    }
+    else
+    {
+        res.status(200).json({
+            message:"Something went wrong",
+            shelves: shelves
+        });
+    }
+    
+}
+
 exports.getUserById = async function(req,res,next){
     let userId = req.params.id;
     let user = await userService.getUserById(userId)
