@@ -48,9 +48,18 @@ export default {
   },
   methods: {
       async signUpUser(){
-          var response= await userService.signup({name:this.username,email:this.email,password:this.password});
-          console.log(response);
-      },
+          if(this.isMatching)
+            {
+                var response= await userService.signup({name:this.username,email:this.email,password:this.password});
+                console.log(response);
+                alert("Successfully signed up");
+                this.$router.push({name:"login"});
+            }
+            else
+            {
+                alert("Please insert proper credentials");
+            }
+                },
       toLogin(){
           this.$router.push({name:"login"});
       },

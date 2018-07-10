@@ -1,12 +1,13 @@
 const Book = require('../models/book');
 
 var getBookByName= async function getBookByName(searchQuery){
+    var searchRegex = new RegExp('\\b'+searchQuery);
     var book = await Book.find(
         {
             $or: [
-                {title: {$regex: searchQuery, $options: 'i'}},
-                {author: {$regex: searchQuery, $options: 'i'}},
-                {publisher: {$regex: searchQuery, $options: 'i'}},
+                {title: {$regex: searchRegex, $options: 'i'}},
+                {author: {$regex: searchRegex, $options: 'i'}},
+                {publisher: {$regex: searchRegex, $options: 'i'}},
             ]
         },
         {
@@ -20,17 +21,6 @@ var getBookByName= async function getBookByName(searchQuery){
         }
     ).limit(30);
     return book;
-};
-
-var getBookSuggestions= async function getBookSuggestions(searchQuery){
-    var book = await Book.find({ title: {$regex: searchQuery, $options: 'i'}}).limit(5);
-    console.log(book);
-    var bookTitles = [];
-    for(var index in book){
-        bookTitles.push(book[index].title);
-    }
-    console.log(bookTitles);
-    return bookTitles;
 };
 
 var getBookSuggestions= async function getBookSuggestions(searchQuery){

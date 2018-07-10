@@ -49,16 +49,13 @@
                          v-model="value2"
                          :colors="['#99A9BF', '#F7BA2A', '#FF9900']" disabled>
                 </el-rate>
-                <el-dropdown split-button type="primary" @click="handleClick">
-                 Add to shelf
+                <el-dropdown style="text-overflow:hidden;" split-button type="primary"  @click="addToShelf()" @command="handleCommand">
+                 Add to {{this.selectedShelfName}}
+                 
                 <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>Action 1</el-dropdown-item>
-    <el-dropdown-item>Action 2</el-dropdown-item>
-    <el-dropdown-item>Action 3</el-dropdown-item>
-    <el-dropdown-item>Action 4</el-dropdown-item>
-    <el-dropdown-item>Action 5</el-dropdown-item>
-  </el-dropdown-menu>
-</el-dropdown>
+                <el-dropdown-item v-for="shelf in this.userShelves" :key="shelf" :command="shelf"  >{{shelf.shelfName}}</el-dropdown-item>
+                </el-dropdown-menu>
+                </el-dropdown>
               </div>
             </div>
           </el-col>
@@ -143,6 +140,7 @@ import Vue from 'vue';
         display: true,
         alwaysTrue: true,
         isLoggedIn: false,
+        userShelves:[],
         reviews: [
           {
           userName: "John Doe",
@@ -190,6 +188,8 @@ import Vue from 'vue';
           language:'english'
         },
         searchQuery:'',
+        selectedShelf:'',
+        selectedShelfName:'',
         loading:''
       }
     },
@@ -208,9 +208,23 @@ import Vue from 'vue';
       toggleExpand(i) {
       this.reviews[i].isExpanded = !this.reviews[i].isExpanded;
       },
-
       toViewAllReviews(){
         this.$router.push({name:'reviews', params:{id:this.$route.params.id}})
+      },
+      handleCommand(command){
+        console.log(command);
+       this.selectedShelf=command._id;
+       this.selectedShelfName=command.shelfName;
+      },
+      async addToShelf(){
+        if(this.selectedShelf)
+        {
+          var response = await userService.addToShelf(this.selectedShelf, this.$route.params.id);
+          console.log(this.selectedShelf);
+          alert("Book successfully added to shelf");
+        }
+        else alert("Please select a shelf first");
+        
       },
       loadingScreenOn() {
         this.loading = this.$loading({
@@ -237,8 +251,9 @@ import Vue from 'vue';
         console.log("getShelves");
         var userId = Vue.localStorage.get("userId");
         var token =  Vue.localStorage.get("token");
-        var shelf = await userService.getShelves(userId, token);
-        console.log( shelf.data);
+        var response = await userService.getShelves(userId, token);
+        console.log(response.data);
+        this.userShelves = response.data.shelves;
       }
 
     },
