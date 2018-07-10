@@ -6,8 +6,10 @@ import BookDetails from '../components/book-details'
 import SearchPage from '../components/search-page'
 import Login from '../components/login'
 import Signup from '../components/signup'
-import discussions from '../components/discussions.vue'
-import profilePage from '../components/profile.vue'
+import Discussions from '../components/discussions.vue'
+import ProfilePage from '../components/profile.vue'
+import Shelf from '../components/shelf'
+
 Vue.use(Router)
 
 export default new Router({
@@ -43,14 +45,19 @@ export default new Router({
       component: SearchPage
     },
     {
-      path:'/book/discussions/:id',
-      name:'discussions',
-      component:discussions
+      path: '/book/discussions/:id',
+      name: 'discussions',
+      component: Discussions
+    },
+    {
+      path: '/user/shelf',
+      name: 'shelf',
+      component: Shelf
     },
     {
       path:'/user/profile/:id',
       name:'profile',
-      component:profilePage
+      component:ProfilePage
     }
   ],
   mode: 'history'

@@ -5,10 +5,11 @@ const userSchema=mongoose.Schema({
     name:String,
     email:String,
     password:String,
-    profilePic:Date,
+    profilePic:String,
     bio:String,
     friends:[mongoose.Schema.ObjectId],
     shelves:[mongoose.Schema.ObjectId],
+    reviews:[mongoose.Schema.ObjectId]
 })
 
 module.exports=mongoose.model('User', userSchema);

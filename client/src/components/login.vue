@@ -40,33 +40,38 @@ export default {
   methods: {
       async login(){
           var response = await userService.login({email:this.email, password:this.password});
-          console.log(response.data);
-          console.log(response.data.user);
-          if(response.data.user.length>0)
+          if(response.data.userData)
           {
-              Vue.localStorage.set("userName",response.data.user.name);
-              Vue.localStorage.set("token",response.data.token);
+              console.log("Logged in successfully");
+              Vue.localStorage.set("userId",response.data.userData[0].user._id);
+              Vue.localStorage.set("userName",response.data.userData[0].user.name);
+              Vue.localStorage.set("profilePic",response.data.userData[0].user.profilePic);
+              Vue.localStorage.set("token",response.data.userData[0].token);
               this.$router.push({name: 'home'});
           }
           else
           {
               this.invalidLogin=true;
+              if(Vue.localStorage.get("token"))
+              Vue.localStorage.remove("userName");
+              Vue.localStorage.remove("profilePic");
+              Vue.localStorage.remove("token");
+              Vue.localStorage.remove("userId");
           }
           
       },
       toSignup(){
           this.$router.push({name:"signup"});
       }
-  },
-  mounted() {
-  },
-  updated() {
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.mainContainer{
+margin-top: 6%;
+}
 
 .loginCard{
     background-color:#f7f7f7;
