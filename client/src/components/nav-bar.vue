@@ -27,14 +27,14 @@
   <el-button class="searchButton" id="searchButton"  @click="search()" v-on:keyup.enter="search()" icon="el-icon-search"
                        circle></el-button>
           </b-nav-form>
-          <span  style="margin-left:2px;" v-if="this.isLoggedIn">{{this.userName}} <a href="#" @click="logout()">Logout</a></span>
+          <span  style="margin-left:2px;" v-if="this.isLoggedIn"><img :src="getProfilePic()" style="border-radius:50%;height:40px;">{{this.userName}} <a href="#" @click="logout()">Logout</a></span>
           <a v-else  style="margin-left:2px;" href="#" @click="toLogin()">Login</a>
 
         </b-navbar-nav>
 
       </b-collapse>
     </b-navbar>
- 
+
 
 </template>
 
@@ -85,7 +85,7 @@
       async suggest(){
 
         console.log("I have been called");
-        
+
         if(this.searchInput.length==0)
         {
           this.searchSuggestions=[];
@@ -112,7 +112,7 @@
           }
 
                 var regex1 =  new RegExp('^'+this.searchInput, 'i');
-                
+
                 var startIndex  = 0,stopIndex = searchArray.length - 1,
                 middle = Math.floor((stopIndex + startIndex)/2);
                 console.log(startIndex);
@@ -144,9 +144,9 @@
               {
                 this.searchSuggestions.push(searchArray[i]);
                 count--;
-              } 
+              }
             }
-            
+
           if(count==5)
           {
               console.log("Through Backend");
@@ -158,14 +158,14 @@
                 if(!searchArray.includes(this.searchSuggestions[i]))
                   searchArray.push(this.searchSuggestions[i]);
               }
-              
+
               searchArray = searchArray.sort();
-              localStorage.searchSuggestions=JSON.stringify(searchArray);  
+              localStorage.searchSuggestions=JSON.stringify(searchArray);
           }
 
-          
+
         }
-    
+
       },
       outOfFocus(){
         this.searchSuggestions=[];
@@ -194,10 +194,10 @@
           this.userName=Vue.localStorage.get("userName");
         }
         else this.isLoggedIn=false;
-        
+
       },
       showNavbar(){
-        console.log("I am called"); 
+        console.log("I am called");
        if(this.$route.path=="/login" || this.$route.path=="/signup")
        {
          this.showNav=false;
@@ -206,6 +206,9 @@
        {
          this.showNav=true;
        }
+      },
+      getProfilePic(){
+        return Vue.localStorage.get('profilePic');
       }
     },
     computed:{

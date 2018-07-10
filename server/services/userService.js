@@ -13,7 +13,7 @@ exports.signup = async function (user) {
         name: user.name,
         email: user.email,
         password: user.password,
-        profilePic: user.profilePic,
+        profilePic: "https://www.w3schools.com/howto/img_avatar.png",
         shelves: [],
         friends: []
     });

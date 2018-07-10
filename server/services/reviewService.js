@@ -7,7 +7,7 @@ var findBookById =async function(id){
 }
 var findReviewById = async function(id){
     var reviews = await Review.find({_id:{ "$in": id }});
-
+    console.log(reviews);
     return reviews;
 }
 module.exports={
