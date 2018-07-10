@@ -24,14 +24,14 @@ exports.login = async function (req, res, next) {
         })
     }
 
-}
+};
 
 exports.signup = async function (req, res, next) {
     var user = {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
-    }
+    };
 
     var newUser = await userService.signup(user);
 
@@ -108,9 +108,7 @@ exports.getUserById = async function(req,res,next){
 
 exports.createNewShelf = async function (req, res) {
     let shelfName = req.body.shelfName;
-
     let status = userService.createNewShelf(req.body);
-
     if (status) {
         res.status(200).json({
             messageEagle: "Success",
