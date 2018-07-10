@@ -68,9 +68,9 @@
                     {{book.readingStatus}}<i class="el-icon-arrow-down el-icon--right"></i>
                   </el-button>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>Currently Reading</el-dropdown-item>
-                    <el-dropdown-item>Want To Read</el-dropdown-item>
-                    <el-dropdown-item>Completed</el-dropdown-item>
+                    <el-dropdown-item :command="{status:'Currently Reading'}">Currently Reading</el-dropdown-item>
+                    <el-dropdown-item :command="{status:'Want To Read'}">Want To Read</el-dropdown-item>
+                    <el-dropdown-item :command="{status:'Completed'}">Completed</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </h5>
@@ -193,7 +193,8 @@
         console.log(response);
       },
 
-      async changeBookStatus() {
+      async changeBookStatus(selectedStatus) {
+          let status = selectedStatus.status;
 
       }
 
