@@ -2,7 +2,7 @@
 
   <div id="app">
     <nav-bar :key="$route.path"></nav-bar>
-    <router-view></router-view>
+    <router-view :key="$route.path"></router-view>
     <el-card style="margin:20px">
         © 2018 Reader's Hub |&nbsp; <a href="#">Home</a> |&nbsp;<a href="#">Contact Us</a> |&nbsp;<a href="#">About Us</a>
     </el-card>
