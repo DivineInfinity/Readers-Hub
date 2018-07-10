@@ -48,9 +48,18 @@ export default {
   },
   methods: {
       async signUpUser(){
-          var response= await userService.signup({name:this.username,email:this.email,password:this.password});
-          console.log(response);
-      },
+          if(this.isMatching)
+            {
+                var response= await userService.signup({name:this.username,email:this.email,password:this.password});
+                console.log(response);
+                alert("Successfully signed up");
+                this.$router.push({name:"login"});
+            }
+            else
+            {
+                alert("Please insert proper credentials");
+            }
+                },
       toLogin(){
           this.$router.push({name:"login"});
       },
@@ -73,6 +82,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.mainContainer{
+margin-top: 6%;
+}
 
 .borderRed{
     border: 1px solid red;

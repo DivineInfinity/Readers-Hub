@@ -1,5 +1,5 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Reader's Hub aims to be a hub of information for book readers and create a community that continuously evolves as more readers read books and review those books on the site.  
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:

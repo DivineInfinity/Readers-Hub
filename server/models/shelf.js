@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const shelfSchema=mongoose.Schema({
     _id:mongoose.Schema.ObjectId,
     shelfName:String,
-    isPrivate:boolean,
-    books:[mongoose.Schema.ObjectId]
-})
+    isPrivate:Boolean,
+    books:[{bookId:String,readingStatus:String}]
+});
 
 module.exports=mongoose.model('Shelf', shelfSchema);

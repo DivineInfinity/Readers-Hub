@@ -1,43 +1,7 @@
 <template>
 
   <div id="app">
-    <b-navbar class="navBar" style="" toggleable="md" type="light" variant="info">
-
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
-
-      <b-navbar-brand href="#" @click="toHome()"><img src="../src/assets/logo1.png" height="50" width="80"></b-navbar-brand>
-
-      <b-collapse is-nav id="nav_collapse">
-
-        <b-navbar-nav>
-          <b-nav-item href="#" @click="toHome()">Home</b-nav-item>
-          <b-nav-item href="#">My Shelf</b-nav-item>
-          <b-nav-item href="#" @click="toGenres()">Genres</b-nav-item>
-          <b-nav-item href="#" @click="toDiscussions()">Discussions</b-nav-item>
-
-        </b-navbar-nav>
-
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-
-          <b-nav-form>
-            <!-- <input type="text" v-model="searchInput" v-on:keydown.enter="search()" placeholder="Search"/> -->
-            <!--<b-button size="sm" class="my-2 my-sm-0" @click="search()">Search</b-button>-->
-
-    <div class="autocomplete" style="width:300px;">
-    <input id="search" class="search-input" type="text" name="search" autocomplete="off" placeholder="Search for Books" v-model="searchInput"  v-on:keydown.enter="search()" v-on:keyup.38="selectUp" v-on:keyup.40="selectDown" v-on:keyup="suggestSomething()" v-on:focusout="outOfFocus()" required>
-      <div  v-if="searchInput.length>0" class="autocomplete-items" id="autocomplete-list">
-        <input type="text" :value="searchSuggestions[index]" readonly v-for="(city,index) of searchSuggestions" :key="index"/>
-      </div>
-  </div>
-  <el-button class="searchButton" id="searchButton"  @click="search()" v-on:keyup.enter="search()" icon="el-icon-search"
-                       circle></el-button>
-          </b-nav-form>
-
-        </b-navbar-nav>
-
-      </b-collapse>
-    </b-navbar>
+    <nav-bar :key="$route.path"></nav-bar>
     <router-view :key="$route.path"></router-view>
     <el-card style="margin:20px">
         © 2018 Reader's Hub |&nbsp; <a href="#">Home</a> |&nbsp;<a href="#">Contact Us</a> |&nbsp;<a href="#">About Us</a>
@@ -48,147 +12,20 @@
 
 <script>
   import Home from '../src/components/home'
+  import navbar from '../src/components/nav-bar'
   import searchService from './services/searchService'
   export default {
     name: 'App',
     data() {
       return{
-          isExpanded: false,
-      isHidden: true,
-      searchInput: '',
-      loading: '',
-      searchSuggestions:[],
-      selectedSuggestion:-1
       }
       },
+       components: {
+            'nav-bar': navbar
+        },
     methods: {
-      async search() {
-        console.log("Search initialized");
-        this.searchSuggestions=[];
-        this.selectedSuggestion=-1;
-        this.$router.push({name: 'search-page', params: {searchQuery: this.searchInput}})
-      },
-
-      toGenres(){
-        this.$router.push({name: 'genre'});
-      },
-
-      toDiscussions(){
-        this.$router.push({name: 'discussions'});
-      },
-
-      async suggest(){
-
-        console.log("I have been called");
-        
-        if(this.searchInput.length==0)
-        {
-          this.searchSuggestions=[];
-          this.selectedSuggestion=-1;
-        }
-
-        var inp = String.fromCharCode(event.keyCode);
-
-
-        if(((/[a-zA-Z0-9-_ ]/.test(inp))||event.keyCode==8||event.keyCode==46)&&this.searchInput.length>0)
-        {
-
-          if(localStorage.getItem("searchSuggestions"))
-          {
-            var searchArray = JSON.parse(localStorage.getItem("searchSuggestions"));
-            console.log("From Cache");
-            console.log(searchArray);
-          }
-          else
-          {
-            console.log("Not from Cache");
-            var searchArray = [];
-            localStorage.searchSuggestions=searchArray
-          }
-
-                var regex1 =  new RegExp('^'+this.searchInput, "i");
-                
-                var startIndex  = 0,stopIndex = searchArray.length - 1,
-                middle = Math.floor((stopIndex + startIndex)/2);
-                console.log(startIndex);
-                console.log(stopIndex);
-                while(!(regex1.test(searchArray[middle])) && startIndex < stopIndex){
-                    console.log("IN WHILE "+searchArray[middle]);
-                    console.log(regex1.test(searchArray[middle]));
-                    //adjust search area
-                    if (this.searchInput.localeCompare(searchArray[middle]) == -1){
-                        stopIndex = middle - 1;
-                    } else{
-                        startIndex = middle + 1;
-                    }
-                    console.log("Middle: "+middle);
-                    //recalculate middle
-                    middle = Math.floor((stopIndex + startIndex)/2);
-                }
-            searchArray[middle]
-            var count=5;
-            this.searchSuggestions=[];
-            for(var i=middle;i<searchArray.length && regex1.test(searchArray[i]) && count>0;i++)
-            {
-              this.searchSuggestions.push(searchArray[i]);
-              count--;
-            }
-            if(count>0)
-            {
-              for(var i=middle-1;i>=0 && regex1.test(searchArray[i]) && count>0;i--)
-              {
-                this.searchSuggestions.push(searchArray[i]);
-                count--;
-              } 
-            }
-            
-          if(count==5)
-          {
-              console.log("Through Backend");
-              var response = await searchService.searchSuggestions(this.searchInput);
-              console.log(response.data);
-              this.searchSuggestions=response.data.searchSuggestions;
-              for(var i=0;i<this.searchSuggestions.length;i++)
-              {
-                if(!searchArray.includes(this.searchSuggestions[i]))
-                  searchArray.push(this.searchSuggestions[i]);
-              }
-              
-              searchArray = searchArray.sort();
-              localStorage.searchSuggestions=JSON.stringify(searchArray);  
-          }
-
-          
-        }
-    
-      },
-      outOfFocus(){
-        this.searchSuggestions=[];
-        this.selectedSuggestion=-1;
-      },
-      toHome() {
-        console.log("To Home");
-        this.$router.push({name: 'home'});
-      },
-      selectUp(){
-        this.selectedSuggestion--;
-        if(this.selectedSuggestion<0)this.selectedSuggestion=this.searchSuggestions.length-1;
-        this.searchInput=this.searchSuggestions[this.selectedSuggestion];
-
-      },
-       selectDown(){
-        this.selectedSuggestion++;
-        if(this.selectedSuggestion>=this.searchSuggestions.length)this.selectedSuggestion=0;
-        this.searchInput=this.searchSuggestions[this.selectedSuggestion];
-      }
-    },
-    computed:{
-      suggestSomething(){
-        this.suggest();
-      }
-    },
-    mounted() {
-    }
+      
+  }
   }
 
 </script>

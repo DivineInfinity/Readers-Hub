@@ -1,6 +1,7 @@
 const Book = require('../models/book');
 
 var getBookByName= async function getBookByName(searchQuery){
+    var searchRegex = new RegExp('\\b'+searchQuery);
     var book = await Book.find(
         {
             $or: [
@@ -20,12 +21,11 @@ var getBookByName= async function getBookByName(searchQuery){
             publishedDate: 1
         }
     );
-    console.log(book);
     return book;
-}
+};
 
 var getBookSuggestions= async function getBookSuggestions(searchQuery){
-    var searchRegex = new RegExp("^"+searchQuery);
+    var searchRegex = new RegExp('\\b'+searchQuery);
     var titles = await Book.find({title: {$regex:searchRegex , $options: 'i'}},{title: 1,}).limit(5);
     var searchSuggestions=[];
     for(index in titles)

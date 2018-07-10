@@ -44,18 +44,7 @@
         value5: 4,
         display: true,
         alwaysTrue: true,
-        book: {
-          title: "Carry on jeeves",
-          frontCover: '../../static/images/theGodfather.jpg',
-          genere: 'Humour',
-          author: 'Sir Shebaz Jafri',
-          description:'One of the best books by sir Shebaz Jafri ',
-          publisher: 'Ho oh publishers and dads',
-          publishDate: '2017',
-          rating: '4',
-          pages:125,
-          language:'english'
-        },
+        book: { },
         searchQuery:'',
         loading:''
       }
