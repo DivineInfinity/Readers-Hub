@@ -1,5 +1,6 @@
 var User = require('../models/user');
 var Shelf = require('../models/shelf');
+var Book = require('../models/book');
 var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
@@ -62,22 +63,32 @@ exports.getShelves = async function (userId) {
     return shelves;
 }
 
+exports.getBooksFromShelves = async function (userId) {
+    console.log("Getting Books from shelves");
+    var response = await User.find({_id: userId},{shelves: 1});
+    var shelfIds = response[0].shelves;
+    var shelves = await Shelf.find({_id: {$in:shelfIds}});
+    return shelves;
+}
+
 exports.insertIntoShelf = async function(book){
-    console.log(book);
     var shelf = await Shelf.findById(book.shelfId, {books:1});
-    var id = book.bookId;
-    console.log(id);
     var books=shelf.books;
     var isDuplicate=false;
+
+    var actualBook = await Book.findById(book.bookId, {frontCover:1, title:1});
     for(let items of books)
     {
-        console.log(items.bookId);
-        console.log(id);
-        if(items.bookId==id)isDuplicate=true;
+       
+        if(items.bookId==actualBook._id)
+        {
+            isDuplicate=true;
+            break;
+        }
     }
     if(!isDuplicate)
     {
-        books.push({bookId:id, readingStatus:"Want To Read"});
+        books.push({bookId:actualBook._id, bookTitle:actualBook.title, frontCover:actualBook.frontCover, readingStatus:"Want To Read"});
     }
 
     var newShelf = Shelf.update({_id:book.shelfId},{books:books});
@@ -109,7 +120,10 @@ exports.createNewShelf = async function(shelf) {
         var isDuplicate=false;
         for(let particularShelf of shelves)
         {
-            if(particularShelf.shelfName==newShelf.shelfName)isDuplicate=true;
+            if(particularShelf.shelfName==newShelf.shelfName){
+                isDuplicate=true;
+                break;
+            }
         }
         if(!isDuplicate)
         {
