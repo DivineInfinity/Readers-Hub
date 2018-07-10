@@ -11,7 +11,7 @@
           <b-nav-item href="#" @click="toHome()">Home</b-nav-item>
           <b-nav-item href="#">My Shelf</b-nav-item>
           <b-nav-item href="#" @click="toGenres()">Genres</b-nav-item>
-          <b-nav-item href="#">Discussions</b-nav-item>
+          <b-nav-item href="#" @click="toDiscussions()">Discussions</b-nav-item>
 
         </b-navbar-nav>
 
@@ -73,6 +73,12 @@
         this.isLoggedIn=false;
         this.$router.push({name:"login"});
       },
+      toGenres(){
+        this.$router.push({name:"genre"});
+      },
+      toDiscussions(){
+        this.$router.push({name:"discussions"});
+      },      
       logout(){
         console.log("Logout");
         Vue.localStorage.remove("userName");
