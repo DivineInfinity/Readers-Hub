@@ -88,7 +88,7 @@
 
 <script>
   import userService from "../services/userService";
-
+  import Vue from 'vue';
   export default {
     name: "shelf",
     data() {
@@ -193,16 +193,25 @@
       async createNewShelf(name, isPrivate) {
         console.log(name);
         this.dialogFormVisible = false;
-        let userID = "5b4470141ab1cb0078759be3";
-        const response = await userService.createNewShelf(userID, name, isPrivate);
+        let userID = Vue.localStorage.get("userId");
+        const response = await userService.createNewShelf(userID,name,isPrivate);
         console.log(response);
       },
 
       async changeBookStatus(selectedStatus) {
         let status = selectedStatus.status;
 
+      },
+      async getBooksFromShelves(){
+        var userId = Vue.localStorage.get("userId");
+        var response = await userService.getBooksFromShelves(userId);
+        console.log(response.data);
+        if(response.data.shelves)this.shelves = response.data.shelves;
       }
 
+    },
+    mounted(){
+      this.getBooksFromShelves();
     }
   };
 
