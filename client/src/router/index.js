@@ -7,6 +7,7 @@ import SearchPage from '../components/search-page'
 import Genre from '../components/genre'
 import Login from '../components/login'
 import SignUp from '../components/signup'
+import ContactUs from '../components/contact-us'
 import Discussions from '../components/discussions.vue'
 import ProfilePage from '../components/profile.vue'
 import Shelf from '../components/shelf'
@@ -29,6 +30,11 @@ export default new Router({
       path: '/signup',
       name: 'signup',
       component: SignUp
+    },
+    {
+      path: '/contact-us',
+      name: 'contact-us',
+      component: ContactUs
     },
     {
       path: '/book/genre',

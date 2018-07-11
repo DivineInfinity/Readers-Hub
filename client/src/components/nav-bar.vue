@@ -11,7 +11,7 @@
           <b-nav-item href="#" @click="toHome()">Home</b-nav-item>
           <b-nav-item href="#">My Shelf</b-nav-item>
           <b-nav-item href="#" @click="toGenres()">Genres</b-nav-item>
-          <b-nav-item href="#" @click="toDiscussions()">Discussions</b-nav-item>
+          <b-nav-item href="#" @click="toContactUs()">Contact Us</b-nav-item>
 
         </b-navbar-nav>
 
@@ -63,7 +63,8 @@
         console.log("Search initialized");
         this.searchSuggestions=[];
         this.selectedSuggestion=-1;
-        this.$router.push({name: 'search-page', params: {searchQuery: this.searchInput}})
+        if(this.searchInput)  
+          this.$router.push({name: 'search-page', params: {searchQuery: this.searchInput}})
       },
       toLogin(){
         Vue.localStorage.remove("userName");
@@ -76,8 +77,8 @@
       toGenres(){
         this.$router.push({name:"genre"});
       },
-      toDiscussions(){
-        this.$router.push({name:"discussions"});
+      toContactUs(){
+        this.$router.push({name:"contact-us"});
       },      
       logout(){
         console.log("Logout");
