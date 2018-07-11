@@ -4,5 +4,6 @@ const router = express.Router();
 
 
 router.get('/:id',  reviewController.getReviews);
+router.post('/',reviewController.updateReview);
 
 module.exports = router;

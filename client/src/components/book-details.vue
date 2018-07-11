@@ -40,18 +40,18 @@
                 <el-rate class="rating" v-model="value5" disabled show-score text-color="orange" score-template="">
                 </el-rate>
                 <h6 style="margin-top:5px;">Your rating</h6>
-                <el-rate v-if="isLoggedIn" class="rate"                      
-                         v-model="value2"
-                         :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                <el-rate v-if="isLoggedIn" class="rate"
+                         v-model="userReview.rating"
+                         :colors="['#99A9BF', '#F7BA2A', '#FF9900']" @change="debounce(giveReview(),3000)">
                 </el-rate>
                 <el-rate v-else
-                          class="rate"                      
-                         v-model="value2"
+                          class="rate"
+                         v-model="userReview.rating"
                          :colors="['#99A9BF', '#F7BA2A', '#FF9900']" disabled>
                 </el-rate>
                 <el-dropdown style="text-overflow:hidden;" split-button type="primary"  @click="addToShelf()" @command="handleCommand">
                  Add to {{this.selectedShelfName}}
-                 
+
                 <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-for="shelf in this.userShelves" :key="shelf" :command="shelf"  >{{shelf.shelfName}}</el-dropdown-item>
                 </el-dropdown-menu>
@@ -96,7 +96,26 @@
           </el-col>
         </el-row>
 
-      <el-row>
+      <el-row style="margin-top:30px;">
+        <h4>Reviews</h4>
+        <el-button @click="dialogFormVisible = true">Write a Review</el-button>
+        <el-dialog title="Write a Review" :visible.sync="dialogFormVisible">
+            <el-form :model="form">
+              <el-form-item label="" >
+                <el-rate  class="rate"
+                         v-model="userReview.rating"
+                         :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                </el-rate>
+              </el-form-item>
+              <el-form-item label="Review" >
+                <el-input type="textarea" v-model="userReview.review"></el-input>
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">Cancel</el-button>
+              <el-button type="primary" @click="giveReview()">Confirm</el-button>
+            </span>
+        </el-dialog>
           <el-col :span="24" v-for="(review,index) in reviews" :key=index>
               <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
                   <el-row>
@@ -129,6 +148,7 @@
   import bookDetailsService from '../services/bookDetailsService'
   import userService from '../services/userService'
 import Vue from 'vue';
+import reviewService from '../services/reviewService';
   export default {
 
     name: 'BookDetails',
@@ -140,7 +160,13 @@ import Vue from 'vue';
         display: true,
         alwaysTrue: true,
         isLoggedIn: false,
+        dialogFormVisible:false,
         userShelves:[],
+        userReview:
+        {
+          rating:0,
+          review:''
+        },
         reviews: [
           {
           userName: "John Doe",
@@ -216,6 +242,9 @@ import Vue from 'vue';
        this.selectedShelf=command._id;
        this.selectedShelfName=command.shelfName;
       },
+      test(){
+        alert("rated");
+      },
       async addToShelf(){
         if(this.selectedShelf)
         {
@@ -224,7 +253,7 @@ import Vue from 'vue';
           alert("Book successfully added to shelf");
         }
         else alert("Please select a shelf first");
-        
+
       },
       loadingScreenOn() {
         this.loading = this.$loading({
@@ -237,7 +266,7 @@ import Vue from 'vue';
       loadingScreenOff(){
         this.loading.close();
       },
-      
+
       checkifLoggedIn(){
         var user = Vue.localStorage.get("userName");
         if(user){
@@ -254,6 +283,18 @@ import Vue from 'vue';
         var response = await userService.getShelves(userId, token);
         console.log(response.data);
         this.userShelves = response.data.shelves;
+      },
+      async giveReview(){
+        this.dialogFormVisible = false;
+        var review =this.userReview;
+        review.user={
+                userId:Vue.localStorage.get("userId"),
+                name:Vue.localStorage.get("userName"),
+                profilePic:Vue.localStorage.get("profilePic")
+        }
+        review.bookId = this.$route.params.id;
+        var response = await reviewService.updateReview(review);
+        console.log(response);
       }
 
     },
