@@ -4,8 +4,10 @@ import Home from '../components/home'
 import Reviews from '../components/reviews'
 import BookDetails from '../components/book-details'
 import SearchPage from '../components/search-page'
+import Genre from '../components/genre'
 import Login from '../components/login'
-import Signup from '../components/signup'
+import SignUp from '../components/signup'
+import ContactUs from '../components/contact-us'
 import Discussions from '../components/discussions.vue'
 import ProfilePage from '../components/profile.vue'
 import Shelf from '../components/shelf'
@@ -27,7 +29,17 @@ export default new Router({
     {
       path: '/signup',
       name: 'signup',
-      component: Signup
+      component: SignUp
+    },
+    {
+      path: '/contact-us',
+      name: 'contact-us',
+      component: ContactUs
+    },
+    {
+      path: '/book/genre',
+      name: 'genre',
+      component: Genre
     },
     {
       path: '/reviews/:id',
@@ -45,8 +57,13 @@ export default new Router({
       component: SearchPage
     },
     {
-      path: '/book/discussions/:id',
-      name: 'discussions',
+      path: '/book/search/genre/:searchQuery',
+      name: 'search-genre',
+      component: SearchPage
+    },
+    {
+      path:'/book/discussions/:id',
+      name:'discussions',
       component: Discussions
     },
     {

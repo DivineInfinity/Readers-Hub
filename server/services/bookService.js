@@ -5,9 +5,10 @@ var getBookByName= async function getBookByName(searchQuery){
     var book = await Book.find(
         {
             $or: [
-                {title: {$regex: searchRegex, $options: 'i'}},
-                {author: {$regex: searchRegex, $options: 'i'}},
-                {publisher: {$regex: searchRegex, $options: 'i'}},
+                {title: {$regex: searchQuery, $options: 'i'}},
+                {author: {$regex: searchQuery, $options: 'i'}},
+                {publisher: {$regex: searchQuery, $options: 'i'}},
+                {genre: {$regex: searchQuery, $options: 'i'}},
             ]
         },
         {
@@ -19,7 +20,7 @@ var getBookByName= async function getBookByName(searchQuery){
             genre: 1,
             publishedDate: 1
         }
-    ).limit(30);
+    );
     return book;
 };
 
@@ -34,7 +35,14 @@ var getBookSuggestions= async function getBookSuggestions(searchQuery){
     return searchSuggestions;
 }
 
+var getListByGenre= async function getListByGenre(){
+    var genreList = await Book.find({},{genre: 1});
+    console.log(genreList);
+    return genreList; 
+}
+
 module.exports={
     findBookByName:getBookByName,
-    getBookSuggestions:getBookSuggestions
+    getBookSuggestions:getBookSuggestions,
+    getListByGenre:getListByGenre
 }

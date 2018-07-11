@@ -4,7 +4,7 @@
     <nav-bar :key="$route.path"></nav-bar>
     <router-view :key="$route.path"></router-view>
     <el-card style="margin:20px">
-        © 2018 Reader's Hub |&nbsp; <a href="#">Home</a> |&nbsp;<a href="#">Contact Us</a> |&nbsp;<a href="#">About Us</a>
+        © 2018 Reader's Hub |&nbsp; <a href="#">Home</a> |&nbsp;<a href="\contact-us">Contact Us</a> |&nbsp;<a href="#">About Us</a>
     </el-card>
   </div>
 
@@ -24,8 +24,7 @@
             'nav-bar': navbar
         },
     methods: {
-      
-  }
+    }
   }
 
 </script>
