@@ -141,4 +141,31 @@ exports.insertIntoShelf= async function(req,res,next){
     
 }
 
+exports.changeBookStatus= async function(req,res,next){
+    console.log(req.body.shelfId);
+    var book = {
+        shelfId:req.body.shelfId,
+        bookId:req.body.bookId,
+        status:req.body.status
+    }
+    var updatedShelf = await userService.changeBookStatus(book);
+    console.log(updatedShelf);
+    if(updatedShelf)
+    {
+        res.status(200).json({
+            messageEagle:"Successfully updated book status",
+            updatedShelf: updatedShelf,
+        });
+    }
+    else
+    {
+        res.status(200).json({
+            message:"Something went wrong",
+            updatedShelf: updatedShelf
+        });
+    }
+    
+}
+
+
 

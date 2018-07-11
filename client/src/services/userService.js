@@ -36,6 +36,10 @@ export default {
   },
   createNewShelf(userID,name,isPrivate){
     return Api().post('/user/shelf',{userID:userID,shelfName:name,isPrivate:isPrivate});
+  },
+  changeBookStatus(status, shelfId, bookId){
+    console.log(shelfId);
+    return Api().patch('/user/shelf/book/change-status',{status, shelfId, bookId});
   }
 
 }
