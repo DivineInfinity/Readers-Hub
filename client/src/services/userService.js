@@ -16,6 +16,13 @@ export default {
     }});
   },
 
+  getBooksFromShelves(userId, token){
+    console.log("Aditya is here in shelf......");
+    return Api().get(`/user/shelf/${userId}`, { headers:{
+      'Authorization': 'bearer ' + token
+    }});
+  },
+
   addToShelf(shelfId, bookId){
     var book ={
       shelfId:shelfId,
