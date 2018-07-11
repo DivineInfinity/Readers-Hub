@@ -35,5 +35,5 @@ app.use('/book-info', bookInfoRoutes);
 app.use('/reviews', reviewRoutes);
 
 var port = 8081;
-app.listen(port)
+app.listen(port);
 console.log(`<- -> i am running on port ${port}`);

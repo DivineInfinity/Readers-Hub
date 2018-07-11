@@ -10,7 +10,7 @@
               </el-button>
               <el-dropdown-menu style="margin-left:100px" class="" slot="dropdown">
                 <el-dropdown-item v-for="shelf in shelves"
-                                  :command="{name:shelf.shelfName,books:shelf.books}"
+                                  :command="{name:shelf.shelfName,books:shelf.books, shelfId:shelf._id}"
                                   :key="shelf.shelfName">{{shelf.shelfName}}
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -71,9 +71,9 @@
                     {{book.readingStatus}}<i class="el-icon-arrow-down el-icon--right"></i>
                   </el-button>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item :command="{status:'Currently Reading'}">Currently Reading</el-dropdown-item>
-                    <el-dropdown-item :command="{status:'Want To Read'}">Want To Read</el-dropdown-item>
-                    <el-dropdown-item :command="{status:'Completed'}">Completed</el-dropdown-item>
+                    <el-dropdown-item :command="{status:'Currently Reading', book}">Currently Reading</el-dropdown-item>
+                    <el-dropdown-item :command="{status:'Want To Read', book}">Want To Read</el-dropdown-item>
+                    <el-dropdown-item :command="{status:'Completed', book}">Completed</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </h5>
@@ -102,84 +102,12 @@
         },
         formLabelWidth: '120px',
         currentShelf: {
-          shelfName: "My Shelf",
-          books: [{
-            frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-            readingStatus: "Currently Reading"
-          },
-            {
-              frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-              readingStatus: "Want To Read"
-            },
-            {
-              frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-              readingStatus: "Want To Read"
-            },
+          shelfName:'', 
+          shelfId:'',
+          books: [
           ]
         },
         shelves: [
-          {
-            shelfName: "My Shelf",
-            books: [{
-              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-              readingStatus: "Currently Reading"
-            },
-              {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Want To Read"
-              },
-              {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Want To Read"
-              },
-            ]
-          }, {
-            shelfName: "Horror Zone",
-            books: [{
-              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-              readingStatus: "Currently Reading"
-            },
-              {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Want To Read"
-              },
-              {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Want To Read"
-              },
-            ]
-          },
-          {
-            shelfName: "Adventures",
-            books: [{
-              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-              readingStatus: "Currently Reading"
-            },
-              {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Want To Read"
-              },
-              {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Want To Read"
-              },
-            ]
-          }, {
-            shelfName: "Mysteries",
-            books: [{
-              frontCover: "https://books.google.com/books/content?id=-m8sR4rZbb4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-              readingStatus: "Currently Reading"
-            },
-              {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Want To Read"
-              },
-              {
-                frontCover: "http://books.google.com/books/content?id=qBlJNb9dhEkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-                readingStatus: "Currently Reading"
-              },
-            ]
-          }
         ]
       };
     },
@@ -188,6 +116,7 @@
         this.currentShelf.shelfName = shelf.name;
         //this.currentShelf.frontCovers = shelf.frontCovers;
         this.currentShelf.books = shelf.books;
+        this.currentShelf.shelfId=shelf.shelfId;
       },
 
       async createNewShelf(name, isPrivate) {
@@ -198,15 +127,24 @@
         console.log(response);
       },
 
-      async changeBookStatus(selectedStatus) {
-        let status = selectedStatus.status;
+      async changeBookStatus(selectedBook) {
+        let status = selectedBook.status;
+        let book=selectedBook.book;
+        book.readingStatus=status;
+        const response = await userService.changeBookStatus(status, this.currentShelf.shelfId, book.bookId);
+        console.log(response);
 
       },
       async getBooksFromShelves(){
         var userId = Vue.localStorage.get("userId");
         var response = await userService.getBooksFromShelves(userId);
         console.log(response.data);
-        if(response.data.shelves)this.shelves = response.data.shelves;
+        if(response.data.shelves){this.shelves = response.data.shelves;
+         this.currentShelf.shelfName=this.shelves[0].shelfName;
+         this.currentShelf.books=this.shelves[0].books;
+         this.currentShelf.shelfId=this.shelves[0]._id;
+         }
+         if(this.shelves.length==0)alert("You dont have any shelves right now");
       }
 
     },

@@ -138,6 +138,23 @@ exports.createNewShelf = async function(shelf) {
 
 }
 
+exports.changeBookStatus = async function(book) {
+        console.log(book.shelfId);
+        var retrivedShelf = await Shelf.find({_id:book.shelfId}, {books:1});
+        var books = retrivedShelf[0].books;
+        console.log(books);
+        for(let i=0;i<books.length;i++)
+        {
+            if(books[i].bookId==book.bookId)
+            {
+                books[i].readingStatus=book.status;
+            }
+        }
+        var updatedShelf = await Shelf.update({_id:book.shelfId}, {$set:{books:books}});
+        console.log(updatedShelf);
+        return updatedShelf;
 
+
+}
 
 
