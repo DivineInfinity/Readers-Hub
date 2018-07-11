@@ -19,9 +19,7 @@ app.use(cors())
   var rating=[0,0,0,0,0,0];
   var reviews = await reviewService.findReviewById(books[0].reviews);
   for(var i=0;i<reviews.length;i++){
-  var user = await userService.getUserById(reviews[i].user);
   rating[reviews[i].rating]++;
-  reviews[i].user =user;
   }
   console.log(rating);
   return res.status(200).json({
@@ -39,6 +37,21 @@ app.use(cors())
     }
   })
 }
+var updateReview =async function(req,res,next){
+  var todayDate = new Date().toISOString().slice(0,10);
+  var review ={
+    rating:req.body.rating,
+    review:req.body.review,
+    user:req.body.user,
+    reviewDate:todayDate,
+    bookId:req.body.bookId
+  }
+  var res = await reviewService.updateReview(review);
+  // console.log("logging review data");
+  // console.log(review);
+  // console.log(res);
+}
 module.exports = {
-  getReviews:getReviews
+  getReviews:getReviews,
+  updateReview:updateReview
 }
