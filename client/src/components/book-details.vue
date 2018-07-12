@@ -3,7 +3,7 @@
     <el-container class="mainContainer">
 
         <el-row>
-          <el-col :span="7"  class="bookContainer">
+          <el-col :span="6"  class="bookContainer">
             <div class="container">
               <div class="main">
                 <ul id="bk-list" class="bk-list clearfix">
@@ -36,7 +36,6 @@
 
                   </li>
                 </ul>
-
                 <el-rate class="rating" v-model="value5" disabled show-score text-color="orange" score-template="">
                 </el-rate>
                 <h6 style="margin-top:5px;">Your rating</h6>
@@ -60,18 +59,19 @@
             </div>
           </el-col>
 
-          <el-col class="descriptionContainer" :span="17">
+          <el-col class="descriptionContainer" :span="18">
             <div style="margin-top:50px;margin-bottom:30px;">
             <h2>{{book.title}}</h2>
             <h5>By {{book.author}}</h5>
             </div>
             <hr>
-            <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Download Preview</el-button>
-            <el-button type="primary" style="margin-top:10px;margin-bottom:30px;">Buy From Google</el-button>
+            <el-button type="primary" style="margin-top:10px;margin-bottom:20px;">Download Preview</el-button>
+            <el-button type="primary" style="margin-top:10px;margin-bottom:20px;">Buy From Google</el-button>
 
-            <p class="description">{{book.description}}</p>
-            <div style="margin-top:8%!important;">
-
+            <p class="description" v-if="book.description.length>715">{{book.description.substring(0, 770) + "...."}}</p>
+            <p class="description" v-else>{{book.description}}</p>
+            <div style="margin-top:7%!important;">
+            <hr>
             <h5>Published By: {{book.publisher}}</h5>
             </div>
             <a href="#">See more books like this</a>
@@ -297,12 +297,20 @@ import reviewService from '../services/reviewService';
         console.log(response);
       },
 
-      async getReview(){
+        async getUserReview(){
         var userId=Vue.localStorage.get("userId");
         var bookId= this.$route.params.id;
         var response = await reviewService.getReview(bookId, userId);
         console.log(response.data);
         this.userReview.rating=response.data.userReview.rating;
+      },
+        async getReviews() {
+        var response = await reviewService.fetchReviews(this.$route.params.id);
+        for( var rev in response.data.reviews){
+          response.data.reviews[rev].isExpanded=false;
+        }
+        console.log(response.data);
+        this.reviews = response.data.reviews;
       }
 
     },
@@ -310,8 +318,9 @@ import reviewService from '../services/reviewService';
       this.loadingScreenOn()
       this.fetchBookDetails();
       this.checkifLoggedIn();
-      this.getReview();
-      this.getShelves();  
+      this.getUserReview();
+      this.getShelves(); 
+      this.getReviews(); 
     },
     updated(){
         this.loadingScreenOff()
@@ -346,6 +355,15 @@ import reviewService from '../services/reviewService';
   .detailItem{
     padding:2px;
   }
+  hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
   .el-header, .el-footer {
     background-color: white;
     color: #333;

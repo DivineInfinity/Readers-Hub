@@ -1,5 +1,5 @@
 <template>
-  <div id="mainDiv">
+  <div id="mainDiv" v-loading="loading">
 
     <div v-for="(list,index) in lists" :key="index">
       <el-card class="box-card list-container" style="height: 350px;">
@@ -9,7 +9,7 @@
         <carousel navigation-enabled="true" per-page="3">
           <slide v-for="book in list.books" :key="book" >
             <el-card style="border:1px solid lightGray;width: 350px;margin-left: 30px;height: 250px" class="box-card">
-              <img style="float: left" width="130" height="200" :src="book.frontCover"/>
+              <v-lazy-image style="float: left" width="130" height="200" :src="book.frontCover"   src-placeholder="https://cdn-images-1.medium.com/max/80/1*xjGrvQSXvj72W4zD6IWzfg.jpeg"/>
               <span>{{book.title}}</span>
               <br>by <span>{{book.author}}</span>
               <span ><el-rate
@@ -28,12 +28,12 @@
 
 <script>
 import homeService from "../services/homeService";
-
+import VLazyImage from 'v-lazy-image';
 export default {
   name: "home",
   data() {
     return {
-      loading: "",
+      loading: true,
       lists: []
     }
   },
@@ -44,9 +44,10 @@ export default {
 
     methods: {
       async getLists() {
-        const response = await homeService.fetchLists();
-        this.lists = response.data.homeLists.lists;
         this.loadingScreenOff();
+        const response = await homeService.fetchLists();
+        this.loading=false;
+        this.lists = response.data.homeLists.lists;
       },
 
       seeDetails(bookId){
@@ -64,6 +65,9 @@ export default {
     loadingScreenOff(){
       this.loading.close();
     }
+  },
+  components: {
+    VLazyImage
   }
 }
 
@@ -73,6 +77,8 @@ export default {
 #mainDiv {
   margin-left: 20px;
   margin-right: 20px;
+  min-height: 250px;
+  background-color: white;
 }
 
 .el-carousel__container {

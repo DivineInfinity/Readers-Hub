@@ -38,7 +38,22 @@ var updateReview = async function(review){
         console.log(newReview);
         var book = await Book.find({_id:review.bookId});
         var reviews = book[0].reviews;
-        reviews.push(newReview._id);
+        fullReviews = await findReviewById(reviews);
+        var updateReview=false;
+        console.log(review);
+        for(let i=0;i<fullReviews.length;i++)
+        {
+            if(fullReviews[i].user.userId==review.user.userId)
+            {   console.log("YES");
+                updateReview=true;
+                await Review.remove({_id:fullReviews[i]._id});
+                reviews[i]=newReview._id;
+
+                break;
+            }
+        }
+        if(!updateReview)reviews.push(newReview._id);
+
         var bookResponse = await Book.update(
             {_id:review.bookId},
             {$set:{reviews:reviews}}

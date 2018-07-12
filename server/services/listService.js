@@ -6,7 +6,7 @@ var getTrendingList = async function getTrendingList() {
 }
 
 var getTopRatedList = async function getTopRatedList() {
-    var topRated = await Book.find({averageRating: {$gte : 4.5}},{frontCover:1,title:1,author:1,averageRating:1}).limit(12);
+    var topRated = await Book.find({averageRating: {$gte : 4}},{frontCover:1,title:1,author:1,averageRating:1}).limit(12);
     return topRated;
 }
 
