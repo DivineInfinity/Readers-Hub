@@ -51,7 +51,21 @@ var updateReview =async function(req,res,next){
   // console.log(review);
   // console.log(res);
 }
+
+var getUserReview= async function(req,res,next) {  
+  console.log("getUserReview()");
+  
+  var userReview = await reviewService.getUserReview({userId:req.params.userId, bookId: req.params.bookId})
+  console.log(userReview);
+  return res.status(200).json({
+    messageEagle:"Successfully got the user review",
+    userReview:userReview 
+  })
+}
+
 module.exports = {
   getReviews:getReviews,
-  updateReview:updateReview
+  updateReview:updateReview,
+  getUserReview:getUserReview
 }
+
