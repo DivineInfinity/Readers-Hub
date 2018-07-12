@@ -40,6 +40,9 @@ export default {
   changeBookStatus(status, shelfId, bookId){
     console.log(shelfId);
     return Api().patch('/user/shelf/book/change-status',{status, shelfId, bookId});
+  },
+  updateBio(bio,userId){
+    return Api().patch(`/user/profile/${userId}`,{bio:bio})
   }
 
 }

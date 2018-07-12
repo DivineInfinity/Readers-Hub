@@ -156,5 +156,11 @@ exports.changeBookStatus = async function(book) {
 
 
 }
+exports.updateBio = async function(userId,bio){
+        console.log(bio);
+        var updatedBio =await User.update({_id:userId},{$set:{bio:bio}});
+        console.log(updatedBio);
+        return updatedBio;
+}
 
 

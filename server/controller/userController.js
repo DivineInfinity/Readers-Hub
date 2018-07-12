@@ -166,6 +166,24 @@ exports.changeBookStatus= async function(req,res,next){
     }
     
 }
+exports.updateBio = async function(req,res,next){
+    let userId = req.params.userId;
+    let bio = req.body.bio;
+    let updatedBio = userService.updateBio(userId,bio); 
+    if(updatedBio)
+    {
+        res.status(200).json({
+            messageEagle:"Successfully updated bio",
+            updatedBio: updatedBio,
+        });
+    }
+    else
+    {
+        res.status(200).json({
+            message:"Something went wrong"
+        });
+    }
+}
 
 
 

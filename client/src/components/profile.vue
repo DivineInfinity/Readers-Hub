@@ -31,7 +31,7 @@
           <h6 style="text-align:left" >Bio</h6>
           <textarea style="width:100%;min-height:150px;border: 1px solid #dcdfe6;border-radius:4px;resize:none" placeholder="Bio" :readonly="!isEditable " maxlength="100" v-model="user.bio" id="bioTextArea"></textarea>
       <el-button @click="toggleBio()" style="margin-left:auto;" v-if="allowEdit">Edit Bio</el-button>
-      <el-button @click="toggleBio()" v-if="isEditable">Save</el-button>
+      <el-button @click="updateBio()" v-if="isEditable">Save</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -116,6 +116,11 @@ export default {
       else{
         this.allowEdit= false;
       }
+    },
+    async updateBio(){
+      await this.toggleBio();
+      var loggedUserId= await Vue.localStorage.get("userId");
+      var updatedBio = await userService.updateBio(this.user.bio,loggedUserId);
     }
   },
   mounted() {
