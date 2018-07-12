@@ -295,6 +295,14 @@ import reviewService from '../services/reviewService';
         review.bookId = this.$route.params.id;
         var response = await reviewService.updateReview(review);
         console.log(response);
+      },
+
+      async getReview(){
+        var userId=Vue.localStorage.get("userId");
+        var bookId= this.$route.params.id;
+        var response = await reviewService.getReview(bookId, userId);
+        console.log(response.data);
+        this.userReview.rating=response.data.userReview.rating;
       }
 
     },
@@ -302,7 +310,8 @@ import reviewService from '../services/reviewService';
       this.loadingScreenOn()
       this.fetchBookDetails();
       this.checkifLoggedIn();
-      this.getShelves();
+      this.getReview();
+      this.getShelves();  
     },
     updated(){
         this.loadingScreenOff()

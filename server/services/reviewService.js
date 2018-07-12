@@ -5,9 +5,23 @@ var findBookById =async function(id){
     var book = await Book.find({_id:id});
     return book;
 }
+
+var getUserReview =async function(user){
+    var book = await Book.find({_id:user.bookId}, {reviews:1});
+    console.log(book);
+    var bookReviews = book[0].reviews;
+    var reviews = await findReviewById(bookReviews);
+    var review;
+    for(let i=0;i<reviews.length;i++)
+    {
+        if(reviews[i].user.userId==user.userId)
+        review=reviews[i];
+    }
+    console.log(review);
+    return review;
+}
 var findReviewById = async function(id){
     var reviews = await Review.find({_id:{ "$in": id }});
-    console.log(reviews);
     return reviews;
 }
 var updateReview = async function(review){
@@ -41,5 +55,6 @@ var updateReview = async function(review){
 module.exports={
     findBookById:findBookById,
     findReviewById:findReviewById,
-    updateReview:updateReview
+    updateReview:updateReview,
+    getUserReview:getUserReview
 }
