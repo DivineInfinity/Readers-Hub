@@ -9,7 +9,7 @@
 
         <b-navbar-nav>
           <b-nav-item href="#" @click="toHome()">Home</b-nav-item>
-          <b-nav-item href="#">My Shelf</b-nav-item>
+          <b-nav-item href="#" @click="toMyShelf()">My Shelf</b-nav-item>
           <b-nav-item href="#" @click="toGenres()">Genres</b-nav-item>
           <b-nav-item href="#" @click="toContactUs()">Contact Us</b-nav-item>
 
@@ -79,6 +79,9 @@
       },
       toContactUs(){
         this.$router.push({name:"contact-us"});
+      },
+      toMyShelf(){
+      this.$router.push({name:"shelf"});
       },      
       logout(){
         console.log("Logout");
