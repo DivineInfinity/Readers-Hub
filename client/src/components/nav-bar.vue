@@ -27,7 +27,7 @@
   <el-button class="searchButton" id="searchButton"  @click="search()" v-on:keyup.enter="search()" icon="el-icon-search"
                        circle></el-button>
           </b-nav-form>
-          <span  style="margin-left:2px;" v-if="this.isLoggedIn"><img :src="getProfilePic()" style="border-radius:50%;height:40px;">{{this.userName}} <a href="#" @click="logout()">Logout</a></span>
+          <span  style="margin-left:2px;" v-if="this.isLoggedIn"><img :src="getProfilePic()" style="border-radius:50%;height:40px;"><a href="#" style="color:black;" @click="toMyProfile()">{{this.userName}}</a> <a href="#" @click="logout()">Logout</a></span>
           <a v-else  style="margin-left:2px;" href="#" @click="toLogin()">Login</a>
 
         </b-navbar-nav>
@@ -82,6 +82,9 @@
       },
       toMyShelf(){
       this.$router.push({name:"shelf"});
+      },
+      toMyProfile(){
+        this.$router.push({name: 'profile', params: {id: Vue.localStorage.get("userId")}});
       },      
       logout(){
         console.log("Logout");
