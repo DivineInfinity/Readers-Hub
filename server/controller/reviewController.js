@@ -46,10 +46,11 @@ var updateReview =async function(req,res,next){
     reviewDate:todayDate,
     bookId:req.body.bookId
   }
-  var res = await reviewService.updateReview(review);
+  var response = await reviewService.updateReview(review);
   // console.log("logging review data");
   // console.log(review);
   // console.log(res);
+  return res.status(200).json({messageEagle:"Successfully updated review"});
 }
 
 var getUserReview= async function(req,res,next) {  

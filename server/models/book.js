@@ -14,6 +14,7 @@ const bookSchema=mongoose.Schema({
     languages:[],
     isbn:{type:String,unique:true},
     buyLinks:[String],
+    previewLink:String,
     isTrending:Boolean,
     isNewlyReleased:Boolean,
     reviews:[mongoose.Schema.ObjectId]

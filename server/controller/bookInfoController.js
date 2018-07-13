@@ -33,6 +33,7 @@ exports.insertBookInfo= async function(req,res,next){
         languages:languages,
         isbn:response.volumeInfo.industryIdentifiers[0].identifier,
         buyLinks:response.volumeInfo.buyLinks,
+        previewLink:response.volumeInfo.previewLink,
         isTrending:false,
         isNewlyReleased:false
     });
