@@ -1,6 +1,6 @@
 <template>
   <div class="bodyContainer">
-    <el-container class="mainContainer">
+    <el-container class="mainContainer" v-loading="loading">
 
         <el-row>
           <el-col :span="6"  class="bookContainer">
@@ -65,8 +65,8 @@
             <h5>By {{book.author}}</h5>
             </div>
             <hr>
-            <el-button type="primary" style="margin-top:10px;margin-bottom:20px;">Download Preview</el-button>
-            <el-button type="primary" style="margin-top:10px;margin-bottom:20px;">Buy From Google</el-button>
+            <el-button type="primary" style="margin-top:10px;margin-bottom:20px;" @click="downloadPreview(book.previewLink)">Download Preview</el-button>
+            <el-button type="primary" style="margin-top:10px;margin-bottom:20px;" @click="buyFromGoogle()">Buy From Google</el-button>
 
             <p class="description" v-if="book.description.length>715">{{book.description.substring(0, 770) + "...."}}</p>
             <p class="description" v-else>{{book.description}}</p>
@@ -74,7 +74,7 @@
             <hr>
             <h5>Published By: {{book.publisher}}</h5>
             </div>
-            <a href="#">See more books like this</a>
+            <a href="#" @click="seeMoreBooks(book.genre[0])">See more books like this</a>
 
           </el-col>
         </el-row>
@@ -140,8 +140,8 @@
               <el-button type="info" v-if="review.isExpanded===true" style="width:100%;background-color:ghostwhite;color:black" @click="toggleExpand(index)">View Less</el-button>
           </el-col>
         </el-row>
-        <el-button type="info"  style="width:100%;background-color:ghostwhite;color:black" @click="toViewAllReviews()">View all reviews</el-button>
-         <el-button type="info"  style="width:100%;background-color:ghostwhite;color:black" @click="toDiscussions()">Go to Discussions</el-button>
+        <el-button type="info"  class ="full-button" style="width:100%;background-color:ghostwhite;color:black" @click="toViewAllReviews()">View all reviews</el-button>
+        <el-button type="info"  class ="full-button" style="width:100%;background-color:ghostwhite;color:black" @click="toDiscussions()">Go to Discussions</el-button>
     </el-container>
   </div>
 </template>
@@ -217,7 +217,7 @@ import reviewService from '../services/reviewService';
         searchQuery:'',
         selectedShelf:'',
         selectedShelfName:'',
-        loading:''
+        loading:true
       }
     },
     methods: {
@@ -226,7 +226,7 @@ import reviewService from '../services/reviewService';
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
         this.value5=this.book.averageRating;
-
+        this.loading=false;
       },
       async fetchBookInMongo(){
         const response = await bookDetailsService.fetchBookInMongo(this.searchQuery);
@@ -240,6 +240,19 @@ import reviewService from '../services/reviewService';
       },
       toDiscussions(){
         this.$router.push({name:'discussions', params:{id:this.$route.params.id}})
+      },
+      buyFromGoogle(){
+        if(this.book.buyLinks[0])
+        {
+          window.open(this.book.buyLinks[0], '_blank');  
+        }
+        else alert("This book is not available in your country");
+      },
+      downloadPreview(url){
+        window.open(url, '_blank');
+      },
+      seeMoreBooks(genre){
+         this.$router.push({name:'search-genre', params:{searchQuery:genre}})
       },
       handleCommand(command){
         console.log(command);
@@ -355,9 +368,14 @@ import reviewService from '../services/reviewService';
   .mainContainer {
     margin-left: 20px;
     margin-right: 20px;
+    min-height:200px!important;
+    background-color: white;
   }
   .detailItem{
     padding:2px;
+  }
+  .full-button{
+    margin-left:0px!important;
   }
   hr {
     display: block;
