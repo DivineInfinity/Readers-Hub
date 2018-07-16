@@ -120,10 +120,10 @@
               <el-card v-bind:class="{ 'review-widget-expanded': review.isExpanded, 'review-widget-collapsed': !review.isExpanded }">
                   <el-row>
                     <el-col :span="2" justify="start" :xs="24">
-                        <img :src="review.profilePic" alt="Avatar" style="border-radius:50%;height:50px;">
+                        <img :src="review.user.profilePic" alt="Avatar" style="border-radius:50%;height:50px;">
                     </el-col>
                     <el-col :span="4" justify="start" :xs="24">
-                          <h5 style="margin:5px">{{review.userName}}</h5>
+                          <h5 style="margin:5px">{{review.user.name}}</h5>
                           <el-rate v-model="review.rating" disabled show-score text-color="#ff9900"></el-rate>
                           <span style="color:gray;font-size:14px;">{{review.reviewDate}}</span>
                     </el-col>
@@ -141,6 +141,7 @@
           </el-col>
         </el-row>
         <el-button type="info"  style="width:100%;background-color:ghostwhite;color:black" @click="toViewAllReviews()">View all reviews</el-button>
+         <el-button type="info"  style="width:100%;background-color:ghostwhite;color:black" @click="toDiscussions()">Go to Discussions</el-button>
     </el-container>
   </div>
 </template>
@@ -236,6 +237,9 @@ import reviewService from '../services/reviewService';
       },
       toViewAllReviews(){
         this.$router.push({name:'reviews', params:{id:this.$route.params.id}})
+      },
+      toDiscussions(){
+        this.$router.push({name:'discussions', params:{id:this.$route.params.id}})
       },
       handleCommand(command){
         console.log(command);
