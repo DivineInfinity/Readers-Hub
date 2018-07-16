@@ -27,7 +27,7 @@
           </el-col>
         </el-row>
       </el-container>
-       <el-card style="margin-top:2px;margin-right:17px;margin-left:17px">
+       <el-card style="margin-top:2px;margin-right:17px;margin-left:17px;min-height:200px;" >
        <vue-disqus shortname="readershub" :identifier="book._id" :url="`https://readershub.disqus.com/${book._id}`"></vue-disqus>
        </el-card>
   </div>
@@ -46,7 +46,7 @@
         alwaysTrue: true,
         book: { },
         searchQuery:'',
-        loading:''
+        
       }
     },
     methods: {
@@ -80,11 +80,10 @@
       }
     },
     mounted(){
-      this.loadingScreenOn()
       this.fetchBookDetails();
     },
     updated(){
-        this.loadingScreenOff()
+ 
     }
   }
 </script>

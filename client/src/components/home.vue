@@ -9,7 +9,8 @@
         <carousel navigation-enabled="true" per-page="3">
           <slide v-for="book in list.books" :key="book" >
             <el-card style="border:1px solid lightGray;width: 350px;margin-left: 30px;height: 250px" class="box-card">
-              <v-lazy-image style="float: left" width="130" height="200" :src="book.frontCover"   src-placeholder="https://cdn-images-1.medium.com/max/80/1*xjGrvQSXvj72W4zD6IWzfg.jpeg"/>
+              <v-lazy-image style="float: left" width="130" height="200" :src="book.frontCover"   src-placeholder="https://cdn-images-1.medium.com/max/80/1*xjGrvQSXvj72W4zD6IWzfg.jpeg
+              "/>
               <span>{{book.title}}</span>
               <br>by <span>{{book.author}}</span>
               <span ><el-rate
