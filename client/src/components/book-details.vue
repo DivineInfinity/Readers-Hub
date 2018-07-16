@@ -1,6 +1,6 @@
 <template>
   <div class="bodyContainer">
-    <el-container class="mainContainer" v-loading="loading">
+    <el-container class="mainContainer">
 
         <el-row>
           <el-col :span="6"  class="bookContainer">
@@ -217,7 +217,7 @@ import reviewService from '../services/reviewService';
         searchQuery:'',
         selectedShelf:'',
         selectedShelfName:'',
-        loading:true
+        loading:''
       }
     },
     methods: {
@@ -226,7 +226,7 @@ import reviewService from '../services/reviewService';
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
         this.value5=this.book.averageRating;
-        this.loading=false;
+        this.loadingScreenOff();
       },
       async fetchBookInMongo(){
         const response = await bookDetailsService.fetchBookInMongo(this.searchQuery);
@@ -338,9 +338,9 @@ import reviewService from '../services/reviewService';
       this.getUserReview();
       this.getShelves(); 
       this.getReviews(); 
+      this.loadingScreenOn();
     },
     updated(){
-        this.loadingScreenOff()
     }
   }
 </script>
