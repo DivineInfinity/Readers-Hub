@@ -118,6 +118,19 @@ exports.createNewShelf = async function (req, res) {
 
 }
 
+exports.deleteShelf = async function (req, res) {
+    console.log("Delete request");
+    let shelfId = req.params.shelfId;
+    let userId = req.params.userId;
+    let status = userService.deleteShelf(shelfId, userId);
+    if (status) {
+        res.status(200).json({
+            messageEagle: "Successfully deleted shelf"
+        })
+    }
+
+}
+
 exports.insertIntoShelf= async function(req,res,next){
     var book = {
         shelfId:req.body.shelfId,

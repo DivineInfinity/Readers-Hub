@@ -226,7 +226,7 @@ import reviewService from '../services/reviewService';
         console.log(response.data.bookDetails);
         this.book=response.data.bookDetails;
         this.value5=this.book.averageRating;
-        this.loadingScreenOff();
+        
       },
       async fetchBookInMongo(){
         const response = await bookDetailsService.fetchBookInMongo(this.searchQuery);
@@ -338,7 +338,7 @@ import reviewService from '../services/reviewService';
       this.getUserReview();
       this.getShelves(); 
       this.getReviews(); 
-      this.loadingScreenOn();
+      this.loadingScreenOff();
     },
     updated(){
     }
