@@ -1,7 +1,9 @@
 const Book = require('../models/book');
+const nodeFetch = require('node-fetch');
 
 var getBookByName= async function getBookByName(searchQuery){
     var searchRegex = new RegExp('\\b'+searchQuery);
+    console.log("Searching...");
     var book = await Book.find(
         {
             $or: [
@@ -21,7 +23,34 @@ var getBookByName= async function getBookByName(searchQuery){
             publishedDate: 1
         }
     );
-    return book;
+    if(book.length)return book;
+    else
+    {
+        var result= await nodeFetch(`http://localhost:8081/book-info/${searchQuery}`);
+        var newBook = await Book.find(
+            {
+                $or: [
+                    {title: {$regex: searchQuery, $options: 'i'}},
+                    {author: {$regex: searchQuery, $options: 'i'}},
+                    {publisher: {$regex: searchQuery, $options: 'i'}},
+                    {genre: {$regex: searchQuery, $options: 'i'}},
+                ]
+            },
+            {
+                frontCover: 1,
+                title: 1,
+                author: 1,
+                averageRating: 1,
+                publisher: 1,
+                genre: 1,
+                publishedDate: 1
+            }
+        );
+        console.log("API call");
+        console.log(result);
+        return newBook;
+    }
+    
 };
 
 var getBookSuggestions= async function getBookSuggestions(searchQuery){

@@ -63,6 +63,29 @@ exports.getShelves = async function (userId) {
     return shelves;
 }
 
+exports.deleteShelf = async function (userId, shelfId) {
+    console.log("Deleting Shelf...");
+    console.log(shelfId);
+    console.log(`User Id:${userId}`);
+    var response = await User.find({_id: userId},{shelves: 1});
+    console.log(response);
+    var shelfIds = response[0].shelves;
+    var newShelfIds=[];
+    for(shelf of shelfIds)
+    {
+        if(shelf!=shelfId)
+        {
+            newShelfIds.push(shelf);
+        }
+
+    }
+   
+    console.log(newShelfIds);
+    var response2 = await User.update({_id:userId},{$set:{shelves:newShelfIds}});
+    var shelves = await Shelf.remove({id:shelfId});
+    return shelves;
+}
+
 exports.getBooksFromShelves = async function (userId) {
     console.log("Getting Books from shelves");
     var response = await User.find({_id: userId},{shelves: 1});

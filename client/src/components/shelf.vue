@@ -21,6 +21,7 @@
           </el-col>
           <!--<el-col :lg="4" :sm="12"> </el-col>-->
           <el-col :lg="6" :sm="12" style="padding:0 10px">
+            <span><el-button type="danger" style="margin-left:5%;" icon="el-icon-delete" circle @click="deleteShelf(currentShelf.shelfId)"></el-button></span>
             <el-button style="float:right;" type="success" @click="dialogFormVisible = true" round>Crate New Shelf
             </el-button>
 
@@ -114,7 +115,6 @@
     methods: {
       async changeShelfName(shelf) {
         this.currentShelf.shelfName = shelf.name;
-        //this.currentShelf.frontCovers = shelf.frontCovers;
         this.currentShelf.books = shelf.books;
         this.currentShelf.shelfId=shelf.shelfId;
       },
@@ -145,6 +145,13 @@
          this.currentShelf.shelfId=this.shelves[0]._id;
          }
          if(this.shelves.length==0)alert("You dont have any shelves right now");
+      },
+      async deleteShelf(id){
+       
+        var userId = Vue.localStorage.get("userId");
+        var response = await userService.deleteShelf(id, userId);
+        console.log(response.data);
+        alert("Successfully deleted the shelf...please refresh the page");
       }
 
     },

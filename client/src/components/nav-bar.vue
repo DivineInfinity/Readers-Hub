@@ -24,7 +24,7 @@
         <input type="text" :value="searchSuggestions[index]" readonly v-for="(city,index) of searchSuggestions" :key="index"/>
       </div>
   </div>
-  <el-button class="searchButton" id="searchButton"  @click="search()" v-on:keyup.enter="search()" icon="el-icon-search"
+  <el-button class="searchButton" id="searchButton"  @click="search()" v-on:keydown.enter="search()" icon="el-icon-search"
                        circle></el-button>
           </b-nav-form>
           <span  style="margin-left:2px;" v-if="this.isLoggedIn"><img :src="getProfilePic()" style="border-radius:50%;height:40px;"><a href="#" style="color:black;" @click="toMyProfile()">{{this.userName}}</a> <a href="#" @click="logout()">Logout</a></span>
