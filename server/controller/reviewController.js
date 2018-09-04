@@ -32,7 +32,8 @@ app.use(cors())
       threeStar:rating[3]/reviews.length*100,
       fourStar:rating[4]/reviews.length*100,
       fiveStar:rating[5]/reviews.length*100,
-      totalRatings:reviews.length
+      totalRatings:reviews.length,
+      avgRating : ((rating[1]*1)+(rating[2]*2)+(rating[3]*3)+(rating[4]*4)+(rating[5]*5))/reviews.length
 
     }
   })

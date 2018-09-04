@@ -43,8 +43,8 @@
             <el-col :span="10" :xs="24">
               <el-card class="stat-widget-card">
                 <h1>{{book.avgRating}}</h1>
-                <el-rate v-model="book.avgRating" disabled show-score text-color="#ff9900" score-template="{value} rating"></el-rate>
-                <h1><i class="fa fa-user"></i>&nbsp; {{ratings.totalRatings}} Total</h1>
+                <el-rate v-model="book.avgRating" disabled show-score text-color="#ff9900" score-template="4 rating"></el-rate>
+                <h1><i class="fa fa-user"></i>&nbsp; 2 Total</h1>
               </el-card></el-col>
         </el-row>
         <el-row>
@@ -133,6 +133,7 @@ export default {
         this.book = response.data.book;
         this.ratings = response.data.ratings;
         this.reviews = response.data.reviews;
+        this.book.avgRating=response.data.ratings.avgRating;
       }
   },
   mounted(){
